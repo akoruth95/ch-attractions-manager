@@ -13,7 +13,12 @@ class CreateFavoritesTable extends Migration
      */
     public function up()
     {
-        //
+      Schema::create('favorites', function(Blueprint $table) {
+      $table->increments('id');
+      $table->integer('user_id');//associate with a user
+      $table->integer('attraction_id');//associate with an attraction
+      $table->timestamps();
+    });
     }
 
     /**
@@ -23,6 +28,6 @@ class CreateFavoritesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('favorites');
     }
 }
