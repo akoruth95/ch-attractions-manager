@@ -1,23 +1,34 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Example Component</div>
-
-                    <div class="panel-body">
-                        I'm an example component!
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container">
+		<h1>Hello World</h1>
+	</div>
 </template>
 
-<script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
-    }
+<script type="text/javascript">
+
+	export default {
+		name: 'app',
+		data () {
+			return {
+				authState: 'guest',
+				user: null
+			}
+		},
+		mounted () {
+			console.log('App -> mounted.')
+			this.$evt.$on('logged_in', this.logInAuth)
+		},
+		beforeDestroy () {
+			this.$evt.$off('logged_in', this.logInAuth)
+		},
+		components: {
+
+		},
+		methods: {
+			logInAuth (data) {
+				console.log('App -> logIn')
+				this.authState = 'user';
+			}
+		}
+	}
 </script>
