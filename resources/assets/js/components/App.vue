@@ -3,8 +3,8 @@
 		<div v-if="!listview">
 			<div class="row">
 				<div class="col-sm-4">
-					<div class="category" @click="setCategory('restaurants')">
-						Restaurants
+					<div class="category" @click="setCategory('restaurant')">
+						<p>Restaurants</p>
 					</div>
 				</div>
 
@@ -14,32 +14,32 @@
 					</div>
 				</div>
 				<div class="col-sm-4">
-					<div class="category" @click="setCategory('parks')">
+					<div class="category" @click="setCategory('park')">
 						Parks
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-4">
-					<div class="category" @click="setCategory('theaters')">
+					<div class="category" @click="setCategory('theater')">
 						Theaters
 					</div>
 				</div>
 
 				<div class="col-sm-4">
-					<div class="category" @click="setCategory('libraries')">
+					<div class="category" @click="setCategory('library')">
 						Libraries
 					</div>
 				</div>
 				<div class="col-sm-4">
-					<div class="category" @click="setCategory('gyms')">
+					<div class="category" @click="setCategory('gym')">
 						Gyms
 					</div>
 				</div>
 			</div>
 			</div>
 			<div v-if='listview'>
-				<ListView></ListView>
+				<ListView :category="category"></ListView>
 			</div>
 	</div>
 </template>
@@ -83,7 +83,11 @@ import ListView from './ListView'
 		border-radius: 50%;
 		background-color: #2C3E50;
 		margin: 50px;
-		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
+
+
 
 </style>
