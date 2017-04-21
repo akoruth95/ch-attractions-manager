@@ -12507,6 +12507,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -14977,7 +14986,7 @@ if (typeof jQuery === 'undefined') {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(9)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 38 */
@@ -32096,7 +32105,7 @@ var Component = __webpack_require__(11)(
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\Users\\koruth\\documents\\JOMC583\\ch-attractions-manager\\resources\\assets\\js\\components\\App.vue"
+Component.options.__file = "C:\\Users\\koruth\\documents\\jomc583\\ch-attractions-manager\\resources\\assets\\js\\components\\App.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] App.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32134,7 +32143,7 @@ var Component = __webpack_require__(11)(
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\Users\\koruth\\documents\\JOMC583\\ch-attractions-manager\\resources\\assets\\js\\components\\ListView.vue"
+Component.options.__file = "C:\\Users\\koruth\\documents\\jomc583\\ch-attractions-manager\\resources\\assets\\js\\components\\ListView.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] ListView.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32159,7 +32168,17 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c("div")
+  return _c('div', _vm._l((_vm.places), function(place) {
+    return _c('div', {
+      staticClass: "panel panel-default"
+    }, [_c('div', {
+      staticClass: "panel-heading"
+    }, [_c('h3', {
+      staticClass: "panel-title"
+    }, [_vm._v(_vm._s(place.place))])]), _vm._v(" "), _c('div', {
+      staticClass: "panel-body"
+    }, [_vm._v("\n      Panel content\n    ")])])
+  }))
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
