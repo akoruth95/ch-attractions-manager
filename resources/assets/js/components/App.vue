@@ -58,7 +58,7 @@ import ListView from './ListView'
 		},
 		mounted () {
 			console.log('App -> mounted.')
-
+			this.$evt.$on('closeList', this.closeListView)
 		},
 		beforeDestroy () {
 
@@ -70,7 +70,11 @@ import ListView from './ListView'
 			setCategory(category) {
 				this.category = category;
 				this.listview = true;
-			}
+			},
+
+			closeListView() {
+	      this.listview = false;
+	    }
 		}
 	}
 </script>

@@ -1,5 +1,8 @@
 <template>
   <div>
+    <button type="button"class="btn btn-primary" @click="leaveProfileView">
+      <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+    </button>
   <div class="panel panel-default">
     <div class="panel-body">
       <h1>{{this.place.place}}</h1>
@@ -33,6 +36,7 @@ export default {
     return {
       comments: [],
       showModal: false, // used to toggle modal hide and show,set to true when add button is clicked
+      myComment:[]
     }
   },
   mounted () {
@@ -47,6 +51,8 @@ export default {
         // show an error message
       });
 
+    this.$evt.$on('newComment', this.updateComments)
+
   },
   beforeDestroy () {
 
@@ -57,6 +63,16 @@ export default {
   methods: {
     openModal (whichMeal) { // function to toggle open and close of modal
      this.showModal = true
+   },
+
+   updateComments(newComment) {
+     this.myComment[0] = newComment;
+     this.comments.push(this.myComment[0].newComment);
+     this.showModal = false;
+   },
+
+   leaveProfileView() {
+     this.$evt.$emit('closeProfile');
    }
   }
 }

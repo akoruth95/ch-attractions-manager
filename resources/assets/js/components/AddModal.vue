@@ -50,7 +50,9 @@ export default {
      .then((response) => {
        console.log('SubmitComment -> post success');
        console.log(response.data);
-       this.$emit('close');
+       this.$evt.$emit('newComment', { // passes goal from landing page to calorie counter component
+        newComment: response.data,
+       })
      })
      .catch((error) => {
        console.error('SubmitComment -> post error');

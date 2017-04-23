@@ -25,8 +25,8 @@ class CommentController extends Controller
   public function createComment(Request $request) {
     $id = Auth::id();
     $request->request->add(['user_id' => $id]);
-    Comment::create($request->all());
+    $comment = Comment::create($request->all());
 
-    return Response::json(['created' => true]);
+    return Response::json(['body' => $comment['body'], 'username' => Auth::user()->value('name')]);
   }
 }

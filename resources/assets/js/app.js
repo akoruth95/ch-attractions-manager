@@ -16,6 +16,8 @@ require('./bootstrap');
 
 Vue.component('App', require('./components/App.vue'));
 
+const evt = new Vue()
+Vue.prototype.$evt = evt
 
 
 const app = new Vue({
