@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="panel panel-default" v-for="place in places">
+    <div class="panel panel-default" v-for="place in places" v-if="!profileview" @click="viewProfile(place)">
       <div class="panel-heading">
         <h3 class="panel-title">{{place.place}}</h3>
       </div>
@@ -8,18 +8,22 @@
         Panel content
       </div>
     </div>
+    <ProfileView v-if="profileview" :place="currentPlace"> </ProfileView>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import ProfileView from './ProfileView'
 
 export default {
   props: ['category'],
 
   data () {
     return {
-      places: []
+      places: [],
+      profileview: false,
+      currentPlace: null
     }
   },
   mounted () {
@@ -37,10 +41,13 @@ export default {
 
   },
   components: {
-
+    ProfileView
   },
   methods: {
-
+    viewProfile(place) {
+      this.currentPlace = place;
+      this.profileview = true;
+    }
   }
 }
 </script>
