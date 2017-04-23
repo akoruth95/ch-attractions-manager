@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Auth;
 
 use App\Comment;
 
@@ -17,7 +18,15 @@ class CommentController extends Controller
       $user = $comment->user()->value('name');
       $comment['username'] = $user;
     }
-    
+
     return Response::json($comments);
+  }
+
+  public function createComment(Request $request) {
+    $id = Auth::id();
+    $request->request->add(['user_id' => $id]);
+    Comment::create($request->all());
+
+    return Response::json(['created' => true]);
   }
 }

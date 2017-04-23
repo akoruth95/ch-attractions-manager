@@ -18,17 +18,21 @@
   <div class="panel-body">
     {{comment.body}}
   </div>
-</div>
+  </div>
+   <a class='btn-floating btn-large waves-effect waves-light light-blue darken-3' @click="openModal()"><i class="material-icons">add</i></a>
+   <Modal v-if="showModal" @close="showModal = false" :attraction-id="place.id" ></Modal>
   </div>
 </template>
 
 <script>
+import Modal from './AddModal'
 export default {
   props: ['place'],
 
   data () {
     return {
-      comments: []
+      comments: [],
+      showModal: false, // used to toggle modal hide and show,set to true when add button is clicked
     }
   },
   mounted () {
@@ -48,10 +52,12 @@ export default {
 
   },
   components: {
-
+    Modal
   },
   methods: {
-
+    openModal (whichMeal) { // function to toggle open and close of modal
+     this.showModal = true
+   }
   }
 }
 </script>

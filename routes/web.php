@@ -21,3 +21,4 @@ Route::get('/home', 'HomeController@index');
 Route::get('/attractions/{category}', 'AttractionsController@getByCategory');
 
 Route::get('/comments/{attraction_id}', 'CommentController@getComments');
+Route::post('/comments', 'CommentController@createComment');
