@@ -69,7 +69,7 @@ export default {
 
   },
   beforeDestroy () {
-
+    this.$evt.$on('newComment', this.updateComments)
   },
   components: {
     Modal

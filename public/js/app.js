@@ -12618,16 +12618,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var _this = this;
 
     console.log('ListView -> mounted.');
-    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/attractions/' + this.category).then(function (response) {
-      _this.places = response.data;
-    }).catch(function (error) {
-      console.error('failed');
-      // show an error message
-    });
+    if (this.category === 'favorites') {
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/favorites').then(function (response) {
+        _this.places = response.data;
+      }).catch(function (error) {
+        console.error('failed');
+        // show an error message
+      });
+    } else {
+      __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/attractions/' + this.category).then(function (response) {
+        _this.places = response.data;
+      }).catch(function (error) {
+        console.error('failed');
+        // show an error message
+      });
+    }
 
     this.$evt.$on('closeProfile', this.closeProfileView);
   },
-  beforeDestroy: function beforeDestroy() {},
+  beforeDestroy: function beforeDestroy() {
+    this.$evt.$off('closeProfile', this.closeProfileView);
+  },
 
   components: {
     ProfileView: __WEBPACK_IMPORTED_MODULE_1__ProfileView___default.a
@@ -12721,7 +12732,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     this.$evt.$on('newComment', this.updateComments);
   },
-  beforeDestroy: function beforeDestroy() {},
+  beforeDestroy: function beforeDestroy() {
+    this.$evt.$on('newComment', this.updateComments);
+  },
 
   components: {
     Modal: __WEBPACK_IMPORTED_MODULE_0__AddModal___default.a
@@ -15214,7 +15227,7 @@ exports.push([module.i, "\n.close {\r\n  position: absolute;\r\n  right: 32px;\r
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 41 */
@@ -32616,21 +32629,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "category",
     on: {
       "click": function($event) {
-        _vm.setCategory('park')
-      }
-    }
-  }, [_vm._v("\n\t\t\t\t\tParks\n\t\t\t\t")])])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-sm-4"
-  }, [_c('div', {
-    staticClass: "category",
-    on: {
-      "click": function($event) {
         _vm.setCategory('theater')
       }
     }
-  }, [_vm._v("\n\t\t\t\t\tTheaters\n\t\t\t\t")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n\t\t\t\t\tTheaters\n\t\t\t\t")])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
     staticClass: "col-sm-4"
   }, [_c('div', {
     staticClass: "category",
@@ -32639,16 +32643,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.setCategory('library')
       }
     }
-  }, [_vm._v("\n\t\t\t\t\tLibraries\n\t\t\t\t")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n\t\t\t\t\tLibrary\n\t\t\t\t")])]), _vm._v(" "), _c('div', {
     staticClass: "col-sm-4"
   }, [_c('div', {
     staticClass: "category",
     on: {
       "click": function($event) {
-        _vm.setCategory('gym')
+        _vm.setCategory('other')
       }
     }
-  }, [_vm._v("\n\t\t\t\t\tGyms\n\t\t\t\t")])])])]) : _vm._e(), _vm._v(" "), (_vm.listview) ? _c('div', [_c('ListView', {
+  }, [_vm._v("\n\t\t\t\t\tOther\n\t\t\t\t")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-4"
+  }, [_c('div', {
+    staticClass: "category",
+    on: {
+      "click": function($event) {
+        _vm.setCategory('favorites')
+      }
+    }
+  }, [_vm._v("\n\t\t\t\t\tFavorites\n\t\t\t\t")])])])]) : _vm._e(), _vm._v(" "), (_vm.listview) ? _c('div', [_c('ListView', {
     attrs: {
       "category": _vm.category
     }

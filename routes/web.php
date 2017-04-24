@@ -18,11 +18,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
 Route::get('/attractions/{category}', 'AttractionsController@getByCategory');
 
 Route::get('/comments/{attraction_id}', 'CommentController@getComments');
 Route::post('/comments', 'CommentController@createComment');
 
 Route::post('/favorites/{attraction_id}', 'FavoritesController@createFavorite');
+Route::get('/favorites', 'FavoritesController@getAllFavorites');
 Route::get('/favorites/{attraction_id}', 'FavoritesController@getFavorite');
 Route::delete('/favorites/{attraction_id}', 'FavoritesController@destroyFavorite');

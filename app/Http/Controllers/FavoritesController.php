@@ -38,4 +38,19 @@ class FavoritesController extends Controller
 
       return Response::json($favorite);
     }
+
+    public function getAllFavorites() {
+      $id = Auth::id();
+
+      $favorites = Favorite::where('user_id', $id)->get();
+
+      $places = array();
+      foreach ($favorites as &$favorite) {
+        $attraction = Attraction::find($favorite['attraction_id']);
+        array_push($places, $attraction);
+        return Response::json($places);
+      }
+
+
+    }
 }

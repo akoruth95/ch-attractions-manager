@@ -33,6 +33,16 @@ export default {
   },
   mounted () {
     console.log('ListView -> mounted.')
+    if (this.category === 'favorites') {
+      axios.get('/favorites')
+        .then((response) => {
+          this.places=response.data;
+        })
+        .catch((error) => {
+          console.error('failed');
+          // show an error message
+        });
+    } else {
     axios.get(`/attractions/${this.category}`)
       .then((response) => {
         this.places=response.data;
@@ -41,11 +51,12 @@ export default {
         console.error('failed');
         // show an error message
       });
+    }
 
     this.$evt.$on('closeProfile', this.closeProfileView)
   },
   beforeDestroy () {
-
+    this.$evt.$off('closeProfile', this.closeProfileView)
   },
   components: {
     ProfileView

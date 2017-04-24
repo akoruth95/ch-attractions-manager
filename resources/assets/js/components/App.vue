@@ -14,26 +14,26 @@
 					</div>
 				</div>
 				<div class="col-sm-4">
-					<div class="category" @click="setCategory('park')">
-						Parks
+					<div class="category" @click="setCategory('theater')">
+						Theaters
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-4">
-					<div class="category" @click="setCategory('theater')">
-						Theaters
+					<div class="category" @click="setCategory('library')">
+						Library
 					</div>
 				</div>
 
 				<div class="col-sm-4">
-					<div class="category" @click="setCategory('library')">
-						Libraries
+					<div class="category" @click="setCategory('other')">
+						Other
 					</div>
 				</div>
 				<div class="col-sm-4">
-					<div class="category" @click="setCategory('gym')">
-						Gyms
+					<div class="category" @click="setCategory('favorites')">
+						Favorites
 					</div>
 				</div>
 			</div>
