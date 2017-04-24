@@ -18,6 +18,7 @@ class CreateCommentsTable extends Migration
       $table->string('body');
       $table->integer('user_id');//associate with a user
       $table->integer('attraction_id');//associate with an attraction
+      $table->integer('rating');//rating assigned to attraction
       $table->timestamps();
     });
     }

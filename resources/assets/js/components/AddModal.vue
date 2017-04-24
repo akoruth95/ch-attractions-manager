@@ -7,6 +7,7 @@
           <div class="modal-header">
             <slot name="header">
               Review:
+              <Rating></Rating>
             </slot>
           </div>
 
@@ -15,7 +16,7 @@
           </div>
           <div class="modal-footer">
             <slot name="footer">
-              <button type="button" class="btn btn-primary" @click="submitComment">
+              <button type="button" class="btn btn-primary" v-bind:disabled="rating == null || comment.length == 0" @click="submitComment">
                   Submit
               </button>
             </slot>
@@ -29,18 +30,23 @@
 </template>
 
 <script>
-
+import Rating from './Rating'
 export default {
   props: ['attractionId'],
 
   data () {
     return {
-      comment: ""
+      comment: "",
+      rating: null
     }
   },
   components: {
-
+    Rating
   },
+  mounted() {
+    this.$evt.$on('newRating', this.updateRating)
+  },
+
   methods: {
     submitComment() {
       axios.post('/comments', {
@@ -59,6 +65,10 @@ export default {
        // show an error message
      });
    },
+
+   updateRating(rating) {
+     this.rating = rating;
+   }
     }
   }
 

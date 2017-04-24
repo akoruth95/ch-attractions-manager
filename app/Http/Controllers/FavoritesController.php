@@ -48,9 +48,8 @@ class FavoritesController extends Controller
       foreach ($favorites as &$favorite) {
         $attraction = Attraction::find($favorite['attraction_id']);
         array_push($places, $attraction);
-        return Response::json($places);
       }
-
+        return Response::json($places);
 
     }
 }

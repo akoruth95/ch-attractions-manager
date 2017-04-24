@@ -118,7 +118,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
  .favorite-star {
    font-size: 30px;
    cursor: pointer;
