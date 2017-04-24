@@ -1,5 +1,17 @@
 <template>
   <div>
+      <div class="loader" v-if="loading">
+        <div class="line-spin-fade-loader">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
     <div v-if="!profileview">
       <button type="button"class="btn btn-primary" @click="leaveListView">
         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
@@ -20,6 +32,7 @@
 <script>
 import axios from 'axios';
 import ProfileView from './ProfileView'
+import loaders from 'loaders.css'
 
 export default {
   props: ['category'],
@@ -28,15 +41,18 @@ export default {
     return {
       places: [],
       profileview: false,
-      currentPlace: null
+      currentPlace: null,
+      loading: false
     }
   },
   mounted () {
     console.log('ListView -> mounted.')
+    this.loading = true;
     if (this.category === 'favorites') {
       axios.get('/favorites')
         .then((response) => {
           this.places=response.data;
+          this.loading = false;
         })
         .catch((error) => {
           console.error('failed');
@@ -46,6 +62,7 @@ export default {
     axios.get(`/attractions/${this.category}`)
       .then((response) => {
         this.places=response.data;
+        this.loading = false;
       })
       .catch((error) => {
         console.error('failed');
@@ -78,6 +95,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.loader {
+  position: absolute;
+  z-index: 15;
+  top: 50%;
+  left: 50%;
+}
 
 </style>

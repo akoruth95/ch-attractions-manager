@@ -1,9 +1,21 @@
 <template>
   <div>
+    <div class="loader" v-if="loading">
+      <div class="line-spin-fade-loader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
     <button type="button"class="btn btn-primary" @click="leaveProfileView">
       <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
     </button>
-    <span class="favorite-star" v-bind:class="{ selected: isFavorite }" @click="favoritePlace">&#x2605;</span>
+    <span class="favorite-star" v-bind:class="{ selected: isFavorite, blocked: loading }" @click="favoritePlace">&#x2605;</span>
   <div class="panel panel-default">
     <div class="panel-body">
       <h1>{{this.place.place}}</h1>
@@ -31,6 +43,8 @@
 
 <script>
 import Modal from './AddModal'
+import loaders from 'loaders.css'
+
 export default {
   props: ['place'],
 
@@ -39,7 +53,8 @@ export default {
       comments: [],
       showModal: false, // used to toggle modal hide and show,set to true when add button is clicked
       myComment:[],
-      isFavorite: false
+      isFavorite: false,
+      loading: false
     }
   },
   mounted () {
@@ -91,12 +106,14 @@ export default {
    },
 
    favoritePlace() {
+     this.loading = true;
      if (!this.isFavorite) {
        axios.post(`/favorites/${this.place.id}`)
       .then((response) => {
         console.log('SubmitFavorite -> post success');
         console.log(response.data);
         this.isFavorite = true;
+        this.loading = false;
       })
       .catch((error) => {
         console.error('SubmitFavorite -> post error');
@@ -108,6 +125,7 @@ export default {
        console.log('DeleteFavorite -> delete success');
        console.log(response.data);
        this.isFavorite = false;
+       this.loading = false;
      })
      .catch((error) => {
        console.error('DeleteFavorite -> delete error');
@@ -127,5 +145,20 @@ export default {
 
  .favorite-star.selected {
   color: yellow;
+ }
+
+ .favorite-star.blocked {
+   pointer-events: none;
+ }
+
+ .loader {
+   position: absolute;
+   z-index: 15;
+   top: 50%;
+   left: 50%;
+ }
+
+ .line-spin-fade-loader > div {
+   background-color: orange;
  }
 </style>

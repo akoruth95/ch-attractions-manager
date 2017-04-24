@@ -47,7 +47,6 @@
 <script >
 
 import ListView from './ListView'
-import loaders from 'loaders.css'
 
 	export default {
 
