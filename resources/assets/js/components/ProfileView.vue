@@ -18,6 +18,7 @@
   <div class="panel panel-default" v-for="comment in comments">
   <div class="panel-heading">
     <h3 class="panel-title">{{comment.username}}</h3>
+    <h3>{{comment.rating}}</h3>
   </div>
   <div class="panel-body">
     {{comment.body}}

@@ -27,6 +27,6 @@ class CommentController extends Controller
     $request->request->add(['user_id' => $id]);
     $comment = Comment::create($request->all());
 
-    return Response::json(['body' => $comment['body'], 'username' => Auth::user()->value('name')]);
+    return Response::json(['body' => $comment['body'], 'username' => Auth::user()->value('name'), 'rating' => $comment['rating']]);
   }
 }

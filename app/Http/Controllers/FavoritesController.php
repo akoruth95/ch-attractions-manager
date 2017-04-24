@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Favorite;
 use App\Attraction;
+use App\Comment;
 
 class FavoritesController extends Controller
 {
@@ -45,11 +46,29 @@ class FavoritesController extends Controller
       $favorites = Favorite::where('user_id', $id)->get();
 
       $places = array();
+      $ratingAverage;
       foreach ($favorites as &$favorite) {
         $attraction = Attraction::find($favorite['attraction_id']);
-        array_push($places, $attraction);
+        $ratingAverage = $this->getAttractionRatingAverage($attraction);
+        array_push($places, array("place" => $attraction, "avgrating" => $ratingAverage));
       }
+
         return Response::json($places);
 
+    }
+
+    private function getAttractionRatingAverage($attraction) {
+
+      $comments = Comment::where('attraction_id', $attraction['id'])->get();
+
+      $ratingSum = 0;
+      $ratingAverage;
+      foreach ($comments as $comment) {
+        $ratingSum += $comment['rating'];
+      }
+
+      $ratingAverage = $ratingSum / sizeof($comments);
+
+      return round($ratingAverage, 2);
     }
 }

@@ -4,12 +4,12 @@
       <button type="button"class="btn btn-primary" @click="leaveListView">
         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
       </button>
-    <div class="panel panel-default" v-for="place in places" @click="viewProfile(place)">
+    <div class="panel panel-default" v-for="attraction in places" @click="viewProfile(attraction.place)">
       <div class="panel-heading">
-        <h3 class="panel-title">{{place.place}}</h3>
+        <h3 class="panel-title">{{attraction.place.place}}</h3>
       </div>
       <div class="panel-body">
-        Panel content
+        {{attraction.avgrating != 0 ? 'Review: ' + attraction.avgrating + '/5': 'No reviews yet!'}}
       </div>
     </div>
     </div>

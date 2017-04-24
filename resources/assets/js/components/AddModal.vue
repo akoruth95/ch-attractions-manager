@@ -52,6 +52,7 @@ export default {
       axios.post('/comments', {
        body: this.comment,
        attraction_id: this.attractionId,
+       rating: this.rating
      })
      .then((response) => {
        console.log('SubmitComment -> post success');
