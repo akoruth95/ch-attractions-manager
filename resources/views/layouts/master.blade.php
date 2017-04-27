@@ -39,7 +39,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}" style="color: white;">
-                        {{ config('app.name', 'Laravel') }}
+                        CH-Attractions
                     </a>
                 </div>
 

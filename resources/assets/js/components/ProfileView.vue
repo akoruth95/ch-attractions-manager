@@ -60,6 +60,7 @@
 import Modal from './AddModal'
 import loaders from 'loaders.css'
 
+
 export default {
   props: ['place'],
 
@@ -70,6 +71,7 @@ export default {
       myComment:[],
       isFavorite: false,
       loading: false
+      //AIzaSyCSu4yupUOQQKKPm2lI0b-N9gdQMNMr5sw
     }
   },
   mounted () {

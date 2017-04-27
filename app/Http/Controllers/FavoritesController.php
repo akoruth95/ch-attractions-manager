@@ -67,7 +67,11 @@ class FavoritesController extends Controller
         $ratingSum += $comment['rating'];
       }
 
-      $ratingAverage = $ratingSum / sizeof($comments);
+      if (sizeof($comments) > 0) {
+        $ratingAverage = $ratingSum / sizeof($comments);
+      } else {
+        $ratingAverage = 0;
+      }
 
       return round($ratingAverage, 2);
     }

@@ -12,7 +12,13 @@
 */
 
 Route::get('/', function () {
+  if (Auth::guest())
+  {
     return view('layouts/master');
+  }
+  else {
+    return view('home');
+  }
 });
 
 Auth::routes();
