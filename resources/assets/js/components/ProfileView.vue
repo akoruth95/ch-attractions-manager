@@ -20,10 +20,10 @@
     <div class="panel-body">
         <h1>{{this.place.place}}
           <h5>
-          <a target="_blank" v-bind:href="place.link">
-            <button>Website</button>
-          </a>
-        </h5>
+            <a target="_blank" v-bind:href="place.link">
+              <button>Website</button>
+            </a>
+          </h5>
         </h1>
       {{this.place.description}}
     </div>

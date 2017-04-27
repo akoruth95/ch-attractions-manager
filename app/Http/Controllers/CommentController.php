@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Auth;
 
 use App\Comment;
+use App\User;
 
 class CommentController extends Controller
 {
@@ -27,6 +28,6 @@ class CommentController extends Controller
     $request->request->add(['user_id' => $id]);
     $comment = Comment::create($request->all());
 
-    return Response::json(['body' => $comment['body'], 'username' => Auth::user()->value('name'), 'rating' => $comment['rating']]);
+    return Response::json(['body' => $comment['body'], 'username' => User::where('id', $id)->value('name'), 'rating' => $comment['rating']]);
   }
 }
