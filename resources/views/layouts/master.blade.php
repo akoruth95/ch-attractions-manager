@@ -23,11 +23,9 @@
 
 
 </head>
-<body style="  background-color: #18BC9C; font-family: Montserrat,'Helvetica Neue',Helvetica,Arial,sans-serif;
-text-transform: uppercase;
-font-weight: 700;">
+<body  style="background-color: #e6e8ed">
     <div>
-        <nav class="navbar navbar-default navbar-static-top" style="  background-color: #2C3E50;">
+        <nav class="navbar navbar-default navbar-static-top" style="background-color: #99BADD; color: white;">
             <div class="container">
                 <div class="navbar-header">
 
@@ -40,7 +38,7 @@ font-weight: 700;">
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ url('/') }}" style="color: white;">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
@@ -55,13 +53,13 @@ font-weight: 700;">
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <li><a href="{{ route('login') }}" style="color: white;">Login</a></li>
+                            <li><a href="{{ route('register') }}" style="color: white;">Register</a></li>
                         @else
                             <li class="dropdown">
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                     document.getElementById('logout-form').submit();" style="color: white;">
                                             Logout
                                         </a>
 
@@ -77,6 +75,7 @@ font-weight: 700;">
 
         @yield('content')
         @if (Auth::guest())
+          <br /><br />
           <h1>Log in or register to access this content!</h1>
         @endif
     </div>

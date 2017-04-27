@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 67);
+/******/ 	return __webpack_require__(__webpack_require__.s = 69);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,7 +73,7 @@
 "use strict";
 
 
-var bind = __webpack_require__(11);
+var bind = __webpack_require__(12);
 
 /*global toString:true*/
 
@@ -501,7 +501,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(64)
+var listToStyles = __webpack_require__(66)
 
 /*
 type StyleObject = {
@@ -710,7 +710,7 @@ function applyToTag (styleElement, obj) {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(31);
+var normalizeHeaderName = __webpack_require__(32);
 
 var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 var DEFAULT_CONTENT_TYPE = {
@@ -727,10 +727,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(7);
+    adapter = __webpack_require__(8);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(7);
+    adapter = __webpack_require__(8);
   }
   return adapter;
 }
@@ -993,22 +993,48 @@ process.umask = function() { return 0; };
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(17);
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(42);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(50)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../css-loader/index.js!./loaders.css", function() {
+			var newContent = require("!!../css-loader/index.js!./loaders.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(18);
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(23);
-var buildURL = __webpack_require__(26);
-var parseHeaders = __webpack_require__(32);
-var isURLSameOrigin = __webpack_require__(30);
-var createError = __webpack_require__(10);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(25);
+var settle = __webpack_require__(24);
+var buildURL = __webpack_require__(27);
+var parseHeaders = __webpack_require__(33);
+var isURLSameOrigin = __webpack_require__(31);
+var createError = __webpack_require__(11);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(26);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -1104,7 +1130,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(28);
+      var cookies = __webpack_require__(29);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -1181,7 +1207,7 @@ module.exports = function xhrAdapter(config) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1207,7 +1233,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1219,13 +1245,13 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(22);
+var enhanceError = __webpack_require__(23);
 
 /**
  * Create an Error with the specified message, config, error code, and response.
@@ -1243,7 +1269,7 @@ module.exports = function createError(message, config, code, response) {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1261,7 +1287,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -11521,33 +11547,19 @@ return jQuery;
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(41);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// add the styles to the DOM
-var update = __webpack_require__(48)(content, {});
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../css-loader/index.js!./loaders.css", function() {
-			var newContent = require("!!../css-loader/index.js!./loaders.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
+!function(t,e){ true?module.exports=e():"function"==typeof define&&define.amd?define("VueParallaxy",[],e):"object"==typeof exports?exports.VueParallaxy=e():t.VueParallaxy=e()}(this,function(){return function(t){function e(n){if(r[n])return r[n].exports;var i=r[n]={exports:{},id:n,loaded:!1};return t[n].call(i.exports,i,i.exports,e),i.loaded=!0,i.exports}var r={};return e.m=t,e.c=r,e.p="",e(0)}([function(t,e,r){"use strict";function n(t){return t&&t.__esModule?t:{default:t}}var i=r(8),o=n(i);t.exports=o.default},function(t,e){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.default={props:{parallax:{default:!0,type:Boolean},speedFactor:{default:.15,type:Number},fixed:{default:!1,type:Boolean},breakpoint:{default:"(min-width: 968px)",type:String},sectionHeight:{default:70,type:Number,required:!1},sectionClass:{type:String,default:"Masthead"},containerClass:{type:String,default:"Masthead__image"},parallaxClass:{type:String,default:"is-parallax"},fixedClass:{type:String,default:"is-fixed"}},data:function(){return{el:null,mediaQuery:null}},mounted:function(){this.parallax&&!this.fixed&&(this.el=this.$refs.parallax,window.requestAnimationFrame=window.requestAnimationFrame||window.mozRequestAnimationFrame||window.webkitRequestAnimationFrame||window.msRequestAnimationFrame||function(t){setTimeout(t,1e3/60)},this.init())},methods:{animateElement:function(){var t=this.$refs.block.offsetHeight,e=this.$refs.parallax.offsetHeight,r=e-t,n=window.pageYOffset*this.speedFactor;n<=r&&n>=0&&(this.el.style.transform="translate3d(0, "+n*-1+"px ,0)")},scrollHandler:function(){var t=this;window.requestAnimationFrame(function(){t.isInView(t.$refs.parallax)&&t.animateElement()})},isInView:function(t){var e=t.getBoundingClientRect();return e.bottom>=0&&e.top<=(window.innerHeight||document.documentElement.clientHeight)},setupListener:function(){this.mediaQuery.matches?window.addEventListener("scroll",this.scrollHandler,!1):window.removeEventListener("scroll",this.scrollHandler,!1)},init:function(){this.mediaQuery=window.matchMedia(this.breakpoint),this.mediaQuery&&(this.mediaQuery.addListener(this.setupListener),this.setupListener())}}}},function(t,e){"use strict";function r(t){var e=t.length;if(e%4>0)throw new Error("Invalid string. Length must be a multiple of 4");return"="===t[e-2]?2:"="===t[e-1]?1:0}function n(t){return 3*t.length/4-r(t)}function i(t){var e,n,i,o,a,s,u=t.length;a=r(t),s=new h(3*u/4-a),i=a>0?u-4:u;var c=0;for(e=0,n=0;e<i;e+=4,n+=3)o=f[t.charCodeAt(e)]<<18|f[t.charCodeAt(e+1)]<<12|f[t.charCodeAt(e+2)]<<6|f[t.charCodeAt(e+3)],s[c++]=o>>16&255,s[c++]=o>>8&255,s[c++]=255&o;return 2===a?(o=f[t.charCodeAt(e)]<<2|f[t.charCodeAt(e+1)]>>4,s[c++]=255&o):1===a&&(o=f[t.charCodeAt(e)]<<10|f[t.charCodeAt(e+1)]<<4|f[t.charCodeAt(e+2)]>>2,s[c++]=o>>8&255,s[c++]=255&o),s}function o(t){return u[t>>18&63]+u[t>>12&63]+u[t>>6&63]+u[63&t]}function a(t,e,r){for(var n,i=[],a=e;a<r;a+=3)n=(t[a]<<16)+(t[a+1]<<8)+t[a+2],i.push(o(n));return i.join("")}function s(t){for(var e,r=t.length,n=r%3,i="",o=[],s=16383,f=0,h=r-n;f<h;f+=s)o.push(a(t,f,f+s>h?h:f+s));return 1===n?(e=t[r-1],i+=u[e>>2],i+=u[e<<4&63],i+="=="):2===n&&(e=(t[r-2]<<8)+t[r-1],i+=u[e>>10],i+=u[e>>4&63],i+=u[e<<2&63],i+="="),o.push(i),o.join("")}e.byteLength=n,e.toByteArray=i,e.fromByteArray=s;for(var u=[],f=[],h="undefined"!=typeof Uint8Array?Uint8Array:Array,c="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",l=0,p=c.length;l<p;++l)u[l]=c[l],f[c.charCodeAt(l)]=l;f["-".charCodeAt(0)]=62,f["_".charCodeAt(0)]=63},function(t,e,r){(function(t){/*!
+	 * The buffer module from node.js, for the browser.
+	 *
+	 * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+	 * @license  MIT
+	 */
+"use strict";function n(){try{var t=new Uint8Array(1);return t.__proto__={__proto__:Uint8Array.prototype,foo:function(){return 42}},42===t.foo()&&"function"==typeof t.subarray&&0===t.subarray(1,1).byteLength}catch(t){return!1}}function i(){return a.TYPED_ARRAY_SUPPORT?2147483647:1073741823}function o(t,e){if(i()<e)throw new RangeError("Invalid typed array length");return a.TYPED_ARRAY_SUPPORT?(t=new Uint8Array(e),t.__proto__=a.prototype):(null===t&&(t=new a(e)),t.length=e),t}function a(t,e,r){if(!(a.TYPED_ARRAY_SUPPORT||this instanceof a))return new a(t,e,r);if("number"==typeof t){if("string"==typeof e)throw new Error("If encoding is specified then the first argument must be a string");return h(this,t)}return s(this,t,e,r)}function s(t,e,r,n){if("number"==typeof e)throw new TypeError('"value" argument must not be a number');return"undefined"!=typeof ArrayBuffer&&e instanceof ArrayBuffer?p(t,e,r,n):"string"==typeof e?c(t,e,r):d(t,e)}function u(t){if("number"!=typeof t)throw new TypeError('"size" argument must be a number');if(t<0)throw new RangeError('"size" argument must not be negative')}function f(t,e,r,n){return u(e),e<=0?o(t,e):void 0!==r?"string"==typeof n?o(t,e).fill(r,n):o(t,e).fill(r):o(t,e)}function h(t,e){if(u(e),t=o(t,e<0?0:0|g(e)),!a.TYPED_ARRAY_SUPPORT)for(var r=0;r<e;++r)t[r]=0;return t}function c(t,e,r){if("string"==typeof r&&""!==r||(r="utf8"),!a.isEncoding(r))throw new TypeError('"encoding" must be a valid string encoding');var n=0|A(e,r);t=o(t,n);var i=t.write(e,r);return i!==n&&(t=t.slice(0,i)),t}function l(t,e){var r=e.length<0?0:0|g(e.length);t=o(t,r);for(var n=0;n<r;n+=1)t[n]=255&e[n];return t}function p(t,e,r,n){if(e.byteLength,r<0||e.byteLength<r)throw new RangeError("'offset' is out of bounds");if(e.byteLength<r+(n||0))throw new RangeError("'length' is out of bounds");return e=void 0===r&&void 0===n?new Uint8Array(e):void 0===n?new Uint8Array(e,r):new Uint8Array(e,r,n),a.TYPED_ARRAY_SUPPORT?(t=e,t.__proto__=a.prototype):t=l(t,e),t}function d(t,e){if(a.isBuffer(e)){var r=0|g(e.length);return t=o(t,r),0===t.length?t:(e.copy(t,0,0,r),t)}if(e){if("undefined"!=typeof ArrayBuffer&&e.buffer instanceof ArrayBuffer||"length"in e)return"number"!=typeof e.length||K(e.length)?o(t,0):l(t,e);if("Buffer"===e.type&&Z(e.data))return l(t,e.data)}throw new TypeError("First argument must be a string, Buffer, ArrayBuffer, Array, or array-like object.")}function g(t){if(t>=i())throw new RangeError("Attempt to allocate Buffer larger than maximum size: 0x"+i().toString(16)+" bytes");return 0|t}function y(t){return+t!=t&&(t=0),a.alloc(+t)}function A(t,e){if(a.isBuffer(t))return t.length;if("undefined"!=typeof ArrayBuffer&&"function"==typeof ArrayBuffer.isView&&(ArrayBuffer.isView(t)||t instanceof ArrayBuffer))return t.byteLength;"string"!=typeof t&&(t=""+t);var r=t.length;if(0===r)return 0;for(var n=!1;;)switch(e){case"ascii":case"latin1":case"binary":return r;case"utf8":case"utf-8":case void 0:return W(t).length;case"ucs2":case"ucs-2":case"utf16le":case"utf-16le":return 2*r;case"hex":return r>>>1;case"base64":return $(t).length;default:if(n)return W(t).length;e=(""+e).toLowerCase(),n=!0}}function m(t,e,r){var n=!1;if((void 0===e||e<0)&&(e=0),e>this.length)return"";if((void 0===r||r>this.length)&&(r=this.length),r<=0)return"";if(r>>>=0,e>>>=0,r<=e)return"";for(t||(t="utf8");;)switch(t){case"hex":return Y(this,e,r);case"utf8":case"utf-8":return T(this,e,r);case"ascii":return S(this,e,r);case"latin1":case"binary":return M(this,e,r);case"base64":return P(this,e,r);case"ucs2":case"ucs-2":case"utf16le":case"utf-16le":return j(this,e,r);default:if(n)throw new TypeError("Unknown encoding: "+t);t=(t+"").toLowerCase(),n=!0}}function v(t,e,r){var n=t[e];t[e]=t[r],t[r]=n}function w(t,e,r,n,i){if(0===t.length)return-1;if("string"==typeof r?(n=r,r=0):r>2147483647?r=2147483647:r<-2147483648&&(r=-2147483648),r=+r,isNaN(r)&&(r=i?0:t.length-1),r<0&&(r=t.length+r),r>=t.length){if(i)return-1;r=t.length-1}else if(r<0){if(!i)return-1;r=0}if("string"==typeof e&&(e=a.from(e,n)),a.isBuffer(e))return 0===e.length?-1:b(t,e,r,n,i);if("number"==typeof e)return e&=255,a.TYPED_ARRAY_SUPPORT&&"function"==typeof Uint8Array.prototype.indexOf?i?Uint8Array.prototype.indexOf.call(t,e,r):Uint8Array.prototype.lastIndexOf.call(t,e,r):b(t,[e],r,n,i);throw new TypeError("val must be string, number or Buffer")}function b(t,e,r,n,i){function o(t,e){return 1===a?t[e]:t.readUInt16BE(e*a)}var a=1,s=t.length,u=e.length;if(void 0!==n&&(n=String(n).toLowerCase(),"ucs2"===n||"ucs-2"===n||"utf16le"===n||"utf-16le"===n)){if(t.length<2||e.length<2)return-1;a=2,s/=2,u/=2,r/=2}var f;if(i){var h=-1;for(f=r;f<s;f++)if(o(t,f)===o(e,h===-1?0:f-h)){if(h===-1&&(h=f),f-h+1===u)return h*a}else h!==-1&&(f-=f-h),h=-1}else for(r+u>s&&(r=s-u),f=r;f>=0;f--){for(var c=!0,l=0;l<u;l++)if(o(t,f+l)!==o(e,l)){c=!1;break}if(c)return f}return-1}function _(t,e,r,n){r=Number(r)||0;var i=t.length-r;n?(n=Number(n),n>i&&(n=i)):n=i;var o=e.length;if(o%2!==0)throw new TypeError("Invalid hex string");n>o/2&&(n=o/2);for(var a=0;a<n;++a){var s=parseInt(e.substr(2*a,2),16);if(isNaN(s))return a;t[r+a]=s}return a}function B(t,e,r,n){return J(W(e,t.length-r),t,r,n)}function E(t,e,r,n){return J(Q(e),t,r,n)}function R(t,e,r,n){return E(t,e,r,n)}function x(t,e,r,n){return J($(e),t,r,n)}function C(t,e,r,n){return J(V(e,t.length-r),t,r,n)}function P(t,e,r){return 0===e&&r===t.length?X.fromByteArray(t):X.fromByteArray(t.slice(e,r))}function T(t,e,r){r=Math.min(t.length,r);for(var n=[],i=e;i<r;){var o=t[i],a=null,s=o>239?4:o>223?3:o>191?2:1;if(i+s<=r){var u,f,h,c;switch(s){case 1:o<128&&(a=o);break;case 2:u=t[i+1],128===(192&u)&&(c=(31&o)<<6|63&u,c>127&&(a=c));break;case 3:u=t[i+1],f=t[i+2],128===(192&u)&&128===(192&f)&&(c=(15&o)<<12|(63&u)<<6|63&f,c>2047&&(c<55296||c>57343)&&(a=c));break;case 4:u=t[i+1],f=t[i+2],h=t[i+3],128===(192&u)&&128===(192&f)&&128===(192&h)&&(c=(15&o)<<18|(63&u)<<12|(63&f)<<6|63&h,c>65535&&c<1114112&&(a=c))}}null===a?(a=65533,s=1):a>65535&&(a-=65536,n.push(a>>>10&1023|55296),a=56320|1023&a),n.push(a),i+=s}return U(n)}function U(t){var e=t.length;if(e<=tt)return String.fromCharCode.apply(String,t);for(var r="",n=0;n<e;)r+=String.fromCharCode.apply(String,t.slice(n,n+=tt));return r}function S(t,e,r){var n="";r=Math.min(t.length,r);for(var i=e;i<r;++i)n+=String.fromCharCode(127&t[i]);return n}function M(t,e,r){var n="";r=Math.min(t.length,r);for(var i=e;i<r;++i)n+=String.fromCharCode(t[i]);return n}function Y(t,e,r){var n=t.length;(!e||e<0)&&(e=0),(!r||r<0||r>n)&&(r=n);for(var i="",o=e;o<r;++o)i+=H(t[o]);return i}function j(t,e,r){for(var n=t.slice(e,r),i="",o=0;o<n.length;o+=2)i+=String.fromCharCode(n[o]+256*n[o+1]);return i}function I(t,e,r){if(t%1!==0||t<0)throw new RangeError("offset is not uint");if(t+e>r)throw new RangeError("Trying to access beyond buffer length")}function L(t,e,r,n,i,o){if(!a.isBuffer(t))throw new TypeError('"buffer" argument must be a Buffer instance');if(e>i||e<o)throw new RangeError('"value" argument is out of bounds');if(r+n>t.length)throw new RangeError("Index out of range")}function D(t,e,r,n){e<0&&(e=65535+e+1);for(var i=0,o=Math.min(t.length-r,2);i<o;++i)t[r+i]=(e&255<<8*(n?i:1-i))>>>8*(n?i:1-i)}function O(t,e,r,n){e<0&&(e=4294967295+e+1);for(var i=0,o=Math.min(t.length-r,4);i<o;++i)t[r+i]=e>>>8*(n?i:3-i)&255}function k(t,e,r,n,i,o){if(r+n>t.length)throw new RangeError("Index out of range");if(r<0)throw new RangeError("Index out of range")}function N(t,e,r,n,i){return i||k(t,e,r,4,3.4028234663852886e38,-3.4028234663852886e38),G.write(t,e,r,n,23,4),r+4}function F(t,e,r,n,i){return i||k(t,e,r,8,1.7976931348623157e308,-1.7976931348623157e308),G.write(t,e,r,n,52,8),r+8}function z(t){if(t=q(t).replace(et,""),t.length<2)return"";for(;t.length%4!==0;)t+="=";return t}function q(t){return t.trim?t.trim():t.replace(/^\s+|\s+$/g,"")}function H(t){return t<16?"0"+t.toString(16):t.toString(16)}function W(t,e){e=e||1/0;for(var r,n=t.length,i=null,o=[],a=0;a<n;++a){if(r=t.charCodeAt(a),r>55295&&r<57344){if(!i){if(r>56319){(e-=3)>-1&&o.push(239,191,189);continue}if(a+1===n){(e-=3)>-1&&o.push(239,191,189);continue}i=r;continue}if(r<56320){(e-=3)>-1&&o.push(239,191,189),i=r;continue}r=(i-55296<<10|r-56320)+65536}else i&&(e-=3)>-1&&o.push(239,191,189);if(i=null,r<128){if((e-=1)<0)break;o.push(r)}else if(r<2048){if((e-=2)<0)break;o.push(r>>6|192,63&r|128)}else if(r<65536){if((e-=3)<0)break;o.push(r>>12|224,r>>6&63|128,63&r|128)}else{if(!(r<1114112))throw new Error("Invalid code point");if((e-=4)<0)break;o.push(r>>18|240,r>>12&63|128,r>>6&63|128,63&r|128)}}return o}function Q(t){for(var e=[],r=0;r<t.length;++r)e.push(255&t.charCodeAt(r));return e}function V(t,e){for(var r,n,i,o=[],a=0;a<t.length&&!((e-=2)<0);++a)r=t.charCodeAt(a),n=r>>8,i=r%256,o.push(i),o.push(n);return o}function $(t){return X.toByteArray(z(t))}function J(t,e,r,n){for(var i=0;i<n&&!(i+r>=e.length||i>=t.length);++i)e[i+r]=t[i];return i}function K(t){return t!==t}var X=r(2),G=r(6),Z=r(7);e.Buffer=a,e.SlowBuffer=y,e.INSPECT_MAX_BYTES=50,a.TYPED_ARRAY_SUPPORT=void 0!==t.TYPED_ARRAY_SUPPORT?t.TYPED_ARRAY_SUPPORT:n(),e.kMaxLength=i(),a.poolSize=8192,a._augment=function(t){return t.__proto__=a.prototype,t},a.from=function(t,e,r){return s(null,t,e,r)},a.TYPED_ARRAY_SUPPORT&&(a.prototype.__proto__=Uint8Array.prototype,a.__proto__=Uint8Array,"undefined"!=typeof Symbol&&Symbol.species&&a[Symbol.species]===a&&Object.defineProperty(a,Symbol.species,{value:null,configurable:!0})),a.alloc=function(t,e,r){return f(null,t,e,r)},a.allocUnsafe=function(t){return h(null,t)},a.allocUnsafeSlow=function(t){return h(null,t)},a.isBuffer=function(t){return!(null==t||!t._isBuffer)},a.compare=function(t,e){if(!a.isBuffer(t)||!a.isBuffer(e))throw new TypeError("Arguments must be Buffers");if(t===e)return 0;for(var r=t.length,n=e.length,i=0,o=Math.min(r,n);i<o;++i)if(t[i]!==e[i]){r=t[i],n=e[i];break}return r<n?-1:n<r?1:0},a.isEncoding=function(t){switch(String(t).toLowerCase()){case"hex":case"utf8":case"utf-8":case"ascii":case"latin1":case"binary":case"base64":case"ucs2":case"ucs-2":case"utf16le":case"utf-16le":return!0;default:return!1}},a.concat=function(t,e){if(!Z(t))throw new TypeError('"list" argument must be an Array of Buffers');if(0===t.length)return a.alloc(0);var r;if(void 0===e)for(e=0,r=0;r<t.length;++r)e+=t[r].length;var n=a.allocUnsafe(e),i=0;for(r=0;r<t.length;++r){var o=t[r];if(!a.isBuffer(o))throw new TypeError('"list" argument must be an Array of Buffers');o.copy(n,i),i+=o.length}return n},a.byteLength=A,a.prototype._isBuffer=!0,a.prototype.swap16=function(){var t=this.length;if(t%2!==0)throw new RangeError("Buffer size must be a multiple of 16-bits");for(var e=0;e<t;e+=2)v(this,e,e+1);return this},a.prototype.swap32=function(){var t=this.length;if(t%4!==0)throw new RangeError("Buffer size must be a multiple of 32-bits");for(var e=0;e<t;e+=4)v(this,e,e+3),v(this,e+1,e+2);return this},a.prototype.swap64=function(){var t=this.length;if(t%8!==0)throw new RangeError("Buffer size must be a multiple of 64-bits");for(var e=0;e<t;e+=8)v(this,e,e+7),v(this,e+1,e+6),v(this,e+2,e+5),v(this,e+3,e+4);return this},a.prototype.toString=function(){var t=0|this.length;return 0===t?"":0===arguments.length?T(this,0,t):m.apply(this,arguments)},a.prototype.equals=function(t){if(!a.isBuffer(t))throw new TypeError("Argument must be a Buffer");return this===t||0===a.compare(this,t)},a.prototype.inspect=function(){var t="",r=e.INSPECT_MAX_BYTES;return this.length>0&&(t=this.toString("hex",0,r).match(/.{2}/g).join(" "),this.length>r&&(t+=" ... ")),"<Buffer "+t+">"},a.prototype.compare=function(t,e,r,n,i){if(!a.isBuffer(t))throw new TypeError("Argument must be a Buffer");if(void 0===e&&(e=0),void 0===r&&(r=t?t.length:0),void 0===n&&(n=0),void 0===i&&(i=this.length),e<0||r>t.length||n<0||i>this.length)throw new RangeError("out of range index");if(n>=i&&e>=r)return 0;if(n>=i)return-1;if(e>=r)return 1;if(e>>>=0,r>>>=0,n>>>=0,i>>>=0,this===t)return 0;for(var o=i-n,s=r-e,u=Math.min(o,s),f=this.slice(n,i),h=t.slice(e,r),c=0;c<u;++c)if(f[c]!==h[c]){o=f[c],s=h[c];break}return o<s?-1:s<o?1:0},a.prototype.includes=function(t,e,r){return this.indexOf(t,e,r)!==-1},a.prototype.indexOf=function(t,e,r){return w(this,t,e,r,!0)},a.prototype.lastIndexOf=function(t,e,r){return w(this,t,e,r,!1)},a.prototype.write=function(t,e,r,n){if(void 0===e)n="utf8",r=this.length,e=0;else if(void 0===r&&"string"==typeof e)n=e,r=this.length,e=0;else{if(!isFinite(e))throw new Error("Buffer.write(string, encoding, offset[, length]) is no longer supported");e|=0,isFinite(r)?(r|=0,void 0===n&&(n="utf8")):(n=r,r=void 0)}var i=this.length-e;if((void 0===r||r>i)&&(r=i),t.length>0&&(r<0||e<0)||e>this.length)throw new RangeError("Attempt to write outside buffer bounds");n||(n="utf8");for(var o=!1;;)switch(n){case"hex":return _(this,t,e,r);case"utf8":case"utf-8":return B(this,t,e,r);case"ascii":return E(this,t,e,r);case"latin1":case"binary":return R(this,t,e,r);case"base64":return x(this,t,e,r);case"ucs2":case"ucs-2":case"utf16le":case"utf-16le":return C(this,t,e,r);default:if(o)throw new TypeError("Unknown encoding: "+n);n=(""+n).toLowerCase(),o=!0}},a.prototype.toJSON=function(){return{type:"Buffer",data:Array.prototype.slice.call(this._arr||this,0)}};var tt=4096;a.prototype.slice=function(t,e){var r=this.length;t=~~t,e=void 0===e?r:~~e,t<0?(t+=r,t<0&&(t=0)):t>r&&(t=r),e<0?(e+=r,e<0&&(e=0)):e>r&&(e=r),e<t&&(e=t);var n;if(a.TYPED_ARRAY_SUPPORT)n=this.subarray(t,e),n.__proto__=a.prototype;else{var i=e-t;n=new a(i,void 0);for(var o=0;o<i;++o)n[o]=this[o+t]}return n},a.prototype.readUIntLE=function(t,e,r){t|=0,e|=0,r||I(t,e,this.length);for(var n=this[t],i=1,o=0;++o<e&&(i*=256);)n+=this[t+o]*i;return n},a.prototype.readUIntBE=function(t,e,r){t|=0,e|=0,r||I(t,e,this.length);for(var n=this[t+--e],i=1;e>0&&(i*=256);)n+=this[t+--e]*i;return n},a.prototype.readUInt8=function(t,e){return e||I(t,1,this.length),this[t]},a.prototype.readUInt16LE=function(t,e){return e||I(t,2,this.length),this[t]|this[t+1]<<8},a.prototype.readUInt16BE=function(t,e){return e||I(t,2,this.length),this[t]<<8|this[t+1]},a.prototype.readUInt32LE=function(t,e){return e||I(t,4,this.length),(this[t]|this[t+1]<<8|this[t+2]<<16)+16777216*this[t+3]},a.prototype.readUInt32BE=function(t,e){return e||I(t,4,this.length),16777216*this[t]+(this[t+1]<<16|this[t+2]<<8|this[t+3])},a.prototype.readIntLE=function(t,e,r){t|=0,e|=0,r||I(t,e,this.length);for(var n=this[t],i=1,o=0;++o<e&&(i*=256);)n+=this[t+o]*i;return i*=128,n>=i&&(n-=Math.pow(2,8*e)),n},a.prototype.readIntBE=function(t,e,r){t|=0,e|=0,r||I(t,e,this.length);for(var n=e,i=1,o=this[t+--n];n>0&&(i*=256);)o+=this[t+--n]*i;return i*=128,o>=i&&(o-=Math.pow(2,8*e)),o},a.prototype.readInt8=function(t,e){return e||I(t,1,this.length),128&this[t]?(255-this[t]+1)*-1:this[t]},a.prototype.readInt16LE=function(t,e){e||I(t,2,this.length);var r=this[t]|this[t+1]<<8;return 32768&r?4294901760|r:r},a.prototype.readInt16BE=function(t,e){e||I(t,2,this.length);var r=this[t+1]|this[t]<<8;return 32768&r?4294901760|r:r},a.prototype.readInt32LE=function(t,e){return e||I(t,4,this.length),this[t]|this[t+1]<<8|this[t+2]<<16|this[t+3]<<24},a.prototype.readInt32BE=function(t,e){return e||I(t,4,this.length),this[t]<<24|this[t+1]<<16|this[t+2]<<8|this[t+3]},a.prototype.readFloatLE=function(t,e){return e||I(t,4,this.length),G.read(this,t,!0,23,4)},a.prototype.readFloatBE=function(t,e){return e||I(t,4,this.length),G.read(this,t,!1,23,4)},a.prototype.readDoubleLE=function(t,e){return e||I(t,8,this.length),G.read(this,t,!0,52,8)},a.prototype.readDoubleBE=function(t,e){return e||I(t,8,this.length),G.read(this,t,!1,52,8)},a.prototype.writeUIntLE=function(t,e,r,n){if(t=+t,e|=0,r|=0,!n){var i=Math.pow(2,8*r)-1;L(this,t,e,r,i,0)}var o=1,a=0;for(this[e]=255&t;++a<r&&(o*=256);)this[e+a]=t/o&255;return e+r},a.prototype.writeUIntBE=function(t,e,r,n){if(t=+t,e|=0,r|=0,!n){var i=Math.pow(2,8*r)-1;L(this,t,e,r,i,0)}var o=r-1,a=1;for(this[e+o]=255&t;--o>=0&&(a*=256);)this[e+o]=t/a&255;return e+r},a.prototype.writeUInt8=function(t,e,r){return t=+t,e|=0,r||L(this,t,e,1,255,0),a.TYPED_ARRAY_SUPPORT||(t=Math.floor(t)),this[e]=255&t,e+1},a.prototype.writeUInt16LE=function(t,e,r){return t=+t,e|=0,r||L(this,t,e,2,65535,0),a.TYPED_ARRAY_SUPPORT?(this[e]=255&t,this[e+1]=t>>>8):D(this,t,e,!0),e+2},a.prototype.writeUInt16BE=function(t,e,r){return t=+t,e|=0,r||L(this,t,e,2,65535,0),a.TYPED_ARRAY_SUPPORT?(this[e]=t>>>8,this[e+1]=255&t):D(this,t,e,!1),e+2},a.prototype.writeUInt32LE=function(t,e,r){return t=+t,e|=0,r||L(this,t,e,4,4294967295,0),a.TYPED_ARRAY_SUPPORT?(this[e+3]=t>>>24,this[e+2]=t>>>16,this[e+1]=t>>>8,this[e]=255&t):O(this,t,e,!0),e+4},a.prototype.writeUInt32BE=function(t,e,r){return t=+t,e|=0,r||L(this,t,e,4,4294967295,0),a.TYPED_ARRAY_SUPPORT?(this[e]=t>>>24,this[e+1]=t>>>16,this[e+2]=t>>>8,this[e+3]=255&t):O(this,t,e,!1),e+4},a.prototype.writeIntLE=function(t,e,r,n){if(t=+t,e|=0,!n){var i=Math.pow(2,8*r-1);L(this,t,e,r,i-1,-i)}var o=0,a=1,s=0;for(this[e]=255&t;++o<r&&(a*=256);)t<0&&0===s&&0!==this[e+o-1]&&(s=1),this[e+o]=(t/a>>0)-s&255;return e+r},a.prototype.writeIntBE=function(t,e,r,n){if(t=+t,e|=0,!n){var i=Math.pow(2,8*r-1);L(this,t,e,r,i-1,-i)}var o=r-1,a=1,s=0;for(this[e+o]=255&t;--o>=0&&(a*=256);)t<0&&0===s&&0!==this[e+o+1]&&(s=1),this[e+o]=(t/a>>0)-s&255;return e+r},a.prototype.writeInt8=function(t,e,r){return t=+t,e|=0,r||L(this,t,e,1,127,-128),a.TYPED_ARRAY_SUPPORT||(t=Math.floor(t)),t<0&&(t=255+t+1),this[e]=255&t,e+1},a.prototype.writeInt16LE=function(t,e,r){return t=+t,e|=0,r||L(this,t,e,2,32767,-32768),a.TYPED_ARRAY_SUPPORT?(this[e]=255&t,this[e+1]=t>>>8):D(this,t,e,!0),e+2},a.prototype.writeInt16BE=function(t,e,r){return t=+t,e|=0,r||L(this,t,e,2,32767,-32768),a.TYPED_ARRAY_SUPPORT?(this[e]=t>>>8,this[e+1]=255&t):D(this,t,e,!1),e+2},a.prototype.writeInt32LE=function(t,e,r){return t=+t,e|=0,r||L(this,t,e,4,2147483647,-2147483648),a.TYPED_ARRAY_SUPPORT?(this[e]=255&t,this[e+1]=t>>>8,this[e+2]=t>>>16,this[e+3]=t>>>24):O(this,t,e,!0),e+4},a.prototype.writeInt32BE=function(t,e,r){return t=+t,e|=0,r||L(this,t,e,4,2147483647,-2147483648),t<0&&(t=4294967295+t+1),a.TYPED_ARRAY_SUPPORT?(this[e]=t>>>24,this[e+1]=t>>>16,this[e+2]=t>>>8,this[e+3]=255&t):O(this,t,e,!1),e+4},a.prototype.writeFloatLE=function(t,e,r){return N(this,t,e,!0,r)},a.prototype.writeFloatBE=function(t,e,r){return N(this,t,e,!1,r)},a.prototype.writeDoubleLE=function(t,e,r){return F(this,t,e,!0,r)},a.prototype.writeDoubleBE=function(t,e,r){return F(this,t,e,!1,r)},a.prototype.copy=function(t,e,r,n){if(r||(r=0),n||0===n||(n=this.length),e>=t.length&&(e=t.length),e||(e=0),n>0&&n<r&&(n=r),n===r)return 0;if(0===t.length||0===this.length)return 0;if(e<0)throw new RangeError("targetStart out of bounds");if(r<0||r>=this.length)throw new RangeError("sourceStart out of bounds");if(n<0)throw new RangeError("sourceEnd out of bounds");n>this.length&&(n=this.length),t.length-e<n-r&&(n=t.length-e+r);var i,o=n-r;if(this===t&&r<e&&e<n)for(i=o-1;i>=0;--i)t[i+e]=this[i+r];else if(o<1e3||!a.TYPED_ARRAY_SUPPORT)for(i=0;i<o;++i)t[i+e]=this[i+r];else Uint8Array.prototype.set.call(t,this.subarray(r,r+o),e);return o},a.prototype.fill=function(t,e,r,n){if("string"==typeof t){if("string"==typeof e?(n=e,e=0,r=this.length):"string"==typeof r&&(n=r,r=this.length),1===t.length){var i=t.charCodeAt(0);i<256&&(t=i)}if(void 0!==n&&"string"!=typeof n)throw new TypeError("encoding must be a string");if("string"==typeof n&&!a.isEncoding(n))throw new TypeError("Unknown encoding: "+n)}else"number"==typeof t&&(t&=255);if(e<0||this.length<e||this.length<r)throw new RangeError("Out of range index");if(r<=e)return this;e>>>=0,r=void 0===r?this.length:r>>>0,t||(t=0);var o;if("number"==typeof t)for(o=e;o<r;++o)this[o]=t;else{var s=a.isBuffer(t)?t:W(new a(t,n).toString()),u=s.length;for(o=0;o<r-e;++o)this[o+e]=s[o%u]}return this};var et=/[^+\/0-9A-Za-z-_]/g}).call(e,function(){return this}())},function(t,e,r){e=t.exports=r(5)(!0),e.push([t.id,'.Masthead{position:relative;min-height:21.875rem;scroll-behavior:smooth;overflow:hidden;z-index:-1}@media screen and (min-width:768px){.Masthead{min-height:100vh}}.Masthead__image{width:100%;overflow:hidden;height:120%}.Masthead__image>img{height:100%;max-width:none;width:100%;-o-object-fit:cover;object-fit:cover;-o-object-position:bottom;object-position:bottom;font-family:"object-fit: cover; object-position: bottom"}.Masthead__image.is-parallax{left:0;position:absolute;will-change:transform;right:0;top:0}.Masthead__image.is-parallax>img{height:100%;max-width:none;width:100%;-o-object-fit:cover;object-fit:cover;-o-object-position:bottom;object-position:bottom;font-family:"object-fit: cover; object-position: bottom"}.Masthead__image.is-fixed{position:fixed}.Masthead__image.is-fixed>img{height:100vh;max-width:none}',"",{version:3,sources:["/Users/jjuszczak/Projekte/Privat/vue-parallax/src/components/Parallax.vue"],names:[],mappings:"AACA,UAAU,kBAAkB,qBAAqB,uBAAuB,gBAAgB,UAAU,CACjG,AACD,oCACA,UAAU,gBAAgB,CACzB,CACA,AACD,iBAAiB,WAAW,gBAAgB,WAAW,CACtD,AACD,qBAAqB,YAAY,eAAe,WAAW,oBAAoB,iBAAiB,0BAA0B,uBAAuB,wDAAwD,CACxM,AACD,6BAA6B,OAAO,kBAAkB,sBAAsB,QAAQ,KAAK,CACxF,AACD,iCAAiC,YAAY,eAAe,WAAW,oBAAoB,iBAAiB,0BAA0B,uBAAuB,wDAAwD,CACpN,AACD,0BAA0B,cAAc,CACvC,AACD,8BAA8B,aAAa,cAAc,CACxD",file:"Parallax.vue",sourcesContent:['\n.Masthead{position:relative;min-height:21.875rem;scroll-behavior:smooth;overflow:hidden;z-index:-1\n}\n@media screen and (min-width: 768px){\n.Masthead{min-height:100vh\n}\n}\n.Masthead__image{width:100%;overflow:hidden;height:120%\n}\n.Masthead__image>img{height:100%;max-width:none;width:100%;-o-object-fit:cover;object-fit:cover;-o-object-position:bottom;object-position:bottom;font-family:"object-fit: cover; object-position: bottom"\n}\n.Masthead__image.is-parallax{left:0;position:absolute;will-change:transform;right:0;top:0\n}\n.Masthead__image.is-parallax>img{height:100%;max-width:none;width:100%;-o-object-fit:cover;object-fit:cover;-o-object-position:bottom;object-position:bottom;font-family:"object-fit: cover; object-position: bottom"\n}\n.Masthead__image.is-fixed{position:fixed\n}\n.Masthead__image.is-fixed>img{height:100vh;max-width:none\n}\n'],sourceRoot:""}])},function(t,e,r){(function(e){function r(t,e){var r=t[1]||"",i=t[3];if(!i)return r;if(e){var o=n(i),a=i.sources.map(function(t){return"/*# sourceURL="+i.sourceRoot+t+" */"});return[r].concat(a).concat([o]).join("\n")}return[r].join("\n")}function n(t){var r=new e(JSON.stringify(t)).toString("base64"),n="sourceMappingURL=data:application/json;charset=utf-8;base64,"+r;return"/*# "+n+" */"}t.exports=function(t){var e=[];return e.toString=function(){return this.map(function(e){var n=r(e,t);return e[2]?"@media "+e[2]+"{"+n+"}":n}).join("")},e.i=function(t,r){"string"==typeof t&&(t=[[null,t,""]]);for(var n={},i=0;i<this.length;i++){var o=this[i][0];"number"==typeof o&&(n[o]=!0)}for(i=0;i<t.length;i++){var a=t[i];"number"==typeof a[0]&&n[a[0]]||(r&&!a[2]?a[2]=r:r&&(a[2]="("+a[2]+") and ("+r+")"),e.push(a))}},e}}).call(e,r(3).Buffer)},function(t,e){e.read=function(t,e,r,n,i){var o,a,s=8*i-n-1,u=(1<<s)-1,f=u>>1,h=-7,c=r?i-1:0,l=r?-1:1,p=t[e+c];for(c+=l,o=p&(1<<-h)-1,p>>=-h,h+=s;h>0;o=256*o+t[e+c],c+=l,h-=8);for(a=o&(1<<-h)-1,o>>=-h,h+=n;h>0;a=256*a+t[e+c],c+=l,h-=8);if(0===o)o=1-f;else{if(o===u)return a?NaN:(p?-1:1)*(1/0);a+=Math.pow(2,n),o-=f}return(p?-1:1)*a*Math.pow(2,o-n)},e.write=function(t,e,r,n,i,o){var a,s,u,f=8*o-i-1,h=(1<<f)-1,c=h>>1,l=23===i?Math.pow(2,-24)-Math.pow(2,-77):0,p=n?0:o-1,d=n?1:-1,g=e<0||0===e&&1/e<0?1:0;for(e=Math.abs(e),isNaN(e)||e===1/0?(s=isNaN(e)?1:0,a=h):(a=Math.floor(Math.log(e)/Math.LN2),e*(u=Math.pow(2,-a))<1&&(a--,u*=2),e+=a+c>=1?l/u:l*Math.pow(2,1-c),e*u>=2&&(a++,u/=2),a+c>=h?(s=0,a=h):a+c>=1?(s=(e*u-1)*Math.pow(2,i),a+=c):(s=e*Math.pow(2,c-1)*Math.pow(2,i),a=0));i>=8;t[r+p]=255&s,p+=d,s/=256,i-=8);for(a=a<<i|s,f+=i;f>0;t[r+p]=255&a,p+=d,a/=256,f-=8);t[r+p-d]|=128*g}},function(t,e){var r={}.toString;t.exports=Array.isArray||function(t){return"[object Array]"==r.call(t)}},function(t,e,r){r(11);var n=r(9)(r(1),r(10),null,null);t.exports=n.exports},function(t,e){t.exports=function(t,e,r,n){var i,o=t=t||{},a=typeof t.default;"object"!==a&&"function"!==a||(i=t,o=t.default);var s="function"==typeof o?o.options:o;if(e&&(s.render=e.render,s.staticRenderFns=e.staticRenderFns),r&&(s._scopeId=r),n){var u=Object.create(s.computed||null);Object.keys(n).forEach(function(t){var e=n[t];u[t]=function(){return e}}),s.computed=u}return{esModule:i,exports:o,options:s}}},function(t,e){t.exports={render:function(){var t=this,e=(t.$createElement,t._c);return e("section",{ref:"block",class:[t.sectionClass],style:{height:t.sectionHeight+"vh"}},[e("div",{ref:"parallax",class:[t.parallax?t.parallaxClass:"",t.fixed?t.fixedClass:"",t.containerClass]},[t._t("default")],2)])},staticRenderFns:[]}},function(t,e,r){var n=r(4);"string"==typeof n&&(n=[[t.id,n,""]]),n.locals&&(t.exports=n.locals);r(12)("b568b5da",n,!0)},function(t,e,r){function n(t){for(var e=0;e<t.length;e++){var r=t[e],n=h[r.id];if(n){n.refs++;for(var i=0;i<n.parts.length;i++)n.parts[i](r.parts[i]);for(;i<r.parts.length;i++)n.parts.push(o(r.parts[i]));n.parts.length>r.parts.length&&(n.parts.length=r.parts.length)}else{for(var a=[],i=0;i<r.parts.length;i++)a.push(o(r.parts[i]));h[r.id]={id:r.id,refs:1,parts:a}}}}function i(){var t=document.createElement("style");return t.type="text/css",c.appendChild(t),t}function o(t){var e,r,n=document.querySelector('style[data-vue-ssr-id~="'+t.id+'"]');if(n){if(d)return g;n.parentNode.removeChild(n)}if(y){var o=p++;n=l||(l=i()),e=a.bind(null,n,o,!1),r=a.bind(null,n,o,!0)}else n=i(),e=s.bind(null,n),r=function(){n.parentNode.removeChild(n)};return e(t),function(n){if(n){if(n.css===t.css&&n.media===t.media&&n.sourceMap===t.sourceMap)return;e(t=n)}else r()}}function a(t,e,r,n){var i=r?"":n.css;if(t.styleSheet)t.styleSheet.cssText=A(e,i);else{var o=document.createTextNode(i),a=t.childNodes;a[e]&&t.removeChild(a[e]),a.length?t.insertBefore(o,a[e]):t.appendChild(o)}}function s(t,e){var r=e.css,n=e.media,i=e.sourceMap;if(n&&t.setAttribute("media",n),i&&(r+="\n/*# sourceURL="+i.sources[0]+" */",r+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(i))))+" */"),t.styleSheet)t.styleSheet.cssText=r;else{for(;t.firstChild;)t.removeChild(t.firstChild);t.appendChild(document.createTextNode(r))}}var u="undefined"!=typeof document,f=r(13),h={},c=u&&(document.head||document.getElementsByTagName("head")[0]),l=null,p=0,d=!1,g=function(){},y="undefined"!=typeof navigator&&/msie [6-9]\b/.test(navigator.userAgent.toLowerCase());t.exports=function(t,e,r){d=r;var i=f(t,e);return n(i),function(e){for(var r=[],o=0;o<i.length;o++){var a=i[o],s=h[a.id];s.refs--,r.push(s)}e?(i=f(t,e),n(i)):i=[];for(var o=0;o<r.length;o++){var s=r[o];if(0===s.refs){for(var u=0;u<s.parts.length;u++)s.parts[u]();delete h[s.id]}}}};var A=function(){var t=[];return function(e,r){return t[e]=r,t.filter(Boolean).join("\n")}}()},function(t,e){t.exports=function(t,e){for(var r=[],n={},i=0;i<e.length;i++){var o=e[i],a=o[0],s=o[1],u=o[2],f=o[3],h={id:t+":"+i,css:s,media:u,sourceMap:f};n[a]?n[a].parts.push(h):r.push(n[a]={id:a,parts:[h]})}return r}}])});
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 var g;
@@ -11574,7 +11586,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -11584,7 +11596,7 @@ module.exports = g;
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(39);
+__webpack_require__(40);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -11592,7 +11604,7 @@ __webpack_require__(39);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('App', __webpack_require__(50));
+Vue.component('App', __webpack_require__(52));
 
 var evt = new Vue();
 Vue.prototype.$evt = evt;
@@ -11603,21 +11615,21 @@ var app = new Vue({
 });
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(11);
-var Axios = __webpack_require__(19);
+var bind = __webpack_require__(12);
+var Axios = __webpack_require__(20);
 var defaults = __webpack_require__(4);
 
 /**
@@ -11651,15 +11663,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(8);
-axios.CancelToken = __webpack_require__(18);
-axios.isCancel = __webpack_require__(9);
+axios.Cancel = __webpack_require__(9);
+axios.CancelToken = __webpack_require__(19);
+axios.isCancel = __webpack_require__(10);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(33);
+axios.spread = __webpack_require__(34);
 
 module.exports = axios;
 
@@ -11668,13 +11680,13 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(8);
+var Cancel = __webpack_require__(9);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -11732,7 +11744,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11740,10 +11752,10 @@ module.exports = CancelToken;
 
 var defaults = __webpack_require__(4);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(20);
-var dispatchRequest = __webpack_require__(21);
-var isAbsoluteURL = __webpack_require__(29);
-var combineURLs = __webpack_require__(27);
+var InterceptorManager = __webpack_require__(21);
+var dispatchRequest = __webpack_require__(22);
+var isAbsoluteURL = __webpack_require__(30);
+var combineURLs = __webpack_require__(28);
 
 /**
  * Create a new instance of Axios
@@ -11824,7 +11836,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11883,15 +11895,15 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(24);
-var isCancel = __webpack_require__(9);
+var transformData = __webpack_require__(25);
+var isCancel = __webpack_require__(10);
 var defaults = __webpack_require__(4);
 
 /**
@@ -11969,7 +11981,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11995,13 +12007,13 @@ module.exports = function enhanceError(error, config, code, response) {
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(10);
+var createError = __webpack_require__(11);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -12027,7 +12039,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12054,7 +12066,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12097,7 +12109,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12172,7 +12184,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12191,7 +12203,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12251,7 +12263,7 @@ module.exports = (
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12272,7 +12284,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12347,7 +12359,7 @@ module.exports = (
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12366,7 +12378,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12410,7 +12422,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12444,12 +12456,12 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Rating__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Rating__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Rating___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Rating__);
 //
 //
@@ -12528,13 +12540,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ListView__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ListView__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ListView___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__ListView__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_parallaxy__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_parallaxy___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_parallaxy__);
 //
 //
 //
@@ -12581,6 +12595,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -12599,7 +12625,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	beforeDestroy: function beforeDestroy() {},
 
 	components: {
-		ListView: __WEBPACK_IMPORTED_MODULE_0__ListView___default.a
+		ListView: __WEBPACK_IMPORTED_MODULE_0__ListView___default.a,
+		Parallax: __WEBPACK_IMPORTED_MODULE_1_vue_parallaxy___default.a
 	},
 	methods: {
 		setCategory: function setCategory(category) {
@@ -12613,16 +12640,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ProfileView__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ProfileView__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ProfileView___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ProfileView__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_loaders_css__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_loaders_css__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_loaders_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_loaders_css__);
 //
 //
@@ -12718,15 +12745,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddModal__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddModal__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddModal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AddModal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_loaders_css__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_loaders_css__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_loaders_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_loaders_css__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -12790,6 +12832,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var _this = this;
 
     console.log('ProfileView -> mounted.');
+    this.loading = true;
     axios.get('/comments/' + this.place.id).then(function (response) {
       _this.comments = response.data;
       console.log('comments: ', response.data);
@@ -12803,6 +12846,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (response.data.length != 0) {
         _this.isFavorite = true;
       }
+      _this.loading = false;
     }).catch(function (error) {
       console.error('failed');
       // show an error message
@@ -12860,7 +12904,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12955,11 +12999,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(47);
+window._ = __webpack_require__(49);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -12967,9 +13011,9 @@ window._ = __webpack_require__(47);
  * code may be modified to fit the specific needs of your application.
  */
 
-window.$ = window.jQuery = __webpack_require__(12);
+window.$ = window.jQuery = __webpack_require__(13);
 
-__webpack_require__(40);
+__webpack_require__(41);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -12977,7 +13021,7 @@ __webpack_require__(40);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(65);
+window.Vue = __webpack_require__(67);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -12985,7 +13029,7 @@ window.Vue = __webpack_require__(65);
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(6);
+window.axios = __webpack_require__(7);
 
 window.axios.defaults.headers.common = {
   'X-CSRF-TOKEN': window.Laravel.csrfToken,
@@ -13007,10 +13051,11 @@ window.axios.defaults.headers.common = {
 //     key: 'your-pusher-key'
 // });
 
-window.loaders = __webpack_require__(13);
+window.loaders = __webpack_require__(6);
+window.parallaxy = __webpack_require__(14);
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -15391,46 +15436,58 @@ if (typeof jQuery === 'undefined') {
 
 }(jQuery);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)();
-exports.push([module.i, "/**\n *\n * All animations must live in their own file\n * in the animations directory and be included\n * here.\n *\n */\n/**\n * Styles shared by multiple animations\n */\n/**\n * Dots\n */\n@-webkit-keyframes scale {\n  0% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 1; }\n  45% {\n    -webkit-transform: scale(0.1);\n            transform: scale(0.1);\n    opacity: 0.7; }\n  80% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 1; } }\n@keyframes scale {\n  0% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 1; }\n  45% {\n    -webkit-transform: scale(0.1);\n            transform: scale(0.1);\n    opacity: 0.7; }\n  80% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 1; } }\n\n.ball-pulse > div:nth-child(0) {\n  -webkit-animation: scale 0.75s -0.36s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: scale 0.75s -0.36s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.ball-pulse > div:nth-child(1) {\n  -webkit-animation: scale 0.75s -0.24s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: scale 0.75s -0.24s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.ball-pulse > div:nth-child(2) {\n  -webkit-animation: scale 0.75s -0.12s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: scale 0.75s -0.12s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.ball-pulse > div:nth-child(3) {\n  -webkit-animation: scale 0.75s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: scale 0.75s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.ball-pulse > div {\n  background-color: #fff;\n  width: 15px;\n  height: 15px;\n  border-radius: 100%;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block; }\n\n@-webkit-keyframes ball-pulse-sync {\n  33% {\n    -webkit-transform: translateY(10px);\n            transform: translateY(10px); }\n  66% {\n    -webkit-transform: translateY(-10px);\n            transform: translateY(-10px); }\n  100% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0); } }\n\n@keyframes ball-pulse-sync {\n  33% {\n    -webkit-transform: translateY(10px);\n            transform: translateY(10px); }\n  66% {\n    -webkit-transform: translateY(-10px);\n            transform: translateY(-10px); }\n  100% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0); } }\n\n.ball-pulse-sync > div:nth-child(0) {\n  -webkit-animation: ball-pulse-sync 0.6s -0.21s infinite ease-in-out;\n          animation: ball-pulse-sync 0.6s -0.21s infinite ease-in-out; }\n\n.ball-pulse-sync > div:nth-child(1) {\n  -webkit-animation: ball-pulse-sync 0.6s -0.14s infinite ease-in-out;\n          animation: ball-pulse-sync 0.6s -0.14s infinite ease-in-out; }\n\n.ball-pulse-sync > div:nth-child(2) {\n  -webkit-animation: ball-pulse-sync 0.6s -0.07s infinite ease-in-out;\n          animation: ball-pulse-sync 0.6s -0.07s infinite ease-in-out; }\n\n.ball-pulse-sync > div:nth-child(3) {\n  -webkit-animation: ball-pulse-sync 0.6s 0s infinite ease-in-out;\n          animation: ball-pulse-sync 0.6s 0s infinite ease-in-out; }\n\n.ball-pulse-sync > div {\n  background-color: #fff;\n  width: 15px;\n  height: 15px;\n  border-radius: 100%;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block; }\n\n@-webkit-keyframes ball-scale {\n  0% {\n    -webkit-transform: scale(0);\n            transform: scale(0); }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0; } }\n\n@keyframes ball-scale {\n  0% {\n    -webkit-transform: scale(0);\n            transform: scale(0); }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0; } }\n\n.ball-scale > div {\n  background-color: #fff;\n  width: 15px;\n  height: 15px;\n  border-radius: 100%;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block;\n  height: 60px;\n  width: 60px;\n  -webkit-animation: ball-scale 1s 0s ease-in-out infinite;\n          animation: ball-scale 1s 0s ease-in-out infinite; }\n\n@keyframes ball-scale {\n  0% {\n    -webkit-transform: scale(0);\n            transform: scale(0); }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0; } }\n\n.ball-scale > div {\n  background-color: #fff;\n  width: 15px;\n  height: 15px;\n  border-radius: 100%;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block;\n  height: 60px;\n  width: 60px;\n  -webkit-animation: ball-scale 1s 0s ease-in-out infinite;\n          animation: ball-scale 1s 0s ease-in-out infinite; }\n\n.ball-scale-random {\n  width: 37px;\n  height: 40px; }\n  .ball-scale-random > div {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    display: inline-block;\n    height: 30px;\n    width: 30px;\n    -webkit-animation: ball-scale 1s 0s ease-in-out infinite;\n            animation: ball-scale 1s 0s ease-in-out infinite; }\n    .ball-scale-random > div:nth-child(1) {\n      margin-left: -7px;\n      -webkit-animation: ball-scale 1s 0.2s ease-in-out infinite;\n              animation: ball-scale 1s 0.2s ease-in-out infinite; }\n    .ball-scale-random > div:nth-child(3) {\n      margin-left: -2px;\n      margin-top: 9px;\n      -webkit-animation: ball-scale 1s 0.5s ease-in-out infinite;\n              animation: ball-scale 1s 0.5s ease-in-out infinite; }\n\n@-webkit-keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  50% {\n    -webkit-transform: rotate(180deg);\n            transform: rotate(180deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n@keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  50% {\n    -webkit-transform: rotate(180deg);\n            transform: rotate(180deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n.ball-rotate {\n  position: relative; }\n  .ball-rotate > div {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: relative; }\n    .ball-rotate > div:first-child {\n      -webkit-animation: rotate 1s 0s cubic-bezier(0.7, -0.13, 0.22, 0.86) infinite;\n              animation: rotate 1s 0s cubic-bezier(0.7, -0.13, 0.22, 0.86) infinite; }\n    .ball-rotate > div:before, .ball-rotate > div:after {\n      background-color: #fff;\n      width: 15px;\n      height: 15px;\n      border-radius: 100%;\n      margin: 2px;\n      content: \"\";\n      position: absolute;\n      opacity: 0.8; }\n    .ball-rotate > div:before {\n      top: 0px;\n      left: -28px; }\n    .ball-rotate > div:after {\n      top: 0px;\n      left: 25px; }\n\n@keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0deg) scale(1);\n            transform: rotate(0deg) scale(1); }\n  50% {\n    -webkit-transform: rotate(180deg) scale(0.6);\n            transform: rotate(180deg) scale(0.6); }\n  100% {\n    -webkit-transform: rotate(360deg) scale(1);\n            transform: rotate(360deg) scale(1); } }\n\n.ball-clip-rotate > div {\n  background-color: #fff;\n  width: 15px;\n  height: 15px;\n  border-radius: 100%;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  border: 2px solid #fff;\n  border-bottom-color: transparent;\n  height: 25px;\n  width: 25px;\n  background: transparent !important;\n  display: inline-block;\n  -webkit-animation: rotate 0.75s 0s linear infinite;\n          animation: rotate 0.75s 0s linear infinite; }\n\n@keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0deg) scale(1);\n            transform: rotate(0deg) scale(1); }\n  50% {\n    -webkit-transform: rotate(180deg) scale(0.6);\n            transform: rotate(180deg) scale(0.6); }\n  100% {\n    -webkit-transform: rotate(360deg) scale(1);\n            transform: rotate(360deg) scale(1); } }\n\n@keyframes scale {\n  30% {\n    -webkit-transform: scale(0.3);\n            transform: scale(0.3); }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n.ball-clip-rotate-pulse {\n  position: relative;\n  -webkit-transform: translateY(-15px);\n      -ms-transform: translateY(-15px);\n          transform: translateY(-15px); }\n  .ball-clip-rotate-pulse > div {\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    top: 0px;\n    left: 0px;\n    border-radius: 100%; }\n    .ball-clip-rotate-pulse > div:first-child {\n      background: #fff;\n      height: 16px;\n      width: 16px;\n      top: 7px;\n      left: -7px;\n      -webkit-animation: scale 1s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;\n              animation: scale 1s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite; }\n    .ball-clip-rotate-pulse > div:last-child {\n      position: absolute;\n      border: 2px solid #fff;\n      width: 30px;\n      height: 30px;\n      left: -16px;\n      top: -2px;\n      background: transparent;\n      border: 2px solid;\n      border-color: #fff transparent #fff transparent;\n      -webkit-animation: rotate 1s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;\n              animation: rotate 1s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;\n      -webkit-animation-duration: 1s;\n              animation-duration: 1s; }\n\n@keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0deg) scale(1);\n            transform: rotate(0deg) scale(1); }\n  50% {\n    -webkit-transform: rotate(180deg) scale(0.6);\n            transform: rotate(180deg) scale(0.6); }\n  100% {\n    -webkit-transform: rotate(360deg) scale(1);\n            transform: rotate(360deg) scale(1); } }\n\n.ball-clip-rotate-multiple {\n  position: relative; }\n  .ball-clip-rotate-multiple > div {\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    left: -20px;\n    top: -20px;\n    border: 2px solid #fff;\n    border-bottom-color: transparent;\n    border-top-color: transparent;\n    border-radius: 100%;\n    height: 35px;\n    width: 35px;\n    -webkit-animation: rotate 1s 0s ease-in-out infinite;\n            animation: rotate 1s 0s ease-in-out infinite; }\n    .ball-clip-rotate-multiple > div:last-child {\n      display: inline-block;\n      top: -10px;\n      left: -10px;\n      width: 15px;\n      height: 15px;\n      -webkit-animation-duration: 0.5s;\n              animation-duration: 0.5s;\n      border-color: #fff transparent #fff transparent;\n      -webkit-animation-direction: reverse;\n              animation-direction: reverse; }\n\n@-webkit-keyframes ball-scale-ripple {\n  0% {\n    -webkit-transform: scale(0.1);\n            transform: scale(0.1);\n    opacity: 1; }\n  70% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0.7; }\n  100% {\n    opacity: 0.0; } }\n\n@keyframes ball-scale-ripple {\n  0% {\n    -webkit-transform: scale(0.1);\n            transform: scale(0.1);\n    opacity: 1; }\n  70% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0.7; }\n  100% {\n    opacity: 0.0; } }\n\n.ball-scale-ripple > div {\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  height: 50px;\n  width: 50px;\n  border-radius: 100%;\n  border: 2px solid #fff;\n  -webkit-animation: ball-scale-ripple 1s 0s infinite cubic-bezier(0.21, 0.53, 0.56, 0.8);\n          animation: ball-scale-ripple 1s 0s infinite cubic-bezier(0.21, 0.53, 0.56, 0.8); }\n\n@-webkit-keyframes ball-scale-ripple-multiple {\n  0% {\n    -webkit-transform: scale(0.1);\n            transform: scale(0.1);\n    opacity: 1; }\n  70% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0.7; }\n  100% {\n    opacity: 0.0; } }\n\n@keyframes ball-scale-ripple-multiple {\n  0% {\n    -webkit-transform: scale(0.1);\n            transform: scale(0.1);\n    opacity: 1; }\n  70% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0.7; }\n  100% {\n    opacity: 0.0; } }\n\n.ball-scale-ripple-multiple {\n  position: relative;\n  -webkit-transform: translateY(-25px);\n      -ms-transform: translateY(-25px);\n          transform: translateY(-25px); }\n  .ball-scale-ripple-multiple > div:nth-child(0) {\n    -webkit-animation-delay: -0.8s;\n            animation-delay: -0.8s; }\n  .ball-scale-ripple-multiple > div:nth-child(1) {\n    -webkit-animation-delay: -0.6s;\n            animation-delay: -0.6s; }\n  .ball-scale-ripple-multiple > div:nth-child(2) {\n    -webkit-animation-delay: -0.4s;\n            animation-delay: -0.4s; }\n  .ball-scale-ripple-multiple > div:nth-child(3) {\n    -webkit-animation-delay: -0.2s;\n            animation-delay: -0.2s; }\n  .ball-scale-ripple-multiple > div {\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    top: -2px;\n    left: -26px;\n    width: 50px;\n    height: 50px;\n    border-radius: 100%;\n    border: 2px solid #fff;\n    -webkit-animation: ball-scale-ripple-multiple 1.25s 0s infinite cubic-bezier(0.21, 0.53, 0.56, 0.8);\n            animation: ball-scale-ripple-multiple 1.25s 0s infinite cubic-bezier(0.21, 0.53, 0.56, 0.8); }\n\n@-webkit-keyframes ball-beat {\n  50% {\n    opacity: 0.2;\n    -webkit-transform: scale(0.75);\n            transform: scale(0.75); }\n  100% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n@keyframes ball-beat {\n  50% {\n    opacity: 0.2;\n    -webkit-transform: scale(0.75);\n            transform: scale(0.75); }\n  100% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n.ball-beat > div {\n  background-color: #fff;\n  width: 15px;\n  height: 15px;\n  border-radius: 100%;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block;\n  -webkit-animation: ball-beat 0.7s 0s infinite linear;\n          animation: ball-beat 0.7s 0s infinite linear; }\n  .ball-beat > div:nth-child(2n-1) {\n    -webkit-animation-delay: -0.35s !important;\n            animation-delay: -0.35s !important; }\n\n@-webkit-keyframes ball-scale-multiple {\n  0% {\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    opacity: 0; }\n  5% {\n    opacity: 1; }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0; } }\n\n@keyframes ball-scale-multiple {\n  0% {\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    opacity: 0; }\n  5% {\n    opacity: 1; }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0; } }\n\n.ball-scale-multiple {\n  position: relative;\n  -webkit-transform: translateY(-30px);\n      -ms-transform: translateY(-30px);\n          transform: translateY(-30px); }\n  .ball-scale-multiple > div:nth-child(2) {\n    -webkit-animation-delay: -0.4s;\n            animation-delay: -0.4s; }\n  .ball-scale-multiple > div:nth-child(3) {\n    -webkit-animation-delay: -0.2s;\n            animation-delay: -0.2s; }\n  .ball-scale-multiple > div {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    left: -30px;\n    top: 0px;\n    opacity: 0;\n    margin: 0;\n    width: 60px;\n    height: 60px;\n    -webkit-animation: ball-scale-multiple 1s 0s linear infinite;\n            animation: ball-scale-multiple 1s 0s linear infinite; }\n\n@-webkit-keyframes ball-triangle-path-1 {\n  33% {\n    -webkit-transform: translate(25px, -50px);\n            transform: translate(25px, -50px); }\n  66% {\n    -webkit-transform: translate(50px, 0px);\n            transform: translate(50px, 0px); }\n  100% {\n    -webkit-transform: translate(0px, 0px);\n            transform: translate(0px, 0px); } }\n\n@keyframes ball-triangle-path-1 {\n  33% {\n    -webkit-transform: translate(25px, -50px);\n            transform: translate(25px, -50px); }\n  66% {\n    -webkit-transform: translate(50px, 0px);\n            transform: translate(50px, 0px); }\n  100% {\n    -webkit-transform: translate(0px, 0px);\n            transform: translate(0px, 0px); } }\n\n@-webkit-keyframes ball-triangle-path-2 {\n  33% {\n    -webkit-transform: translate(25px, 50px);\n            transform: translate(25px, 50px); }\n  66% {\n    -webkit-transform: translate(-25px, 50px);\n            transform: translate(-25px, 50px); }\n  100% {\n    -webkit-transform: translate(0px, 0px);\n            transform: translate(0px, 0px); } }\n\n@keyframes ball-triangle-path-2 {\n  33% {\n    -webkit-transform: translate(25px, 50px);\n            transform: translate(25px, 50px); }\n  66% {\n    -webkit-transform: translate(-25px, 50px);\n            transform: translate(-25px, 50px); }\n  100% {\n    -webkit-transform: translate(0px, 0px);\n            transform: translate(0px, 0px); } }\n\n@-webkit-keyframes ball-triangle-path-3 {\n  33% {\n    -webkit-transform: translate(-50px, 0px);\n            transform: translate(-50px, 0px); }\n  66% {\n    -webkit-transform: translate(-25px, -50px);\n            transform: translate(-25px, -50px); }\n  100% {\n    -webkit-transform: translate(0px, 0px);\n            transform: translate(0px, 0px); } }\n\n@keyframes ball-triangle-path-3 {\n  33% {\n    -webkit-transform: translate(-50px, 0px);\n            transform: translate(-50px, 0px); }\n  66% {\n    -webkit-transform: translate(-25px, -50px);\n            transform: translate(-25px, -50px); }\n  100% {\n    -webkit-transform: translate(0px, 0px);\n            transform: translate(0px, 0px); } }\n\n.ball-triangle-path {\n  position: relative;\n  -webkit-transform: translate(-29.994px, -37.50938px);\n      -ms-transform: translate(-29.994px, -37.50938px);\n          transform: translate(-29.994px, -37.50938px); }\n  .ball-triangle-path > div:nth-child(1) {\n    -webkit-animation-name: ball-triangle-path-1;\n            animation-name: ball-triangle-path-1;\n    -webkit-animation-delay: 0;\n            animation-delay: 0;\n    -webkit-animation-duration: 2s;\n            animation-duration: 2s;\n    -webkit-animation-timing-function: ease-in-out;\n            animation-timing-function: ease-in-out;\n    -webkit-animation-iteration-count: infinite;\n            animation-iteration-count: infinite; }\n  .ball-triangle-path > div:nth-child(2) {\n    -webkit-animation-name: ball-triangle-path-2;\n            animation-name: ball-triangle-path-2;\n    -webkit-animation-delay: 0;\n            animation-delay: 0;\n    -webkit-animation-duration: 2s;\n            animation-duration: 2s;\n    -webkit-animation-timing-function: ease-in-out;\n            animation-timing-function: ease-in-out;\n    -webkit-animation-iteration-count: infinite;\n            animation-iteration-count: infinite; }\n  .ball-triangle-path > div:nth-child(3) {\n    -webkit-animation-name: ball-triangle-path-3;\n            animation-name: ball-triangle-path-3;\n    -webkit-animation-delay: 0;\n            animation-delay: 0;\n    -webkit-animation-duration: 2s;\n            animation-duration: 2s;\n    -webkit-animation-timing-function: ease-in-out;\n            animation-timing-function: ease-in-out;\n    -webkit-animation-iteration-count: infinite;\n            animation-iteration-count: infinite; }\n  .ball-triangle-path > div {\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    width: 10px;\n    height: 10px;\n    border-radius: 100%;\n    border: 1px solid #fff; }\n    .ball-triangle-path > div:nth-of-type(1) {\n      top: 50px; }\n    .ball-triangle-path > div:nth-of-type(2) {\n      left: 25px; }\n    .ball-triangle-path > div:nth-of-type(3) {\n      top: 50px;\n      left: 50px; }\n\n@-webkit-keyframes ball-pulse-rise-even {\n  0% {\n    -webkit-transform: scale(1.1);\n            transform: scale(1.1); }\n  25% {\n    -webkit-transform: translateY(-30px);\n            transform: translateY(-30px); }\n  50% {\n    -webkit-transform: scale(0.4);\n            transform: scale(0.4); }\n  75% {\n    -webkit-transform: translateY(30px);\n            transform: translateY(30px); }\n  100% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0);\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n@keyframes ball-pulse-rise-even {\n  0% {\n    -webkit-transform: scale(1.1);\n            transform: scale(1.1); }\n  25% {\n    -webkit-transform: translateY(-30px);\n            transform: translateY(-30px); }\n  50% {\n    -webkit-transform: scale(0.4);\n            transform: scale(0.4); }\n  75% {\n    -webkit-transform: translateY(30px);\n            transform: translateY(30px); }\n  100% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0);\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n@-webkit-keyframes ball-pulse-rise-odd {\n  0% {\n    -webkit-transform: scale(0.4);\n            transform: scale(0.4); }\n  25% {\n    -webkit-transform: translateY(30px);\n            transform: translateY(30px); }\n  50% {\n    -webkit-transform: scale(1.1);\n            transform: scale(1.1); }\n  75% {\n    -webkit-transform: translateY(-30px);\n            transform: translateY(-30px); }\n  100% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0);\n    -webkit-transform: scale(0.75);\n            transform: scale(0.75); } }\n\n@keyframes ball-pulse-rise-odd {\n  0% {\n    -webkit-transform: scale(0.4);\n            transform: scale(0.4); }\n  25% {\n    -webkit-transform: translateY(30px);\n            transform: translateY(30px); }\n  50% {\n    -webkit-transform: scale(1.1);\n            transform: scale(1.1); }\n  75% {\n    -webkit-transform: translateY(-30px);\n            transform: translateY(-30px); }\n  100% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0);\n    -webkit-transform: scale(0.75);\n            transform: scale(0.75); } }\n\n.ball-pulse-rise > div {\n  background-color: #fff;\n  width: 15px;\n  height: 15px;\n  border-radius: 100%;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block;\n  -webkit-animation-duration: 1s;\n          animation-duration: 1s;\n  -webkit-animation-timing-function: cubic-bezier(0.15, 0.46, 0.9, 0.6);\n          animation-timing-function: cubic-bezier(0.15, 0.46, 0.9, 0.6);\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n  -webkit-animation-delay: 0;\n          animation-delay: 0; }\n  .ball-pulse-rise > div:nth-child(2n) {\n    -webkit-animation-name: ball-pulse-rise-even;\n            animation-name: ball-pulse-rise-even; }\n  .ball-pulse-rise > div:nth-child(2n-1) {\n    -webkit-animation-name: ball-pulse-rise-odd;\n            animation-name: ball-pulse-rise-odd; }\n\n@-webkit-keyframes ball-grid-beat {\n  50% {\n    opacity: 0.7; }\n  100% {\n    opacity: 1; } }\n\n@keyframes ball-grid-beat {\n  50% {\n    opacity: 0.7; }\n  100% {\n    opacity: 1; } }\n\n.ball-grid-beat {\n  width: 57px; }\n  .ball-grid-beat > div:nth-child(1) {\n    -webkit-animation-delay: 0.44s;\n            animation-delay: 0.44s;\n    -webkit-animation-duration: 1.27s;\n            animation-duration: 1.27s; }\n  .ball-grid-beat > div:nth-child(2) {\n    -webkit-animation-delay: 0.2s;\n            animation-delay: 0.2s;\n    -webkit-animation-duration: 1.52s;\n            animation-duration: 1.52s; }\n  .ball-grid-beat > div:nth-child(3) {\n    -webkit-animation-delay: 0.14s;\n            animation-delay: 0.14s;\n    -webkit-animation-duration: 0.61s;\n            animation-duration: 0.61s; }\n  .ball-grid-beat > div:nth-child(4) {\n    -webkit-animation-delay: 0.15s;\n            animation-delay: 0.15s;\n    -webkit-animation-duration: 0.82s;\n            animation-duration: 0.82s; }\n  .ball-grid-beat > div:nth-child(5) {\n    -webkit-animation-delay: -0.01s;\n            animation-delay: -0.01s;\n    -webkit-animation-duration: 1.24s;\n            animation-duration: 1.24s; }\n  .ball-grid-beat > div:nth-child(6) {\n    -webkit-animation-delay: -0.07s;\n            animation-delay: -0.07s;\n    -webkit-animation-duration: 1.35s;\n            animation-duration: 1.35s; }\n  .ball-grid-beat > div:nth-child(7) {\n    -webkit-animation-delay: 0.29s;\n            animation-delay: 0.29s;\n    -webkit-animation-duration: 1.44s;\n            animation-duration: 1.44s; }\n  .ball-grid-beat > div:nth-child(8) {\n    -webkit-animation-delay: 0.63s;\n            animation-delay: 0.63s;\n    -webkit-animation-duration: 1.19s;\n            animation-duration: 1.19s; }\n  .ball-grid-beat > div:nth-child(9) {\n    -webkit-animation-delay: -0.18s;\n            animation-delay: -0.18s;\n    -webkit-animation-duration: 1.48s;\n            animation-duration: 1.48s; }\n  .ball-grid-beat > div {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    display: inline-block;\n    float: left;\n    -webkit-animation-name: ball-grid-beat;\n            animation-name: ball-grid-beat;\n    -webkit-animation-iteration-count: infinite;\n            animation-iteration-count: infinite;\n    -webkit-animation-delay: 0;\n            animation-delay: 0; }\n\n@-webkit-keyframes ball-grid-pulse {\n  0% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  50% {\n    -webkit-transform: scale(0.5);\n            transform: scale(0.5);\n    opacity: 0.7; }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 1; } }\n\n@keyframes ball-grid-pulse {\n  0% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  50% {\n    -webkit-transform: scale(0.5);\n            transform: scale(0.5);\n    opacity: 0.7; }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 1; } }\n\n.ball-grid-pulse {\n  width: 57px; }\n  .ball-grid-pulse > div:nth-child(1) {\n    -webkit-animation-delay: 0.58s;\n            animation-delay: 0.58s;\n    -webkit-animation-duration: 0.9s;\n            animation-duration: 0.9s; }\n  .ball-grid-pulse > div:nth-child(2) {\n    -webkit-animation-delay: 0.01s;\n            animation-delay: 0.01s;\n    -webkit-animation-duration: 0.94s;\n            animation-duration: 0.94s; }\n  .ball-grid-pulse > div:nth-child(3) {\n    -webkit-animation-delay: 0.25s;\n            animation-delay: 0.25s;\n    -webkit-animation-duration: 1.43s;\n            animation-duration: 1.43s; }\n  .ball-grid-pulse > div:nth-child(4) {\n    -webkit-animation-delay: -0.03s;\n            animation-delay: -0.03s;\n    -webkit-animation-duration: 0.74s;\n            animation-duration: 0.74s; }\n  .ball-grid-pulse > div:nth-child(5) {\n    -webkit-animation-delay: 0.21s;\n            animation-delay: 0.21s;\n    -webkit-animation-duration: 0.68s;\n            animation-duration: 0.68s; }\n  .ball-grid-pulse > div:nth-child(6) {\n    -webkit-animation-delay: 0.25s;\n            animation-delay: 0.25s;\n    -webkit-animation-duration: 1.17s;\n            animation-duration: 1.17s; }\n  .ball-grid-pulse > div:nth-child(7) {\n    -webkit-animation-delay: 0.46s;\n            animation-delay: 0.46s;\n    -webkit-animation-duration: 1.41s;\n            animation-duration: 1.41s; }\n  .ball-grid-pulse > div:nth-child(8) {\n    -webkit-animation-delay: 0.02s;\n            animation-delay: 0.02s;\n    -webkit-animation-duration: 1.56s;\n            animation-duration: 1.56s; }\n  .ball-grid-pulse > div:nth-child(9) {\n    -webkit-animation-delay: 0.13s;\n            animation-delay: 0.13s;\n    -webkit-animation-duration: 0.78s;\n            animation-duration: 0.78s; }\n  .ball-grid-pulse > div {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    display: inline-block;\n    float: left;\n    -webkit-animation-name: ball-grid-pulse;\n            animation-name: ball-grid-pulse;\n    -webkit-animation-iteration-count: infinite;\n            animation-iteration-count: infinite;\n    -webkit-animation-delay: 0;\n            animation-delay: 0; }\n\n@-webkit-keyframes ball-spin-fade-loader {\n  50% {\n    opacity: 0.3;\n    -webkit-transform: scale(0.4);\n            transform: scale(0.4); }\n  100% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n@keyframes ball-spin-fade-loader {\n  50% {\n    opacity: 0.3;\n    -webkit-transform: scale(0.4);\n            transform: scale(0.4); }\n  100% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n.ball-spin-fade-loader {\n  position: relative;\n  top: -10px;\n  left: -10px; }\n  .ball-spin-fade-loader > div:nth-child(1) {\n    top: 25px;\n    left: 0;\n    -webkit-animation: ball-spin-fade-loader 1s -0.96s infinite linear;\n            animation: ball-spin-fade-loader 1s -0.96s infinite linear; }\n  .ball-spin-fade-loader > div:nth-child(2) {\n    top: 17.04545px;\n    left: 17.04545px;\n    -webkit-animation: ball-spin-fade-loader 1s -0.84s infinite linear;\n            animation: ball-spin-fade-loader 1s -0.84s infinite linear; }\n  .ball-spin-fade-loader > div:nth-child(3) {\n    top: 0;\n    left: 25px;\n    -webkit-animation: ball-spin-fade-loader 1s -0.72s infinite linear;\n            animation: ball-spin-fade-loader 1s -0.72s infinite linear; }\n  .ball-spin-fade-loader > div:nth-child(4) {\n    top: -17.04545px;\n    left: 17.04545px;\n    -webkit-animation: ball-spin-fade-loader 1s -0.6s infinite linear;\n            animation: ball-spin-fade-loader 1s -0.6s infinite linear; }\n  .ball-spin-fade-loader > div:nth-child(5) {\n    top: -25px;\n    left: 0;\n    -webkit-animation: ball-spin-fade-loader 1s -0.48s infinite linear;\n            animation: ball-spin-fade-loader 1s -0.48s infinite linear; }\n  .ball-spin-fade-loader > div:nth-child(6) {\n    top: -17.04545px;\n    left: -17.04545px;\n    -webkit-animation: ball-spin-fade-loader 1s -0.36s infinite linear;\n            animation: ball-spin-fade-loader 1s -0.36s infinite linear; }\n  .ball-spin-fade-loader > div:nth-child(7) {\n    top: 0;\n    left: -25px;\n    -webkit-animation: ball-spin-fade-loader 1s -0.24s infinite linear;\n            animation: ball-spin-fade-loader 1s -0.24s infinite linear; }\n  .ball-spin-fade-loader > div:nth-child(8) {\n    top: 17.04545px;\n    left: -17.04545px;\n    -webkit-animation: ball-spin-fade-loader 1s -0.12s infinite linear;\n            animation: ball-spin-fade-loader 1s -0.12s infinite linear; }\n  .ball-spin-fade-loader > div {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute; }\n\n@-webkit-keyframes ball-spin-loader {\n  75% {\n    opacity: 0.2; }\n  100% {\n    opacity: 1; } }\n\n@keyframes ball-spin-loader {\n  75% {\n    opacity: 0.2; }\n  100% {\n    opacity: 1; } }\n\n.ball-spin-loader {\n  position: relative; }\n  .ball-spin-loader > span:nth-child(1) {\n    top: 45px;\n    left: 0;\n    -webkit-animation: ball-spin-loader 2s 0.9s infinite linear;\n            animation: ball-spin-loader 2s 0.9s infinite linear; }\n  .ball-spin-loader > span:nth-child(2) {\n    top: 30.68182px;\n    left: 30.68182px;\n    -webkit-animation: ball-spin-loader 2s 1.8s infinite linear;\n            animation: ball-spin-loader 2s 1.8s infinite linear; }\n  .ball-spin-loader > span:nth-child(3) {\n    top: 0;\n    left: 45px;\n    -webkit-animation: ball-spin-loader 2s 2.7s infinite linear;\n            animation: ball-spin-loader 2s 2.7s infinite linear; }\n  .ball-spin-loader > span:nth-child(4) {\n    top: -30.68182px;\n    left: 30.68182px;\n    -webkit-animation: ball-spin-loader 2s 3.6s infinite linear;\n            animation: ball-spin-loader 2s 3.6s infinite linear; }\n  .ball-spin-loader > span:nth-child(5) {\n    top: -45px;\n    left: 0;\n    -webkit-animation: ball-spin-loader 2s 4.5s infinite linear;\n            animation: ball-spin-loader 2s 4.5s infinite linear; }\n  .ball-spin-loader > span:nth-child(6) {\n    top: -30.68182px;\n    left: -30.68182px;\n    -webkit-animation: ball-spin-loader 2s 5.4s infinite linear;\n            animation: ball-spin-loader 2s 5.4s infinite linear; }\n  .ball-spin-loader > span:nth-child(7) {\n    top: 0;\n    left: -45px;\n    -webkit-animation: ball-spin-loader 2s 6.3s infinite linear;\n            animation: ball-spin-loader 2s 6.3s infinite linear; }\n  .ball-spin-loader > span:nth-child(8) {\n    top: 30.68182px;\n    left: -30.68182px;\n    -webkit-animation: ball-spin-loader 2s 7.2s infinite linear;\n            animation: ball-spin-loader 2s 7.2s infinite linear; }\n  .ball-spin-loader > div {\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    background: green; }\n\n@-webkit-keyframes ball-zig {\n  33% {\n    -webkit-transform: translate(-15px, -30px);\n            transform: translate(-15px, -30px); }\n  66% {\n    -webkit-transform: translate(15px, -30px);\n            transform: translate(15px, -30px); }\n  100% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); } }\n\n@keyframes ball-zig {\n  33% {\n    -webkit-transform: translate(-15px, -30px);\n            transform: translate(-15px, -30px); }\n  66% {\n    -webkit-transform: translate(15px, -30px);\n            transform: translate(15px, -30px); }\n  100% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); } }\n\n@-webkit-keyframes ball-zag {\n  33% {\n    -webkit-transform: translate(15px, 30px);\n            transform: translate(15px, 30px); }\n  66% {\n    -webkit-transform: translate(-15px, 30px);\n            transform: translate(-15px, 30px); }\n  100% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); } }\n\n@keyframes ball-zag {\n  33% {\n    -webkit-transform: translate(15px, 30px);\n            transform: translate(15px, 30px); }\n  66% {\n    -webkit-transform: translate(-15px, 30px);\n            transform: translate(-15px, 30px); }\n  100% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); } }\n\n.ball-zig-zag {\n  position: relative;\n  -webkit-transform: translate(-15px, -15px);\n      -ms-transform: translate(-15px, -15px);\n          transform: translate(-15px, -15px); }\n  .ball-zig-zag > div {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    margin-left: 15px;\n    top: 4px;\n    left: -7px; }\n    .ball-zig-zag > div:first-child {\n      -webkit-animation: ball-zig 0.7s 0s infinite linear;\n              animation: ball-zig 0.7s 0s infinite linear; }\n    .ball-zig-zag > div:last-child {\n      -webkit-animation: ball-zag 0.7s 0s infinite linear;\n              animation: ball-zag 0.7s 0s infinite linear; }\n\n@-webkit-keyframes ball-zig-deflect {\n  17% {\n    -webkit-transform: translate(-15px, -30px);\n            transform: translate(-15px, -30px); }\n  34% {\n    -webkit-transform: translate(15px, -30px);\n            transform: translate(15px, -30px); }\n  50% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); }\n  67% {\n    -webkit-transform: translate(15px, -30px);\n            transform: translate(15px, -30px); }\n  84% {\n    -webkit-transform: translate(-15px, -30px);\n            transform: translate(-15px, -30px); }\n  100% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); } }\n\n@keyframes ball-zig-deflect {\n  17% {\n    -webkit-transform: translate(-15px, -30px);\n            transform: translate(-15px, -30px); }\n  34% {\n    -webkit-transform: translate(15px, -30px);\n            transform: translate(15px, -30px); }\n  50% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); }\n  67% {\n    -webkit-transform: translate(15px, -30px);\n            transform: translate(15px, -30px); }\n  84% {\n    -webkit-transform: translate(-15px, -30px);\n            transform: translate(-15px, -30px); }\n  100% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); } }\n\n@-webkit-keyframes ball-zag-deflect {\n  17% {\n    -webkit-transform: translate(15px, 30px);\n            transform: translate(15px, 30px); }\n  34% {\n    -webkit-transform: translate(-15px, 30px);\n            transform: translate(-15px, 30px); }\n  50% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); }\n  67% {\n    -webkit-transform: translate(-15px, 30px);\n            transform: translate(-15px, 30px); }\n  84% {\n    -webkit-transform: translate(15px, 30px);\n            transform: translate(15px, 30px); }\n  100% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); } }\n\n@keyframes ball-zag-deflect {\n  17% {\n    -webkit-transform: translate(15px, 30px);\n            transform: translate(15px, 30px); }\n  34% {\n    -webkit-transform: translate(-15px, 30px);\n            transform: translate(-15px, 30px); }\n  50% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); }\n  67% {\n    -webkit-transform: translate(-15px, 30px);\n            transform: translate(-15px, 30px); }\n  84% {\n    -webkit-transform: translate(15px, 30px);\n            transform: translate(15px, 30px); }\n  100% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); } }\n\n.ball-zig-zag-deflect {\n  position: relative;\n  -webkit-transform: translate(-15px, -15px);\n      -ms-transform: translate(-15px, -15px);\n          transform: translate(-15px, -15px); }\n  .ball-zig-zag-deflect > div {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    margin-left: 15px;\n    top: 4px;\n    left: -7px; }\n    .ball-zig-zag-deflect > div:first-child {\n      -webkit-animation: ball-zig-deflect 1.5s 0s infinite linear;\n              animation: ball-zig-deflect 1.5s 0s infinite linear; }\n    .ball-zig-zag-deflect > div:last-child {\n      -webkit-animation: ball-zag-deflect 1.5s 0s infinite linear;\n              animation: ball-zag-deflect 1.5s 0s infinite linear; }\n\n/**\n * Lines\n */\n@-webkit-keyframes line-scale {\n  0% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); }\n  50% {\n    -webkit-transform: scaley(0.4);\n            transform: scaley(0.4); }\n  100% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); } }\n@keyframes line-scale {\n  0% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); }\n  50% {\n    -webkit-transform: scaley(0.4);\n            transform: scaley(0.4); }\n  100% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); } }\n\n.line-scale > div:nth-child(1) {\n  -webkit-animation: line-scale 1s -0.4s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: line-scale 1s -0.4s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.line-scale > div:nth-child(2) {\n  -webkit-animation: line-scale 1s -0.3s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: line-scale 1s -0.3s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.line-scale > div:nth-child(3) {\n  -webkit-animation: line-scale 1s -0.2s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: line-scale 1s -0.2s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.line-scale > div:nth-child(4) {\n  -webkit-animation: line-scale 1s -0.1s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: line-scale 1s -0.1s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.line-scale > div:nth-child(5) {\n  -webkit-animation: line-scale 1s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: line-scale 1s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.line-scale > div {\n  background-color: #fff;\n  width: 4px;\n  height: 35px;\n  border-radius: 2px;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block; }\n\n@-webkit-keyframes line-scale-party {\n  0% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  50% {\n    -webkit-transform: scale(0.5);\n            transform: scale(0.5); }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n@keyframes line-scale-party {\n  0% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  50% {\n    -webkit-transform: scale(0.5);\n            transform: scale(0.5); }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n.line-scale-party > div:nth-child(1) {\n  -webkit-animation-delay: -0.09s;\n          animation-delay: -0.09s;\n  -webkit-animation-duration: 0.83s;\n          animation-duration: 0.83s; }\n\n.line-scale-party > div:nth-child(2) {\n  -webkit-animation-delay: 0.33s;\n          animation-delay: 0.33s;\n  -webkit-animation-duration: 0.64s;\n          animation-duration: 0.64s; }\n\n.line-scale-party > div:nth-child(3) {\n  -webkit-animation-delay: 0.32s;\n          animation-delay: 0.32s;\n  -webkit-animation-duration: 0.39s;\n          animation-duration: 0.39s; }\n\n.line-scale-party > div:nth-child(4) {\n  -webkit-animation-delay: 0.47s;\n          animation-delay: 0.47s;\n  -webkit-animation-duration: 0.52s;\n          animation-duration: 0.52s; }\n\n.line-scale-party > div {\n  background-color: #fff;\n  width: 4px;\n  height: 35px;\n  border-radius: 2px;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block;\n  -webkit-animation-name: line-scale-party;\n          animation-name: line-scale-party;\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n  -webkit-animation-delay: 0;\n          animation-delay: 0; }\n\n@-webkit-keyframes line-scale-pulse-out {\n  0% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); }\n  50% {\n    -webkit-transform: scaley(0.4);\n            transform: scaley(0.4); }\n  100% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); } }\n\n@keyframes line-scale-pulse-out {\n  0% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); }\n  50% {\n    -webkit-transform: scaley(0.4);\n            transform: scaley(0.4); }\n  100% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); } }\n\n.line-scale-pulse-out > div {\n  background-color: #fff;\n  width: 4px;\n  height: 35px;\n  border-radius: 2px;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block;\n  -webkit-animation: line-scale-pulse-out 0.9s -0.6s infinite cubic-bezier(0.85, 0.25, 0.37, 0.85);\n          animation: line-scale-pulse-out 0.9s -0.6s infinite cubic-bezier(0.85, 0.25, 0.37, 0.85); }\n  .line-scale-pulse-out > div:nth-child(2), .line-scale-pulse-out > div:nth-child(4) {\n    -webkit-animation-delay: -0.4s !important;\n            animation-delay: -0.4s !important; }\n  .line-scale-pulse-out > div:nth-child(1), .line-scale-pulse-out > div:nth-child(5) {\n    -webkit-animation-delay: -0.2s !important;\n            animation-delay: -0.2s !important; }\n\n@-webkit-keyframes line-scale-pulse-out-rapid {\n  0% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); }\n  80% {\n    -webkit-transform: scaley(0.3);\n            transform: scaley(0.3); }\n  90% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); } }\n\n@keyframes line-scale-pulse-out-rapid {\n  0% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); }\n  80% {\n    -webkit-transform: scaley(0.3);\n            transform: scaley(0.3); }\n  90% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); } }\n\n.line-scale-pulse-out-rapid > div {\n  background-color: #fff;\n  width: 4px;\n  height: 35px;\n  border-radius: 2px;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block;\n  -webkit-animation: line-scale-pulse-out-rapid 0.9s -0.5s infinite cubic-bezier(0.11, 0.49, 0.38, 0.78);\n          animation: line-scale-pulse-out-rapid 0.9s -0.5s infinite cubic-bezier(0.11, 0.49, 0.38, 0.78); }\n  .line-scale-pulse-out-rapid > div:nth-child(2), .line-scale-pulse-out-rapid > div:nth-child(4) {\n    -webkit-animation-delay: -0.25s !important;\n            animation-delay: -0.25s !important; }\n  .line-scale-pulse-out-rapid > div:nth-child(1), .line-scale-pulse-out-rapid > div:nth-child(5) {\n    -webkit-animation-delay: 0s !important;\n            animation-delay: 0s !important; }\n\n@-webkit-keyframes line-spin-fade-loader {\n  50% {\n    opacity: 0.3; }\n  100% {\n    opacity: 1; } }\n\n@keyframes line-spin-fade-loader {\n  50% {\n    opacity: 0.3; }\n  100% {\n    opacity: 1; } }\n\n.line-spin-fade-loader {\n  position: relative;\n  top: -10px;\n  left: -4px; }\n  .line-spin-fade-loader > div:nth-child(1) {\n    top: 20px;\n    left: 0;\n    -webkit-animation: line-spin-fade-loader 1.2s -0.84s infinite ease-in-out;\n            animation: line-spin-fade-loader 1.2s -0.84s infinite ease-in-out; }\n  .line-spin-fade-loader > div:nth-child(2) {\n    top: 13.63636px;\n    left: 13.63636px;\n    -webkit-transform: rotate(-45deg);\n        -ms-transform: rotate(-45deg);\n            transform: rotate(-45deg);\n    -webkit-animation: line-spin-fade-loader 1.2s -0.72s infinite ease-in-out;\n            animation: line-spin-fade-loader 1.2s -0.72s infinite ease-in-out; }\n  .line-spin-fade-loader > div:nth-child(3) {\n    top: 0;\n    left: 20px;\n    -webkit-transform: rotate(90deg);\n        -ms-transform: rotate(90deg);\n            transform: rotate(90deg);\n    -webkit-animation: line-spin-fade-loader 1.2s -0.6s infinite ease-in-out;\n            animation: line-spin-fade-loader 1.2s -0.6s infinite ease-in-out; }\n  .line-spin-fade-loader > div:nth-child(4) {\n    top: -13.63636px;\n    left: 13.63636px;\n    -webkit-transform: rotate(45deg);\n        -ms-transform: rotate(45deg);\n            transform: rotate(45deg);\n    -webkit-animation: line-spin-fade-loader 1.2s -0.48s infinite ease-in-out;\n            animation: line-spin-fade-loader 1.2s -0.48s infinite ease-in-out; }\n  .line-spin-fade-loader > div:nth-child(5) {\n    top: -20px;\n    left: 0;\n    -webkit-animation: line-spin-fade-loader 1.2s -0.36s infinite ease-in-out;\n            animation: line-spin-fade-loader 1.2s -0.36s infinite ease-in-out; }\n  .line-spin-fade-loader > div:nth-child(6) {\n    top: -13.63636px;\n    left: -13.63636px;\n    -webkit-transform: rotate(-45deg);\n        -ms-transform: rotate(-45deg);\n            transform: rotate(-45deg);\n    -webkit-animation: line-spin-fade-loader 1.2s -0.24s infinite ease-in-out;\n            animation: line-spin-fade-loader 1.2s -0.24s infinite ease-in-out; }\n  .line-spin-fade-loader > div:nth-child(7) {\n    top: 0;\n    left: -20px;\n    -webkit-transform: rotate(90deg);\n        -ms-transform: rotate(90deg);\n            transform: rotate(90deg);\n    -webkit-animation: line-spin-fade-loader 1.2s -0.12s infinite ease-in-out;\n            animation: line-spin-fade-loader 1.2s -0.12s infinite ease-in-out; }\n  .line-spin-fade-loader > div:nth-child(8) {\n    top: 13.63636px;\n    left: -13.63636px;\n    -webkit-transform: rotate(45deg);\n        -ms-transform: rotate(45deg);\n            transform: rotate(45deg);\n    -webkit-animation: line-spin-fade-loader 1.2s 0s infinite ease-in-out;\n            animation: line-spin-fade-loader 1.2s 0s infinite ease-in-out; }\n  .line-spin-fade-loader > div {\n    background-color: #fff;\n    width: 4px;\n    height: 35px;\n    border-radius: 2px;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    width: 5px;\n    height: 15px; }\n\n/**\n * Misc\n */\n@-webkit-keyframes triangle-skew-spin {\n  25% {\n    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0);\n            transform: perspective(100px) rotateX(180deg) rotateY(0); }\n  50% {\n    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg);\n            transform: perspective(100px) rotateX(180deg) rotateY(180deg); }\n  75% {\n    -webkit-transform: perspective(100px) rotateX(0) rotateY(180deg);\n            transform: perspective(100px) rotateX(0) rotateY(180deg); }\n  100% {\n    -webkit-transform: perspective(100px) rotateX(0) rotateY(0);\n            transform: perspective(100px) rotateX(0) rotateY(0); } }\n@keyframes triangle-skew-spin {\n  25% {\n    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0);\n            transform: perspective(100px) rotateX(180deg) rotateY(0); }\n  50% {\n    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg);\n            transform: perspective(100px) rotateX(180deg) rotateY(180deg); }\n  75% {\n    -webkit-transform: perspective(100px) rotateX(0) rotateY(180deg);\n            transform: perspective(100px) rotateX(0) rotateY(180deg); }\n  100% {\n    -webkit-transform: perspective(100px) rotateX(0) rotateY(0);\n            transform: perspective(100px) rotateX(0) rotateY(0); } }\n\n.triangle-skew-spin > div {\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  width: 0;\n  height: 0;\n  border-left: 20px solid transparent;\n  border-right: 20px solid transparent;\n  border-bottom: 20px solid #fff;\n  -webkit-animation: triangle-skew-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;\n          animation: triangle-skew-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite; }\n\n@-webkit-keyframes square-spin {\n  25% {\n    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0);\n            transform: perspective(100px) rotateX(180deg) rotateY(0); }\n  50% {\n    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg);\n            transform: perspective(100px) rotateX(180deg) rotateY(180deg); }\n  75% {\n    -webkit-transform: perspective(100px) rotateX(0) rotateY(180deg);\n            transform: perspective(100px) rotateX(0) rotateY(180deg); }\n  100% {\n    -webkit-transform: perspective(100px) rotateX(0) rotateY(0);\n            transform: perspective(100px) rotateX(0) rotateY(0); } }\n\n@keyframes square-spin {\n  25% {\n    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0);\n            transform: perspective(100px) rotateX(180deg) rotateY(0); }\n  50% {\n    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg);\n            transform: perspective(100px) rotateX(180deg) rotateY(180deg); }\n  75% {\n    -webkit-transform: perspective(100px) rotateX(0) rotateY(180deg);\n            transform: perspective(100px) rotateX(0) rotateY(180deg); }\n  100% {\n    -webkit-transform: perspective(100px) rotateX(0) rotateY(0);\n            transform: perspective(100px) rotateX(0) rotateY(0); } }\n\n.square-spin > div {\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  width: 50px;\n  height: 50px;\n  background: #fff;\n  border: 1px solid red;\n  -webkit-animation: square-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;\n          animation: square-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite; }\n\n@-webkit-keyframes rotate_pacman_half_up {\n  0% {\n    -webkit-transform: rotate(270deg);\n            transform: rotate(270deg); }\n  50% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); }\n  100% {\n    -webkit-transform: rotate(270deg);\n            transform: rotate(270deg); } }\n\n@keyframes rotate_pacman_half_up {\n  0% {\n    -webkit-transform: rotate(270deg);\n            transform: rotate(270deg); }\n  50% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); }\n  100% {\n    -webkit-transform: rotate(270deg);\n            transform: rotate(270deg); } }\n\n@-webkit-keyframes rotate_pacman_half_down {\n  0% {\n    -webkit-transform: rotate(90deg);\n            transform: rotate(90deg); }\n  50% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(90deg);\n            transform: rotate(90deg); } }\n\n@keyframes rotate_pacman_half_down {\n  0% {\n    -webkit-transform: rotate(90deg);\n            transform: rotate(90deg); }\n  50% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(90deg);\n            transform: rotate(90deg); } }\n\n@-webkit-keyframes pacman-balls {\n  75% {\n    opacity: 0.7; }\n  100% {\n    -webkit-transform: translate(-100px, -6.25px);\n            transform: translate(-100px, -6.25px); } }\n\n@keyframes pacman-balls {\n  75% {\n    opacity: 0.7; }\n  100% {\n    -webkit-transform: translate(-100px, -6.25px);\n            transform: translate(-100px, -6.25px); } }\n\n.pacman {\n  position: relative; }\n  .pacman > div:nth-child(2) {\n    -webkit-animation: pacman-balls 1s -0.99s infinite linear;\n            animation: pacman-balls 1s -0.99s infinite linear; }\n  .pacman > div:nth-child(3) {\n    -webkit-animation: pacman-balls 1s -0.66s infinite linear;\n            animation: pacman-balls 1s -0.66s infinite linear; }\n  .pacman > div:nth-child(4) {\n    -webkit-animation: pacman-balls 1s -0.33s infinite linear;\n            animation: pacman-balls 1s -0.33s infinite linear; }\n  .pacman > div:nth-child(5) {\n    -webkit-animation: pacman-balls 1s 0s infinite linear;\n            animation: pacman-balls 1s 0s infinite linear; }\n  .pacman > div:first-of-type {\n    width: 0px;\n    height: 0px;\n    border-right: 25px solid transparent;\n    border-top: 25px solid #fff;\n    border-left: 25px solid #fff;\n    border-bottom: 25px solid #fff;\n    border-radius: 25px;\n    -webkit-animation: rotate_pacman_half_up 0.5s 0s infinite;\n            animation: rotate_pacman_half_up 0.5s 0s infinite;\n    position: relative;\n    left: -30px; }\n  .pacman > div:nth-child(2) {\n    width: 0px;\n    height: 0px;\n    border-right: 25px solid transparent;\n    border-top: 25px solid #fff;\n    border-left: 25px solid #fff;\n    border-bottom: 25px solid #fff;\n    border-radius: 25px;\n    -webkit-animation: rotate_pacman_half_down 0.5s 0s infinite;\n            animation: rotate_pacman_half_down 0.5s 0s infinite;\n    margin-top: -50px;\n    position: relative;\n    left: -30px; }\n  .pacman > div:nth-child(3),\n  .pacman > div:nth-child(4),\n  .pacman > div:nth-child(5),\n  .pacman > div:nth-child(6) {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    width: 10px;\n    height: 10px;\n    position: absolute;\n    -webkit-transform: translate(0, -6.25px);\n        -ms-transform: translate(0, -6.25px);\n            transform: translate(0, -6.25px);\n    top: 25px;\n    left: 70px; }\n\n@-webkit-keyframes cube-transition {\n  25% {\n    -webkit-transform: translateX(50px) scale(0.5) rotate(-90deg);\n            transform: translateX(50px) scale(0.5) rotate(-90deg); }\n  50% {\n    -webkit-transform: translate(50px, 50px) rotate(-180deg);\n            transform: translate(50px, 50px) rotate(-180deg); }\n  75% {\n    -webkit-transform: translateY(50px) scale(0.5) rotate(-270deg);\n            transform: translateY(50px) scale(0.5) rotate(-270deg); }\n  100% {\n    -webkit-transform: rotate(-360deg);\n            transform: rotate(-360deg); } }\n\n@keyframes cube-transition {\n  25% {\n    -webkit-transform: translateX(50px) scale(0.5) rotate(-90deg);\n            transform: translateX(50px) scale(0.5) rotate(-90deg); }\n  50% {\n    -webkit-transform: translate(50px, 50px) rotate(-180deg);\n            transform: translate(50px, 50px) rotate(-180deg); }\n  75% {\n    -webkit-transform: translateY(50px) scale(0.5) rotate(-270deg);\n            transform: translateY(50px) scale(0.5) rotate(-270deg); }\n  100% {\n    -webkit-transform: rotate(-360deg);\n            transform: rotate(-360deg); } }\n\n.cube-transition {\n  position: relative;\n  -webkit-transform: translate(-25px, -25px);\n      -ms-transform: translate(-25px, -25px);\n          transform: translate(-25px, -25px); }\n  .cube-transition > div {\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    width: 10px;\n    height: 10px;\n    position: absolute;\n    top: -5px;\n    left: -5px;\n    background-color: #fff;\n    -webkit-animation: cube-transition 1.6s 0s infinite ease-in-out;\n            animation: cube-transition 1.6s 0s infinite ease-in-out; }\n    .cube-transition > div:last-child {\n      -webkit-animation-delay: -0.8s;\n              animation-delay: -0.8s; }\n\n@-webkit-keyframes spin-rotate {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  50% {\n    -webkit-transform: rotate(180deg);\n            transform: rotate(180deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n@keyframes spin-rotate {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  50% {\n    -webkit-transform: rotate(180deg);\n            transform: rotate(180deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n.semi-circle-spin {\n  position: relative;\n  width: 35px;\n  height: 35px;\n  overflow: hidden; }\n  .semi-circle-spin > div {\n    position: absolute;\n    border-width: 0px;\n    border-radius: 100%;\n    -webkit-animation: spin-rotate 0.6s 0s infinite linear;\n            animation: spin-rotate 0.6s 0s infinite linear;\n    background-image: -webkit-linear-gradient(transparent 0%, transparent 70%, #fff 30%, #fff 100%);\n    background-image: linear-gradient(transparent 0%, transparent 70%, #fff 30%, #fff 100%);\n    width: 100%;\n    height: 100%; }\n\n@-webkit-keyframes bar-progress {\n  0% {\n    -webkit-transform: scaleY(20%);\n            transform: scaleY(20%);\n    opacity: 1; }\n  25% {\n    -webkit-transform: translateX(6%) scaleY(10%);\n            transform: translateX(6%) scaleY(10%);\n    opacity: 0.7; }\n  50% {\n    -webkit-transform: translateX(20%) scaleY(20%);\n            transform: translateX(20%) scaleY(20%);\n    opacity: 1; }\n  75% {\n    -webkit-transform: translateX(6%) scaleY(10%);\n            transform: translateX(6%) scaleY(10%);\n    opacity: 0.7; }\n  100% {\n    -webkit-transform: scaleY(20%);\n            transform: scaleY(20%);\n    opacity: 1; } }\n\n@keyframes bar-progress {\n  0% {\n    -webkit-transform: scaleY(20%);\n            transform: scaleY(20%);\n    opacity: 1; }\n  25% {\n    -webkit-transform: translateX(6%) scaleY(10%);\n            transform: translateX(6%) scaleY(10%);\n    opacity: 0.7; }\n  50% {\n    -webkit-transform: translateX(20%) scaleY(20%);\n            transform: translateX(20%) scaleY(20%);\n    opacity: 1; }\n  75% {\n    -webkit-transform: translateX(6%) scaleY(10%);\n            transform: translateX(6%) scaleY(10%);\n    opacity: 0.7; }\n  100% {\n    -webkit-transform: scaleY(20%);\n            transform: scaleY(20%);\n    opacity: 1; } }\n\n.bar-progress {\n  width: 30%;\n  height: 12px; }\n  .bar-progress > div {\n    position: relative;\n    width: 20%;\n    height: 12px;\n    border-radius: 10px;\n    background-color: #fff;\n    -webkit-animation: bar-progress 3s cubic-bezier(0.57, 0.1, 0.44, 0.93) infinite;\n            animation: bar-progress 3s cubic-bezier(0.57, 0.1, 0.44, 0.93) infinite;\n    opacity: 1; }\n\n@-webkit-keyframes bar-swing {\n  0% {\n    left: 0; }\n  50% {\n    left: 70%; }\n  100% {\n    left: 0; } }\n\n@keyframes bar-swing {\n  0% {\n    left: 0; }\n  50% {\n    left: 70%; }\n  100% {\n    left: 0; } }\n\n.bar-swing {\n  width: 30%;\n  height: 8px; }\n  .bar-swing > div {\n    position: relative;\n    width: 30%;\n    height: 8px;\n    border-radius: 10px;\n    background-color: #fff;\n    -webkit-animation: bar-swing 1.5s infinite;\n            animation: bar-swing 1.5s infinite; }\n\n@-webkit-keyframes bar-swing-container {\n  0% {\n    left: 0;\n    -webkit-transform: translateX(0);\n            transform: translateX(0); }\n  50% {\n    left: 70%;\n    -webkit-transform: translateX(-4px);\n            transform: translateX(-4px); }\n  100% {\n    left: 0;\n    -webkit-transform: translateX(0);\n            transform: translateX(0); } }\n\n@keyframes bar-swing-container {\n  0% {\n    left: 0;\n    -webkit-transform: translateX(0);\n            transform: translateX(0); }\n  50% {\n    left: 70%;\n    -webkit-transform: translateX(-4px);\n            transform: translateX(-4px); }\n  100% {\n    left: 0;\n    -webkit-transform: translateX(0);\n            transform: translateX(0); } }\n\n.bar-swing-container {\n  width: 20%;\n  height: 8px;\n  position: relative; }\n  .bar-swing-container div:nth-child(1) {\n    position: absolute;\n    width: 100%;\n    background-color: rgba(255, 255, 255, 0.2);\n    height: 12px;\n    border-radius: 10px; }\n  .bar-swing-container div:nth-child(2) {\n    position: absolute;\n    width: 30%;\n    height: 8px;\n    border-radius: 10px;\n    background-color: #fff;\n    -webkit-animation: bar-swing-container 2s cubic-bezier(0.91, 0.35, 0.12, 0.6) infinite;\n            animation: bar-swing-container 2s cubic-bezier(0.91, 0.35, 0.12, 0.6) infinite;\n    margin: 2px 2px 0; }\n", ""]);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
 
 /***/ }),
 /* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
+exports.push([module.i, "/**\n *\n * All animations must live in their own file\n * in the animations directory and be included\n * here.\n *\n */\n/**\n * Styles shared by multiple animations\n */\n/**\n * Dots\n */\n@-webkit-keyframes scale {\n  0% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 1; }\n  45% {\n    -webkit-transform: scale(0.1);\n            transform: scale(0.1);\n    opacity: 0.7; }\n  80% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 1; } }\n@keyframes scale {\n  0% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 1; }\n  45% {\n    -webkit-transform: scale(0.1);\n            transform: scale(0.1);\n    opacity: 0.7; }\n  80% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 1; } }\n\n.ball-pulse > div:nth-child(0) {\n  -webkit-animation: scale 0.75s -0.36s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: scale 0.75s -0.36s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.ball-pulse > div:nth-child(1) {\n  -webkit-animation: scale 0.75s -0.24s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: scale 0.75s -0.24s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.ball-pulse > div:nth-child(2) {\n  -webkit-animation: scale 0.75s -0.12s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: scale 0.75s -0.12s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.ball-pulse > div:nth-child(3) {\n  -webkit-animation: scale 0.75s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: scale 0.75s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.ball-pulse > div {\n  background-color: #fff;\n  width: 15px;\n  height: 15px;\n  border-radius: 100%;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block; }\n\n@-webkit-keyframes ball-pulse-sync {\n  33% {\n    -webkit-transform: translateY(10px);\n            transform: translateY(10px); }\n  66% {\n    -webkit-transform: translateY(-10px);\n            transform: translateY(-10px); }\n  100% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0); } }\n\n@keyframes ball-pulse-sync {\n  33% {\n    -webkit-transform: translateY(10px);\n            transform: translateY(10px); }\n  66% {\n    -webkit-transform: translateY(-10px);\n            transform: translateY(-10px); }\n  100% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0); } }\n\n.ball-pulse-sync > div:nth-child(0) {\n  -webkit-animation: ball-pulse-sync 0.6s -0.21s infinite ease-in-out;\n          animation: ball-pulse-sync 0.6s -0.21s infinite ease-in-out; }\n\n.ball-pulse-sync > div:nth-child(1) {\n  -webkit-animation: ball-pulse-sync 0.6s -0.14s infinite ease-in-out;\n          animation: ball-pulse-sync 0.6s -0.14s infinite ease-in-out; }\n\n.ball-pulse-sync > div:nth-child(2) {\n  -webkit-animation: ball-pulse-sync 0.6s -0.07s infinite ease-in-out;\n          animation: ball-pulse-sync 0.6s -0.07s infinite ease-in-out; }\n\n.ball-pulse-sync > div:nth-child(3) {\n  -webkit-animation: ball-pulse-sync 0.6s 0s infinite ease-in-out;\n          animation: ball-pulse-sync 0.6s 0s infinite ease-in-out; }\n\n.ball-pulse-sync > div {\n  background-color: #fff;\n  width: 15px;\n  height: 15px;\n  border-radius: 100%;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block; }\n\n@-webkit-keyframes ball-scale {\n  0% {\n    -webkit-transform: scale(0);\n            transform: scale(0); }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0; } }\n\n@keyframes ball-scale {\n  0% {\n    -webkit-transform: scale(0);\n            transform: scale(0); }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0; } }\n\n.ball-scale > div {\n  background-color: #fff;\n  width: 15px;\n  height: 15px;\n  border-radius: 100%;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block;\n  height: 60px;\n  width: 60px;\n  -webkit-animation: ball-scale 1s 0s ease-in-out infinite;\n          animation: ball-scale 1s 0s ease-in-out infinite; }\n\n@keyframes ball-scale {\n  0% {\n    -webkit-transform: scale(0);\n            transform: scale(0); }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0; } }\n\n.ball-scale > div {\n  background-color: #fff;\n  width: 15px;\n  height: 15px;\n  border-radius: 100%;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block;\n  height: 60px;\n  width: 60px;\n  -webkit-animation: ball-scale 1s 0s ease-in-out infinite;\n          animation: ball-scale 1s 0s ease-in-out infinite; }\n\n.ball-scale-random {\n  width: 37px;\n  height: 40px; }\n  .ball-scale-random > div {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    display: inline-block;\n    height: 30px;\n    width: 30px;\n    -webkit-animation: ball-scale 1s 0s ease-in-out infinite;\n            animation: ball-scale 1s 0s ease-in-out infinite; }\n    .ball-scale-random > div:nth-child(1) {\n      margin-left: -7px;\n      -webkit-animation: ball-scale 1s 0.2s ease-in-out infinite;\n              animation: ball-scale 1s 0.2s ease-in-out infinite; }\n    .ball-scale-random > div:nth-child(3) {\n      margin-left: -2px;\n      margin-top: 9px;\n      -webkit-animation: ball-scale 1s 0.5s ease-in-out infinite;\n              animation: ball-scale 1s 0.5s ease-in-out infinite; }\n\n@-webkit-keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  50% {\n    -webkit-transform: rotate(180deg);\n            transform: rotate(180deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n@keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  50% {\n    -webkit-transform: rotate(180deg);\n            transform: rotate(180deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n.ball-rotate {\n  position: relative; }\n  .ball-rotate > div {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: relative; }\n    .ball-rotate > div:first-child {\n      -webkit-animation: rotate 1s 0s cubic-bezier(0.7, -0.13, 0.22, 0.86) infinite;\n              animation: rotate 1s 0s cubic-bezier(0.7, -0.13, 0.22, 0.86) infinite; }\n    .ball-rotate > div:before, .ball-rotate > div:after {\n      background-color: #fff;\n      width: 15px;\n      height: 15px;\n      border-radius: 100%;\n      margin: 2px;\n      content: \"\";\n      position: absolute;\n      opacity: 0.8; }\n    .ball-rotate > div:before {\n      top: 0px;\n      left: -28px; }\n    .ball-rotate > div:after {\n      top: 0px;\n      left: 25px; }\n\n@keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0deg) scale(1);\n            transform: rotate(0deg) scale(1); }\n  50% {\n    -webkit-transform: rotate(180deg) scale(0.6);\n            transform: rotate(180deg) scale(0.6); }\n  100% {\n    -webkit-transform: rotate(360deg) scale(1);\n            transform: rotate(360deg) scale(1); } }\n\n.ball-clip-rotate > div {\n  background-color: #fff;\n  width: 15px;\n  height: 15px;\n  border-radius: 100%;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  border: 2px solid #fff;\n  border-bottom-color: transparent;\n  height: 25px;\n  width: 25px;\n  background: transparent !important;\n  display: inline-block;\n  -webkit-animation: rotate 0.75s 0s linear infinite;\n          animation: rotate 0.75s 0s linear infinite; }\n\n@keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0deg) scale(1);\n            transform: rotate(0deg) scale(1); }\n  50% {\n    -webkit-transform: rotate(180deg) scale(0.6);\n            transform: rotate(180deg) scale(0.6); }\n  100% {\n    -webkit-transform: rotate(360deg) scale(1);\n            transform: rotate(360deg) scale(1); } }\n\n@keyframes scale {\n  30% {\n    -webkit-transform: scale(0.3);\n            transform: scale(0.3); }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n.ball-clip-rotate-pulse {\n  position: relative;\n  -webkit-transform: translateY(-15px);\n      -ms-transform: translateY(-15px);\n          transform: translateY(-15px); }\n  .ball-clip-rotate-pulse > div {\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    top: 0px;\n    left: 0px;\n    border-radius: 100%; }\n    .ball-clip-rotate-pulse > div:first-child {\n      background: #fff;\n      height: 16px;\n      width: 16px;\n      top: 7px;\n      left: -7px;\n      -webkit-animation: scale 1s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;\n              animation: scale 1s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite; }\n    .ball-clip-rotate-pulse > div:last-child {\n      position: absolute;\n      border: 2px solid #fff;\n      width: 30px;\n      height: 30px;\n      left: -16px;\n      top: -2px;\n      background: transparent;\n      border: 2px solid;\n      border-color: #fff transparent #fff transparent;\n      -webkit-animation: rotate 1s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;\n              animation: rotate 1s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;\n      -webkit-animation-duration: 1s;\n              animation-duration: 1s; }\n\n@keyframes rotate {\n  0% {\n    -webkit-transform: rotate(0deg) scale(1);\n            transform: rotate(0deg) scale(1); }\n  50% {\n    -webkit-transform: rotate(180deg) scale(0.6);\n            transform: rotate(180deg) scale(0.6); }\n  100% {\n    -webkit-transform: rotate(360deg) scale(1);\n            transform: rotate(360deg) scale(1); } }\n\n.ball-clip-rotate-multiple {\n  position: relative; }\n  .ball-clip-rotate-multiple > div {\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    left: -20px;\n    top: -20px;\n    border: 2px solid #fff;\n    border-bottom-color: transparent;\n    border-top-color: transparent;\n    border-radius: 100%;\n    height: 35px;\n    width: 35px;\n    -webkit-animation: rotate 1s 0s ease-in-out infinite;\n            animation: rotate 1s 0s ease-in-out infinite; }\n    .ball-clip-rotate-multiple > div:last-child {\n      display: inline-block;\n      top: -10px;\n      left: -10px;\n      width: 15px;\n      height: 15px;\n      -webkit-animation-duration: 0.5s;\n              animation-duration: 0.5s;\n      border-color: #fff transparent #fff transparent;\n      -webkit-animation-direction: reverse;\n              animation-direction: reverse; }\n\n@-webkit-keyframes ball-scale-ripple {\n  0% {\n    -webkit-transform: scale(0.1);\n            transform: scale(0.1);\n    opacity: 1; }\n  70% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0.7; }\n  100% {\n    opacity: 0.0; } }\n\n@keyframes ball-scale-ripple {\n  0% {\n    -webkit-transform: scale(0.1);\n            transform: scale(0.1);\n    opacity: 1; }\n  70% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0.7; }\n  100% {\n    opacity: 0.0; } }\n\n.ball-scale-ripple > div {\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  height: 50px;\n  width: 50px;\n  border-radius: 100%;\n  border: 2px solid #fff;\n  -webkit-animation: ball-scale-ripple 1s 0s infinite cubic-bezier(0.21, 0.53, 0.56, 0.8);\n          animation: ball-scale-ripple 1s 0s infinite cubic-bezier(0.21, 0.53, 0.56, 0.8); }\n\n@-webkit-keyframes ball-scale-ripple-multiple {\n  0% {\n    -webkit-transform: scale(0.1);\n            transform: scale(0.1);\n    opacity: 1; }\n  70% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0.7; }\n  100% {\n    opacity: 0.0; } }\n\n@keyframes ball-scale-ripple-multiple {\n  0% {\n    -webkit-transform: scale(0.1);\n            transform: scale(0.1);\n    opacity: 1; }\n  70% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0.7; }\n  100% {\n    opacity: 0.0; } }\n\n.ball-scale-ripple-multiple {\n  position: relative;\n  -webkit-transform: translateY(-25px);\n      -ms-transform: translateY(-25px);\n          transform: translateY(-25px); }\n  .ball-scale-ripple-multiple > div:nth-child(0) {\n    -webkit-animation-delay: -0.8s;\n            animation-delay: -0.8s; }\n  .ball-scale-ripple-multiple > div:nth-child(1) {\n    -webkit-animation-delay: -0.6s;\n            animation-delay: -0.6s; }\n  .ball-scale-ripple-multiple > div:nth-child(2) {\n    -webkit-animation-delay: -0.4s;\n            animation-delay: -0.4s; }\n  .ball-scale-ripple-multiple > div:nth-child(3) {\n    -webkit-animation-delay: -0.2s;\n            animation-delay: -0.2s; }\n  .ball-scale-ripple-multiple > div {\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    top: -2px;\n    left: -26px;\n    width: 50px;\n    height: 50px;\n    border-radius: 100%;\n    border: 2px solid #fff;\n    -webkit-animation: ball-scale-ripple-multiple 1.25s 0s infinite cubic-bezier(0.21, 0.53, 0.56, 0.8);\n            animation: ball-scale-ripple-multiple 1.25s 0s infinite cubic-bezier(0.21, 0.53, 0.56, 0.8); }\n\n@-webkit-keyframes ball-beat {\n  50% {\n    opacity: 0.2;\n    -webkit-transform: scale(0.75);\n            transform: scale(0.75); }\n  100% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n@keyframes ball-beat {\n  50% {\n    opacity: 0.2;\n    -webkit-transform: scale(0.75);\n            transform: scale(0.75); }\n  100% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n.ball-beat > div {\n  background-color: #fff;\n  width: 15px;\n  height: 15px;\n  border-radius: 100%;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block;\n  -webkit-animation: ball-beat 0.7s 0s infinite linear;\n          animation: ball-beat 0.7s 0s infinite linear; }\n  .ball-beat > div:nth-child(2n-1) {\n    -webkit-animation-delay: -0.35s !important;\n            animation-delay: -0.35s !important; }\n\n@-webkit-keyframes ball-scale-multiple {\n  0% {\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    opacity: 0; }\n  5% {\n    opacity: 1; }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0; } }\n\n@keyframes ball-scale-multiple {\n  0% {\n    -webkit-transform: scale(0);\n            transform: scale(0);\n    opacity: 0; }\n  5% {\n    opacity: 1; }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 0; } }\n\n.ball-scale-multiple {\n  position: relative;\n  -webkit-transform: translateY(-30px);\n      -ms-transform: translateY(-30px);\n          transform: translateY(-30px); }\n  .ball-scale-multiple > div:nth-child(2) {\n    -webkit-animation-delay: -0.4s;\n            animation-delay: -0.4s; }\n  .ball-scale-multiple > div:nth-child(3) {\n    -webkit-animation-delay: -0.2s;\n            animation-delay: -0.2s; }\n  .ball-scale-multiple > div {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    left: -30px;\n    top: 0px;\n    opacity: 0;\n    margin: 0;\n    width: 60px;\n    height: 60px;\n    -webkit-animation: ball-scale-multiple 1s 0s linear infinite;\n            animation: ball-scale-multiple 1s 0s linear infinite; }\n\n@-webkit-keyframes ball-triangle-path-1 {\n  33% {\n    -webkit-transform: translate(25px, -50px);\n            transform: translate(25px, -50px); }\n  66% {\n    -webkit-transform: translate(50px, 0px);\n            transform: translate(50px, 0px); }\n  100% {\n    -webkit-transform: translate(0px, 0px);\n            transform: translate(0px, 0px); } }\n\n@keyframes ball-triangle-path-1 {\n  33% {\n    -webkit-transform: translate(25px, -50px);\n            transform: translate(25px, -50px); }\n  66% {\n    -webkit-transform: translate(50px, 0px);\n            transform: translate(50px, 0px); }\n  100% {\n    -webkit-transform: translate(0px, 0px);\n            transform: translate(0px, 0px); } }\n\n@-webkit-keyframes ball-triangle-path-2 {\n  33% {\n    -webkit-transform: translate(25px, 50px);\n            transform: translate(25px, 50px); }\n  66% {\n    -webkit-transform: translate(-25px, 50px);\n            transform: translate(-25px, 50px); }\n  100% {\n    -webkit-transform: translate(0px, 0px);\n            transform: translate(0px, 0px); } }\n\n@keyframes ball-triangle-path-2 {\n  33% {\n    -webkit-transform: translate(25px, 50px);\n            transform: translate(25px, 50px); }\n  66% {\n    -webkit-transform: translate(-25px, 50px);\n            transform: translate(-25px, 50px); }\n  100% {\n    -webkit-transform: translate(0px, 0px);\n            transform: translate(0px, 0px); } }\n\n@-webkit-keyframes ball-triangle-path-3 {\n  33% {\n    -webkit-transform: translate(-50px, 0px);\n            transform: translate(-50px, 0px); }\n  66% {\n    -webkit-transform: translate(-25px, -50px);\n            transform: translate(-25px, -50px); }\n  100% {\n    -webkit-transform: translate(0px, 0px);\n            transform: translate(0px, 0px); } }\n\n@keyframes ball-triangle-path-3 {\n  33% {\n    -webkit-transform: translate(-50px, 0px);\n            transform: translate(-50px, 0px); }\n  66% {\n    -webkit-transform: translate(-25px, -50px);\n            transform: translate(-25px, -50px); }\n  100% {\n    -webkit-transform: translate(0px, 0px);\n            transform: translate(0px, 0px); } }\n\n.ball-triangle-path {\n  position: relative;\n  -webkit-transform: translate(-29.994px, -37.50938px);\n      -ms-transform: translate(-29.994px, -37.50938px);\n          transform: translate(-29.994px, -37.50938px); }\n  .ball-triangle-path > div:nth-child(1) {\n    -webkit-animation-name: ball-triangle-path-1;\n            animation-name: ball-triangle-path-1;\n    -webkit-animation-delay: 0;\n            animation-delay: 0;\n    -webkit-animation-duration: 2s;\n            animation-duration: 2s;\n    -webkit-animation-timing-function: ease-in-out;\n            animation-timing-function: ease-in-out;\n    -webkit-animation-iteration-count: infinite;\n            animation-iteration-count: infinite; }\n  .ball-triangle-path > div:nth-child(2) {\n    -webkit-animation-name: ball-triangle-path-2;\n            animation-name: ball-triangle-path-2;\n    -webkit-animation-delay: 0;\n            animation-delay: 0;\n    -webkit-animation-duration: 2s;\n            animation-duration: 2s;\n    -webkit-animation-timing-function: ease-in-out;\n            animation-timing-function: ease-in-out;\n    -webkit-animation-iteration-count: infinite;\n            animation-iteration-count: infinite; }\n  .ball-triangle-path > div:nth-child(3) {\n    -webkit-animation-name: ball-triangle-path-3;\n            animation-name: ball-triangle-path-3;\n    -webkit-animation-delay: 0;\n            animation-delay: 0;\n    -webkit-animation-duration: 2s;\n            animation-duration: 2s;\n    -webkit-animation-timing-function: ease-in-out;\n            animation-timing-function: ease-in-out;\n    -webkit-animation-iteration-count: infinite;\n            animation-iteration-count: infinite; }\n  .ball-triangle-path > div {\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    width: 10px;\n    height: 10px;\n    border-radius: 100%;\n    border: 1px solid #fff; }\n    .ball-triangle-path > div:nth-of-type(1) {\n      top: 50px; }\n    .ball-triangle-path > div:nth-of-type(2) {\n      left: 25px; }\n    .ball-triangle-path > div:nth-of-type(3) {\n      top: 50px;\n      left: 50px; }\n\n@-webkit-keyframes ball-pulse-rise-even {\n  0% {\n    -webkit-transform: scale(1.1);\n            transform: scale(1.1); }\n  25% {\n    -webkit-transform: translateY(-30px);\n            transform: translateY(-30px); }\n  50% {\n    -webkit-transform: scale(0.4);\n            transform: scale(0.4); }\n  75% {\n    -webkit-transform: translateY(30px);\n            transform: translateY(30px); }\n  100% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0);\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n@keyframes ball-pulse-rise-even {\n  0% {\n    -webkit-transform: scale(1.1);\n            transform: scale(1.1); }\n  25% {\n    -webkit-transform: translateY(-30px);\n            transform: translateY(-30px); }\n  50% {\n    -webkit-transform: scale(0.4);\n            transform: scale(0.4); }\n  75% {\n    -webkit-transform: translateY(30px);\n            transform: translateY(30px); }\n  100% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0);\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n@-webkit-keyframes ball-pulse-rise-odd {\n  0% {\n    -webkit-transform: scale(0.4);\n            transform: scale(0.4); }\n  25% {\n    -webkit-transform: translateY(30px);\n            transform: translateY(30px); }\n  50% {\n    -webkit-transform: scale(1.1);\n            transform: scale(1.1); }\n  75% {\n    -webkit-transform: translateY(-30px);\n            transform: translateY(-30px); }\n  100% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0);\n    -webkit-transform: scale(0.75);\n            transform: scale(0.75); } }\n\n@keyframes ball-pulse-rise-odd {\n  0% {\n    -webkit-transform: scale(0.4);\n            transform: scale(0.4); }\n  25% {\n    -webkit-transform: translateY(30px);\n            transform: translateY(30px); }\n  50% {\n    -webkit-transform: scale(1.1);\n            transform: scale(1.1); }\n  75% {\n    -webkit-transform: translateY(-30px);\n            transform: translateY(-30px); }\n  100% {\n    -webkit-transform: translateY(0);\n            transform: translateY(0);\n    -webkit-transform: scale(0.75);\n            transform: scale(0.75); } }\n\n.ball-pulse-rise > div {\n  background-color: #fff;\n  width: 15px;\n  height: 15px;\n  border-radius: 100%;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block;\n  -webkit-animation-duration: 1s;\n          animation-duration: 1s;\n  -webkit-animation-timing-function: cubic-bezier(0.15, 0.46, 0.9, 0.6);\n          animation-timing-function: cubic-bezier(0.15, 0.46, 0.9, 0.6);\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n  -webkit-animation-delay: 0;\n          animation-delay: 0; }\n  .ball-pulse-rise > div:nth-child(2n) {\n    -webkit-animation-name: ball-pulse-rise-even;\n            animation-name: ball-pulse-rise-even; }\n  .ball-pulse-rise > div:nth-child(2n-1) {\n    -webkit-animation-name: ball-pulse-rise-odd;\n            animation-name: ball-pulse-rise-odd; }\n\n@-webkit-keyframes ball-grid-beat {\n  50% {\n    opacity: 0.7; }\n  100% {\n    opacity: 1; } }\n\n@keyframes ball-grid-beat {\n  50% {\n    opacity: 0.7; }\n  100% {\n    opacity: 1; } }\n\n.ball-grid-beat {\n  width: 57px; }\n  .ball-grid-beat > div:nth-child(1) {\n    -webkit-animation-delay: 0.44s;\n            animation-delay: 0.44s;\n    -webkit-animation-duration: 1.27s;\n            animation-duration: 1.27s; }\n  .ball-grid-beat > div:nth-child(2) {\n    -webkit-animation-delay: 0.2s;\n            animation-delay: 0.2s;\n    -webkit-animation-duration: 1.52s;\n            animation-duration: 1.52s; }\n  .ball-grid-beat > div:nth-child(3) {\n    -webkit-animation-delay: 0.14s;\n            animation-delay: 0.14s;\n    -webkit-animation-duration: 0.61s;\n            animation-duration: 0.61s; }\n  .ball-grid-beat > div:nth-child(4) {\n    -webkit-animation-delay: 0.15s;\n            animation-delay: 0.15s;\n    -webkit-animation-duration: 0.82s;\n            animation-duration: 0.82s; }\n  .ball-grid-beat > div:nth-child(5) {\n    -webkit-animation-delay: -0.01s;\n            animation-delay: -0.01s;\n    -webkit-animation-duration: 1.24s;\n            animation-duration: 1.24s; }\n  .ball-grid-beat > div:nth-child(6) {\n    -webkit-animation-delay: -0.07s;\n            animation-delay: -0.07s;\n    -webkit-animation-duration: 1.35s;\n            animation-duration: 1.35s; }\n  .ball-grid-beat > div:nth-child(7) {\n    -webkit-animation-delay: 0.29s;\n            animation-delay: 0.29s;\n    -webkit-animation-duration: 1.44s;\n            animation-duration: 1.44s; }\n  .ball-grid-beat > div:nth-child(8) {\n    -webkit-animation-delay: 0.63s;\n            animation-delay: 0.63s;\n    -webkit-animation-duration: 1.19s;\n            animation-duration: 1.19s; }\n  .ball-grid-beat > div:nth-child(9) {\n    -webkit-animation-delay: -0.18s;\n            animation-delay: -0.18s;\n    -webkit-animation-duration: 1.48s;\n            animation-duration: 1.48s; }\n  .ball-grid-beat > div {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    display: inline-block;\n    float: left;\n    -webkit-animation-name: ball-grid-beat;\n            animation-name: ball-grid-beat;\n    -webkit-animation-iteration-count: infinite;\n            animation-iteration-count: infinite;\n    -webkit-animation-delay: 0;\n            animation-delay: 0; }\n\n@-webkit-keyframes ball-grid-pulse {\n  0% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  50% {\n    -webkit-transform: scale(0.5);\n            transform: scale(0.5);\n    opacity: 0.7; }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 1; } }\n\n@keyframes ball-grid-pulse {\n  0% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  50% {\n    -webkit-transform: scale(0.5);\n            transform: scale(0.5);\n    opacity: 0.7; }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1);\n    opacity: 1; } }\n\n.ball-grid-pulse {\n  width: 57px; }\n  .ball-grid-pulse > div:nth-child(1) {\n    -webkit-animation-delay: 0.58s;\n            animation-delay: 0.58s;\n    -webkit-animation-duration: 0.9s;\n            animation-duration: 0.9s; }\n  .ball-grid-pulse > div:nth-child(2) {\n    -webkit-animation-delay: 0.01s;\n            animation-delay: 0.01s;\n    -webkit-animation-duration: 0.94s;\n            animation-duration: 0.94s; }\n  .ball-grid-pulse > div:nth-child(3) {\n    -webkit-animation-delay: 0.25s;\n            animation-delay: 0.25s;\n    -webkit-animation-duration: 1.43s;\n            animation-duration: 1.43s; }\n  .ball-grid-pulse > div:nth-child(4) {\n    -webkit-animation-delay: -0.03s;\n            animation-delay: -0.03s;\n    -webkit-animation-duration: 0.74s;\n            animation-duration: 0.74s; }\n  .ball-grid-pulse > div:nth-child(5) {\n    -webkit-animation-delay: 0.21s;\n            animation-delay: 0.21s;\n    -webkit-animation-duration: 0.68s;\n            animation-duration: 0.68s; }\n  .ball-grid-pulse > div:nth-child(6) {\n    -webkit-animation-delay: 0.25s;\n            animation-delay: 0.25s;\n    -webkit-animation-duration: 1.17s;\n            animation-duration: 1.17s; }\n  .ball-grid-pulse > div:nth-child(7) {\n    -webkit-animation-delay: 0.46s;\n            animation-delay: 0.46s;\n    -webkit-animation-duration: 1.41s;\n            animation-duration: 1.41s; }\n  .ball-grid-pulse > div:nth-child(8) {\n    -webkit-animation-delay: 0.02s;\n            animation-delay: 0.02s;\n    -webkit-animation-duration: 1.56s;\n            animation-duration: 1.56s; }\n  .ball-grid-pulse > div:nth-child(9) {\n    -webkit-animation-delay: 0.13s;\n            animation-delay: 0.13s;\n    -webkit-animation-duration: 0.78s;\n            animation-duration: 0.78s; }\n  .ball-grid-pulse > div {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    display: inline-block;\n    float: left;\n    -webkit-animation-name: ball-grid-pulse;\n            animation-name: ball-grid-pulse;\n    -webkit-animation-iteration-count: infinite;\n            animation-iteration-count: infinite;\n    -webkit-animation-delay: 0;\n            animation-delay: 0; }\n\n@-webkit-keyframes ball-spin-fade-loader {\n  50% {\n    opacity: 0.3;\n    -webkit-transform: scale(0.4);\n            transform: scale(0.4); }\n  100% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n@keyframes ball-spin-fade-loader {\n  50% {\n    opacity: 0.3;\n    -webkit-transform: scale(0.4);\n            transform: scale(0.4); }\n  100% {\n    opacity: 1;\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n.ball-spin-fade-loader {\n  position: relative;\n  top: -10px;\n  left: -10px; }\n  .ball-spin-fade-loader > div:nth-child(1) {\n    top: 25px;\n    left: 0;\n    -webkit-animation: ball-spin-fade-loader 1s -0.96s infinite linear;\n            animation: ball-spin-fade-loader 1s -0.96s infinite linear; }\n  .ball-spin-fade-loader > div:nth-child(2) {\n    top: 17.04545px;\n    left: 17.04545px;\n    -webkit-animation: ball-spin-fade-loader 1s -0.84s infinite linear;\n            animation: ball-spin-fade-loader 1s -0.84s infinite linear; }\n  .ball-spin-fade-loader > div:nth-child(3) {\n    top: 0;\n    left: 25px;\n    -webkit-animation: ball-spin-fade-loader 1s -0.72s infinite linear;\n            animation: ball-spin-fade-loader 1s -0.72s infinite linear; }\n  .ball-spin-fade-loader > div:nth-child(4) {\n    top: -17.04545px;\n    left: 17.04545px;\n    -webkit-animation: ball-spin-fade-loader 1s -0.6s infinite linear;\n            animation: ball-spin-fade-loader 1s -0.6s infinite linear; }\n  .ball-spin-fade-loader > div:nth-child(5) {\n    top: -25px;\n    left: 0;\n    -webkit-animation: ball-spin-fade-loader 1s -0.48s infinite linear;\n            animation: ball-spin-fade-loader 1s -0.48s infinite linear; }\n  .ball-spin-fade-loader > div:nth-child(6) {\n    top: -17.04545px;\n    left: -17.04545px;\n    -webkit-animation: ball-spin-fade-loader 1s -0.36s infinite linear;\n            animation: ball-spin-fade-loader 1s -0.36s infinite linear; }\n  .ball-spin-fade-loader > div:nth-child(7) {\n    top: 0;\n    left: -25px;\n    -webkit-animation: ball-spin-fade-loader 1s -0.24s infinite linear;\n            animation: ball-spin-fade-loader 1s -0.24s infinite linear; }\n  .ball-spin-fade-loader > div:nth-child(8) {\n    top: 17.04545px;\n    left: -17.04545px;\n    -webkit-animation: ball-spin-fade-loader 1s -0.12s infinite linear;\n            animation: ball-spin-fade-loader 1s -0.12s infinite linear; }\n  .ball-spin-fade-loader > div {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute; }\n\n@-webkit-keyframes ball-spin-loader {\n  75% {\n    opacity: 0.2; }\n  100% {\n    opacity: 1; } }\n\n@keyframes ball-spin-loader {\n  75% {\n    opacity: 0.2; }\n  100% {\n    opacity: 1; } }\n\n.ball-spin-loader {\n  position: relative; }\n  .ball-spin-loader > span:nth-child(1) {\n    top: 45px;\n    left: 0;\n    -webkit-animation: ball-spin-loader 2s 0.9s infinite linear;\n            animation: ball-spin-loader 2s 0.9s infinite linear; }\n  .ball-spin-loader > span:nth-child(2) {\n    top: 30.68182px;\n    left: 30.68182px;\n    -webkit-animation: ball-spin-loader 2s 1.8s infinite linear;\n            animation: ball-spin-loader 2s 1.8s infinite linear; }\n  .ball-spin-loader > span:nth-child(3) {\n    top: 0;\n    left: 45px;\n    -webkit-animation: ball-spin-loader 2s 2.7s infinite linear;\n            animation: ball-spin-loader 2s 2.7s infinite linear; }\n  .ball-spin-loader > span:nth-child(4) {\n    top: -30.68182px;\n    left: 30.68182px;\n    -webkit-animation: ball-spin-loader 2s 3.6s infinite linear;\n            animation: ball-spin-loader 2s 3.6s infinite linear; }\n  .ball-spin-loader > span:nth-child(5) {\n    top: -45px;\n    left: 0;\n    -webkit-animation: ball-spin-loader 2s 4.5s infinite linear;\n            animation: ball-spin-loader 2s 4.5s infinite linear; }\n  .ball-spin-loader > span:nth-child(6) {\n    top: -30.68182px;\n    left: -30.68182px;\n    -webkit-animation: ball-spin-loader 2s 5.4s infinite linear;\n            animation: ball-spin-loader 2s 5.4s infinite linear; }\n  .ball-spin-loader > span:nth-child(7) {\n    top: 0;\n    left: -45px;\n    -webkit-animation: ball-spin-loader 2s 6.3s infinite linear;\n            animation: ball-spin-loader 2s 6.3s infinite linear; }\n  .ball-spin-loader > span:nth-child(8) {\n    top: 30.68182px;\n    left: -30.68182px;\n    -webkit-animation: ball-spin-loader 2s 7.2s infinite linear;\n            animation: ball-spin-loader 2s 7.2s infinite linear; }\n  .ball-spin-loader > div {\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    background: green; }\n\n@-webkit-keyframes ball-zig {\n  33% {\n    -webkit-transform: translate(-15px, -30px);\n            transform: translate(-15px, -30px); }\n  66% {\n    -webkit-transform: translate(15px, -30px);\n            transform: translate(15px, -30px); }\n  100% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); } }\n\n@keyframes ball-zig {\n  33% {\n    -webkit-transform: translate(-15px, -30px);\n            transform: translate(-15px, -30px); }\n  66% {\n    -webkit-transform: translate(15px, -30px);\n            transform: translate(15px, -30px); }\n  100% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); } }\n\n@-webkit-keyframes ball-zag {\n  33% {\n    -webkit-transform: translate(15px, 30px);\n            transform: translate(15px, 30px); }\n  66% {\n    -webkit-transform: translate(-15px, 30px);\n            transform: translate(-15px, 30px); }\n  100% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); } }\n\n@keyframes ball-zag {\n  33% {\n    -webkit-transform: translate(15px, 30px);\n            transform: translate(15px, 30px); }\n  66% {\n    -webkit-transform: translate(-15px, 30px);\n            transform: translate(-15px, 30px); }\n  100% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); } }\n\n.ball-zig-zag {\n  position: relative;\n  -webkit-transform: translate(-15px, -15px);\n      -ms-transform: translate(-15px, -15px);\n          transform: translate(-15px, -15px); }\n  .ball-zig-zag > div {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    margin-left: 15px;\n    top: 4px;\n    left: -7px; }\n    .ball-zig-zag > div:first-child {\n      -webkit-animation: ball-zig 0.7s 0s infinite linear;\n              animation: ball-zig 0.7s 0s infinite linear; }\n    .ball-zig-zag > div:last-child {\n      -webkit-animation: ball-zag 0.7s 0s infinite linear;\n              animation: ball-zag 0.7s 0s infinite linear; }\n\n@-webkit-keyframes ball-zig-deflect {\n  17% {\n    -webkit-transform: translate(-15px, -30px);\n            transform: translate(-15px, -30px); }\n  34% {\n    -webkit-transform: translate(15px, -30px);\n            transform: translate(15px, -30px); }\n  50% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); }\n  67% {\n    -webkit-transform: translate(15px, -30px);\n            transform: translate(15px, -30px); }\n  84% {\n    -webkit-transform: translate(-15px, -30px);\n            transform: translate(-15px, -30px); }\n  100% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); } }\n\n@keyframes ball-zig-deflect {\n  17% {\n    -webkit-transform: translate(-15px, -30px);\n            transform: translate(-15px, -30px); }\n  34% {\n    -webkit-transform: translate(15px, -30px);\n            transform: translate(15px, -30px); }\n  50% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); }\n  67% {\n    -webkit-transform: translate(15px, -30px);\n            transform: translate(15px, -30px); }\n  84% {\n    -webkit-transform: translate(-15px, -30px);\n            transform: translate(-15px, -30px); }\n  100% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); } }\n\n@-webkit-keyframes ball-zag-deflect {\n  17% {\n    -webkit-transform: translate(15px, 30px);\n            transform: translate(15px, 30px); }\n  34% {\n    -webkit-transform: translate(-15px, 30px);\n            transform: translate(-15px, 30px); }\n  50% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); }\n  67% {\n    -webkit-transform: translate(-15px, 30px);\n            transform: translate(-15px, 30px); }\n  84% {\n    -webkit-transform: translate(15px, 30px);\n            transform: translate(15px, 30px); }\n  100% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); } }\n\n@keyframes ball-zag-deflect {\n  17% {\n    -webkit-transform: translate(15px, 30px);\n            transform: translate(15px, 30px); }\n  34% {\n    -webkit-transform: translate(-15px, 30px);\n            transform: translate(-15px, 30px); }\n  50% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); }\n  67% {\n    -webkit-transform: translate(-15px, 30px);\n            transform: translate(-15px, 30px); }\n  84% {\n    -webkit-transform: translate(15px, 30px);\n            transform: translate(15px, 30px); }\n  100% {\n    -webkit-transform: translate(0, 0);\n            transform: translate(0, 0); } }\n\n.ball-zig-zag-deflect {\n  position: relative;\n  -webkit-transform: translate(-15px, -15px);\n      -ms-transform: translate(-15px, -15px);\n          transform: translate(-15px, -15px); }\n  .ball-zig-zag-deflect > div {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    margin-left: 15px;\n    top: 4px;\n    left: -7px; }\n    .ball-zig-zag-deflect > div:first-child {\n      -webkit-animation: ball-zig-deflect 1.5s 0s infinite linear;\n              animation: ball-zig-deflect 1.5s 0s infinite linear; }\n    .ball-zig-zag-deflect > div:last-child {\n      -webkit-animation: ball-zag-deflect 1.5s 0s infinite linear;\n              animation: ball-zag-deflect 1.5s 0s infinite linear; }\n\n/**\n * Lines\n */\n@-webkit-keyframes line-scale {\n  0% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); }\n  50% {\n    -webkit-transform: scaley(0.4);\n            transform: scaley(0.4); }\n  100% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); } }\n@keyframes line-scale {\n  0% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); }\n  50% {\n    -webkit-transform: scaley(0.4);\n            transform: scaley(0.4); }\n  100% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); } }\n\n.line-scale > div:nth-child(1) {\n  -webkit-animation: line-scale 1s -0.4s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: line-scale 1s -0.4s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.line-scale > div:nth-child(2) {\n  -webkit-animation: line-scale 1s -0.3s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: line-scale 1s -0.3s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.line-scale > div:nth-child(3) {\n  -webkit-animation: line-scale 1s -0.2s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: line-scale 1s -0.2s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.line-scale > div:nth-child(4) {\n  -webkit-animation: line-scale 1s -0.1s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: line-scale 1s -0.1s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.line-scale > div:nth-child(5) {\n  -webkit-animation: line-scale 1s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);\n          animation: line-scale 1s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08); }\n\n.line-scale > div {\n  background-color: #fff;\n  width: 4px;\n  height: 35px;\n  border-radius: 2px;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block; }\n\n@-webkit-keyframes line-scale-party {\n  0% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  50% {\n    -webkit-transform: scale(0.5);\n            transform: scale(0.5); }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n@keyframes line-scale-party {\n  0% {\n    -webkit-transform: scale(1);\n            transform: scale(1); }\n  50% {\n    -webkit-transform: scale(0.5);\n            transform: scale(0.5); }\n  100% {\n    -webkit-transform: scale(1);\n            transform: scale(1); } }\n\n.line-scale-party > div:nth-child(1) {\n  -webkit-animation-delay: -0.09s;\n          animation-delay: -0.09s;\n  -webkit-animation-duration: 0.83s;\n          animation-duration: 0.83s; }\n\n.line-scale-party > div:nth-child(2) {\n  -webkit-animation-delay: 0.33s;\n          animation-delay: 0.33s;\n  -webkit-animation-duration: 0.64s;\n          animation-duration: 0.64s; }\n\n.line-scale-party > div:nth-child(3) {\n  -webkit-animation-delay: 0.32s;\n          animation-delay: 0.32s;\n  -webkit-animation-duration: 0.39s;\n          animation-duration: 0.39s; }\n\n.line-scale-party > div:nth-child(4) {\n  -webkit-animation-delay: 0.47s;\n          animation-delay: 0.47s;\n  -webkit-animation-duration: 0.52s;\n          animation-duration: 0.52s; }\n\n.line-scale-party > div {\n  background-color: #fff;\n  width: 4px;\n  height: 35px;\n  border-radius: 2px;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block;\n  -webkit-animation-name: line-scale-party;\n          animation-name: line-scale-party;\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n  -webkit-animation-delay: 0;\n          animation-delay: 0; }\n\n@-webkit-keyframes line-scale-pulse-out {\n  0% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); }\n  50% {\n    -webkit-transform: scaley(0.4);\n            transform: scaley(0.4); }\n  100% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); } }\n\n@keyframes line-scale-pulse-out {\n  0% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); }\n  50% {\n    -webkit-transform: scaley(0.4);\n            transform: scaley(0.4); }\n  100% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); } }\n\n.line-scale-pulse-out > div {\n  background-color: #fff;\n  width: 4px;\n  height: 35px;\n  border-radius: 2px;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block;\n  -webkit-animation: line-scale-pulse-out 0.9s -0.6s infinite cubic-bezier(0.85, 0.25, 0.37, 0.85);\n          animation: line-scale-pulse-out 0.9s -0.6s infinite cubic-bezier(0.85, 0.25, 0.37, 0.85); }\n  .line-scale-pulse-out > div:nth-child(2), .line-scale-pulse-out > div:nth-child(4) {\n    -webkit-animation-delay: -0.4s !important;\n            animation-delay: -0.4s !important; }\n  .line-scale-pulse-out > div:nth-child(1), .line-scale-pulse-out > div:nth-child(5) {\n    -webkit-animation-delay: -0.2s !important;\n            animation-delay: -0.2s !important; }\n\n@-webkit-keyframes line-scale-pulse-out-rapid {\n  0% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); }\n  80% {\n    -webkit-transform: scaley(0.3);\n            transform: scaley(0.3); }\n  90% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); } }\n\n@keyframes line-scale-pulse-out-rapid {\n  0% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); }\n  80% {\n    -webkit-transform: scaley(0.3);\n            transform: scaley(0.3); }\n  90% {\n    -webkit-transform: scaley(1);\n            transform: scaley(1); } }\n\n.line-scale-pulse-out-rapid > div {\n  background-color: #fff;\n  width: 4px;\n  height: 35px;\n  border-radius: 2px;\n  margin: 2px;\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  display: inline-block;\n  -webkit-animation: line-scale-pulse-out-rapid 0.9s -0.5s infinite cubic-bezier(0.11, 0.49, 0.38, 0.78);\n          animation: line-scale-pulse-out-rapid 0.9s -0.5s infinite cubic-bezier(0.11, 0.49, 0.38, 0.78); }\n  .line-scale-pulse-out-rapid > div:nth-child(2), .line-scale-pulse-out-rapid > div:nth-child(4) {\n    -webkit-animation-delay: -0.25s !important;\n            animation-delay: -0.25s !important; }\n  .line-scale-pulse-out-rapid > div:nth-child(1), .line-scale-pulse-out-rapid > div:nth-child(5) {\n    -webkit-animation-delay: 0s !important;\n            animation-delay: 0s !important; }\n\n@-webkit-keyframes line-spin-fade-loader {\n  50% {\n    opacity: 0.3; }\n  100% {\n    opacity: 1; } }\n\n@keyframes line-spin-fade-loader {\n  50% {\n    opacity: 0.3; }\n  100% {\n    opacity: 1; } }\n\n.line-spin-fade-loader {\n  position: relative;\n  top: -10px;\n  left: -4px; }\n  .line-spin-fade-loader > div:nth-child(1) {\n    top: 20px;\n    left: 0;\n    -webkit-animation: line-spin-fade-loader 1.2s -0.84s infinite ease-in-out;\n            animation: line-spin-fade-loader 1.2s -0.84s infinite ease-in-out; }\n  .line-spin-fade-loader > div:nth-child(2) {\n    top: 13.63636px;\n    left: 13.63636px;\n    -webkit-transform: rotate(-45deg);\n        -ms-transform: rotate(-45deg);\n            transform: rotate(-45deg);\n    -webkit-animation: line-spin-fade-loader 1.2s -0.72s infinite ease-in-out;\n            animation: line-spin-fade-loader 1.2s -0.72s infinite ease-in-out; }\n  .line-spin-fade-loader > div:nth-child(3) {\n    top: 0;\n    left: 20px;\n    -webkit-transform: rotate(90deg);\n        -ms-transform: rotate(90deg);\n            transform: rotate(90deg);\n    -webkit-animation: line-spin-fade-loader 1.2s -0.6s infinite ease-in-out;\n            animation: line-spin-fade-loader 1.2s -0.6s infinite ease-in-out; }\n  .line-spin-fade-loader > div:nth-child(4) {\n    top: -13.63636px;\n    left: 13.63636px;\n    -webkit-transform: rotate(45deg);\n        -ms-transform: rotate(45deg);\n            transform: rotate(45deg);\n    -webkit-animation: line-spin-fade-loader 1.2s -0.48s infinite ease-in-out;\n            animation: line-spin-fade-loader 1.2s -0.48s infinite ease-in-out; }\n  .line-spin-fade-loader > div:nth-child(5) {\n    top: -20px;\n    left: 0;\n    -webkit-animation: line-spin-fade-loader 1.2s -0.36s infinite ease-in-out;\n            animation: line-spin-fade-loader 1.2s -0.36s infinite ease-in-out; }\n  .line-spin-fade-loader > div:nth-child(6) {\n    top: -13.63636px;\n    left: -13.63636px;\n    -webkit-transform: rotate(-45deg);\n        -ms-transform: rotate(-45deg);\n            transform: rotate(-45deg);\n    -webkit-animation: line-spin-fade-loader 1.2s -0.24s infinite ease-in-out;\n            animation: line-spin-fade-loader 1.2s -0.24s infinite ease-in-out; }\n  .line-spin-fade-loader > div:nth-child(7) {\n    top: 0;\n    left: -20px;\n    -webkit-transform: rotate(90deg);\n        -ms-transform: rotate(90deg);\n            transform: rotate(90deg);\n    -webkit-animation: line-spin-fade-loader 1.2s -0.12s infinite ease-in-out;\n            animation: line-spin-fade-loader 1.2s -0.12s infinite ease-in-out; }\n  .line-spin-fade-loader > div:nth-child(8) {\n    top: 13.63636px;\n    left: -13.63636px;\n    -webkit-transform: rotate(45deg);\n        -ms-transform: rotate(45deg);\n            transform: rotate(45deg);\n    -webkit-animation: line-spin-fade-loader 1.2s 0s infinite ease-in-out;\n            animation: line-spin-fade-loader 1.2s 0s infinite ease-in-out; }\n  .line-spin-fade-loader > div {\n    background-color: #fff;\n    width: 4px;\n    height: 35px;\n    border-radius: 2px;\n    margin: 2px;\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    position: absolute;\n    width: 5px;\n    height: 15px; }\n\n/**\n * Misc\n */\n@-webkit-keyframes triangle-skew-spin {\n  25% {\n    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0);\n            transform: perspective(100px) rotateX(180deg) rotateY(0); }\n  50% {\n    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg);\n            transform: perspective(100px) rotateX(180deg) rotateY(180deg); }\n  75% {\n    -webkit-transform: perspective(100px) rotateX(0) rotateY(180deg);\n            transform: perspective(100px) rotateX(0) rotateY(180deg); }\n  100% {\n    -webkit-transform: perspective(100px) rotateX(0) rotateY(0);\n            transform: perspective(100px) rotateX(0) rotateY(0); } }\n@keyframes triangle-skew-spin {\n  25% {\n    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0);\n            transform: perspective(100px) rotateX(180deg) rotateY(0); }\n  50% {\n    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg);\n            transform: perspective(100px) rotateX(180deg) rotateY(180deg); }\n  75% {\n    -webkit-transform: perspective(100px) rotateX(0) rotateY(180deg);\n            transform: perspective(100px) rotateX(0) rotateY(180deg); }\n  100% {\n    -webkit-transform: perspective(100px) rotateX(0) rotateY(0);\n            transform: perspective(100px) rotateX(0) rotateY(0); } }\n\n.triangle-skew-spin > div {\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  width: 0;\n  height: 0;\n  border-left: 20px solid transparent;\n  border-right: 20px solid transparent;\n  border-bottom: 20px solid #fff;\n  -webkit-animation: triangle-skew-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;\n          animation: triangle-skew-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite; }\n\n@-webkit-keyframes square-spin {\n  25% {\n    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0);\n            transform: perspective(100px) rotateX(180deg) rotateY(0); }\n  50% {\n    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg);\n            transform: perspective(100px) rotateX(180deg) rotateY(180deg); }\n  75% {\n    -webkit-transform: perspective(100px) rotateX(0) rotateY(180deg);\n            transform: perspective(100px) rotateX(0) rotateY(180deg); }\n  100% {\n    -webkit-transform: perspective(100px) rotateX(0) rotateY(0);\n            transform: perspective(100px) rotateX(0) rotateY(0); } }\n\n@keyframes square-spin {\n  25% {\n    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(0);\n            transform: perspective(100px) rotateX(180deg) rotateY(0); }\n  50% {\n    -webkit-transform: perspective(100px) rotateX(180deg) rotateY(180deg);\n            transform: perspective(100px) rotateX(180deg) rotateY(180deg); }\n  75% {\n    -webkit-transform: perspective(100px) rotateX(0) rotateY(180deg);\n            transform: perspective(100px) rotateX(0) rotateY(180deg); }\n  100% {\n    -webkit-transform: perspective(100px) rotateX(0) rotateY(0);\n            transform: perspective(100px) rotateX(0) rotateY(0); } }\n\n.square-spin > div {\n  -webkit-animation-fill-mode: both;\n          animation-fill-mode: both;\n  width: 50px;\n  height: 50px;\n  background: #fff;\n  border: 1px solid red;\n  -webkit-animation: square-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;\n          animation: square-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite; }\n\n@-webkit-keyframes rotate_pacman_half_up {\n  0% {\n    -webkit-transform: rotate(270deg);\n            transform: rotate(270deg); }\n  50% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); }\n  100% {\n    -webkit-transform: rotate(270deg);\n            transform: rotate(270deg); } }\n\n@keyframes rotate_pacman_half_up {\n  0% {\n    -webkit-transform: rotate(270deg);\n            transform: rotate(270deg); }\n  50% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); }\n  100% {\n    -webkit-transform: rotate(270deg);\n            transform: rotate(270deg); } }\n\n@-webkit-keyframes rotate_pacman_half_down {\n  0% {\n    -webkit-transform: rotate(90deg);\n            transform: rotate(90deg); }\n  50% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(90deg);\n            transform: rotate(90deg); } }\n\n@keyframes rotate_pacman_half_down {\n  0% {\n    -webkit-transform: rotate(90deg);\n            transform: rotate(90deg); }\n  50% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(90deg);\n            transform: rotate(90deg); } }\n\n@-webkit-keyframes pacman-balls {\n  75% {\n    opacity: 0.7; }\n  100% {\n    -webkit-transform: translate(-100px, -6.25px);\n            transform: translate(-100px, -6.25px); } }\n\n@keyframes pacman-balls {\n  75% {\n    opacity: 0.7; }\n  100% {\n    -webkit-transform: translate(-100px, -6.25px);\n            transform: translate(-100px, -6.25px); } }\n\n.pacman {\n  position: relative; }\n  .pacman > div:nth-child(2) {\n    -webkit-animation: pacman-balls 1s -0.99s infinite linear;\n            animation: pacman-balls 1s -0.99s infinite linear; }\n  .pacman > div:nth-child(3) {\n    -webkit-animation: pacman-balls 1s -0.66s infinite linear;\n            animation: pacman-balls 1s -0.66s infinite linear; }\n  .pacman > div:nth-child(4) {\n    -webkit-animation: pacman-balls 1s -0.33s infinite linear;\n            animation: pacman-balls 1s -0.33s infinite linear; }\n  .pacman > div:nth-child(5) {\n    -webkit-animation: pacman-balls 1s 0s infinite linear;\n            animation: pacman-balls 1s 0s infinite linear; }\n  .pacman > div:first-of-type {\n    width: 0px;\n    height: 0px;\n    border-right: 25px solid transparent;\n    border-top: 25px solid #fff;\n    border-left: 25px solid #fff;\n    border-bottom: 25px solid #fff;\n    border-radius: 25px;\n    -webkit-animation: rotate_pacman_half_up 0.5s 0s infinite;\n            animation: rotate_pacman_half_up 0.5s 0s infinite;\n    position: relative;\n    left: -30px; }\n  .pacman > div:nth-child(2) {\n    width: 0px;\n    height: 0px;\n    border-right: 25px solid transparent;\n    border-top: 25px solid #fff;\n    border-left: 25px solid #fff;\n    border-bottom: 25px solid #fff;\n    border-radius: 25px;\n    -webkit-animation: rotate_pacman_half_down 0.5s 0s infinite;\n            animation: rotate_pacman_half_down 0.5s 0s infinite;\n    margin-top: -50px;\n    position: relative;\n    left: -30px; }\n  .pacman > div:nth-child(3),\n  .pacman > div:nth-child(4),\n  .pacman > div:nth-child(5),\n  .pacman > div:nth-child(6) {\n    background-color: #fff;\n    width: 15px;\n    height: 15px;\n    border-radius: 100%;\n    margin: 2px;\n    width: 10px;\n    height: 10px;\n    position: absolute;\n    -webkit-transform: translate(0, -6.25px);\n        -ms-transform: translate(0, -6.25px);\n            transform: translate(0, -6.25px);\n    top: 25px;\n    left: 70px; }\n\n@-webkit-keyframes cube-transition {\n  25% {\n    -webkit-transform: translateX(50px) scale(0.5) rotate(-90deg);\n            transform: translateX(50px) scale(0.5) rotate(-90deg); }\n  50% {\n    -webkit-transform: translate(50px, 50px) rotate(-180deg);\n            transform: translate(50px, 50px) rotate(-180deg); }\n  75% {\n    -webkit-transform: translateY(50px) scale(0.5) rotate(-270deg);\n            transform: translateY(50px) scale(0.5) rotate(-270deg); }\n  100% {\n    -webkit-transform: rotate(-360deg);\n            transform: rotate(-360deg); } }\n\n@keyframes cube-transition {\n  25% {\n    -webkit-transform: translateX(50px) scale(0.5) rotate(-90deg);\n            transform: translateX(50px) scale(0.5) rotate(-90deg); }\n  50% {\n    -webkit-transform: translate(50px, 50px) rotate(-180deg);\n            transform: translate(50px, 50px) rotate(-180deg); }\n  75% {\n    -webkit-transform: translateY(50px) scale(0.5) rotate(-270deg);\n            transform: translateY(50px) scale(0.5) rotate(-270deg); }\n  100% {\n    -webkit-transform: rotate(-360deg);\n            transform: rotate(-360deg); } }\n\n.cube-transition {\n  position: relative;\n  -webkit-transform: translate(-25px, -25px);\n      -ms-transform: translate(-25px, -25px);\n          transform: translate(-25px, -25px); }\n  .cube-transition > div {\n    -webkit-animation-fill-mode: both;\n            animation-fill-mode: both;\n    width: 10px;\n    height: 10px;\n    position: absolute;\n    top: -5px;\n    left: -5px;\n    background-color: #fff;\n    -webkit-animation: cube-transition 1.6s 0s infinite ease-in-out;\n            animation: cube-transition 1.6s 0s infinite ease-in-out; }\n    .cube-transition > div:last-child {\n      -webkit-animation-delay: -0.8s;\n              animation-delay: -0.8s; }\n\n@-webkit-keyframes spin-rotate {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  50% {\n    -webkit-transform: rotate(180deg);\n            transform: rotate(180deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n@keyframes spin-rotate {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg); }\n  50% {\n    -webkit-transform: rotate(180deg);\n            transform: rotate(180deg); }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg); } }\n\n.semi-circle-spin {\n  position: relative;\n  width: 35px;\n  height: 35px;\n  overflow: hidden; }\n  .semi-circle-spin > div {\n    position: absolute;\n    border-width: 0px;\n    border-radius: 100%;\n    -webkit-animation: spin-rotate 0.6s 0s infinite linear;\n            animation: spin-rotate 0.6s 0s infinite linear;\n    background-image: -webkit-linear-gradient(transparent 0%, transparent 70%, #fff 30%, #fff 100%);\n    background-image: linear-gradient(transparent 0%, transparent 70%, #fff 30%, #fff 100%);\n    width: 100%;\n    height: 100%; }\n\n@-webkit-keyframes bar-progress {\n  0% {\n    -webkit-transform: scaleY(20%);\n            transform: scaleY(20%);\n    opacity: 1; }\n  25% {\n    -webkit-transform: translateX(6%) scaleY(10%);\n            transform: translateX(6%) scaleY(10%);\n    opacity: 0.7; }\n  50% {\n    -webkit-transform: translateX(20%) scaleY(20%);\n            transform: translateX(20%) scaleY(20%);\n    opacity: 1; }\n  75% {\n    -webkit-transform: translateX(6%) scaleY(10%);\n            transform: translateX(6%) scaleY(10%);\n    opacity: 0.7; }\n  100% {\n    -webkit-transform: scaleY(20%);\n            transform: scaleY(20%);\n    opacity: 1; } }\n\n@keyframes bar-progress {\n  0% {\n    -webkit-transform: scaleY(20%);\n            transform: scaleY(20%);\n    opacity: 1; }\n  25% {\n    -webkit-transform: translateX(6%) scaleY(10%);\n            transform: translateX(6%) scaleY(10%);\n    opacity: 0.7; }\n  50% {\n    -webkit-transform: translateX(20%) scaleY(20%);\n            transform: translateX(20%) scaleY(20%);\n    opacity: 1; }\n  75% {\n    -webkit-transform: translateX(6%) scaleY(10%);\n            transform: translateX(6%) scaleY(10%);\n    opacity: 0.7; }\n  100% {\n    -webkit-transform: scaleY(20%);\n            transform: scaleY(20%);\n    opacity: 1; } }\n\n.bar-progress {\n  width: 30%;\n  height: 12px; }\n  .bar-progress > div {\n    position: relative;\n    width: 20%;\n    height: 12px;\n    border-radius: 10px;\n    background-color: #fff;\n    -webkit-animation: bar-progress 3s cubic-bezier(0.57, 0.1, 0.44, 0.93) infinite;\n            animation: bar-progress 3s cubic-bezier(0.57, 0.1, 0.44, 0.93) infinite;\n    opacity: 1; }\n\n@-webkit-keyframes bar-swing {\n  0% {\n    left: 0; }\n  50% {\n    left: 70%; }\n  100% {\n    left: 0; } }\n\n@keyframes bar-swing {\n  0% {\n    left: 0; }\n  50% {\n    left: 70%; }\n  100% {\n    left: 0; } }\n\n.bar-swing {\n  width: 30%;\n  height: 8px; }\n  .bar-swing > div {\n    position: relative;\n    width: 30%;\n    height: 8px;\n    border-radius: 10px;\n    background-color: #fff;\n    -webkit-animation: bar-swing 1.5s infinite;\n            animation: bar-swing 1.5s infinite; }\n\n@-webkit-keyframes bar-swing-container {\n  0% {\n    left: 0;\n    -webkit-transform: translateX(0);\n            transform: translateX(0); }\n  50% {\n    left: 70%;\n    -webkit-transform: translateX(-4px);\n            transform: translateX(-4px); }\n  100% {\n    left: 0;\n    -webkit-transform: translateX(0);\n            transform: translateX(0); } }\n\n@keyframes bar-swing-container {\n  0% {\n    left: 0;\n    -webkit-transform: translateX(0);\n            transform: translateX(0); }\n  50% {\n    left: 70%;\n    -webkit-transform: translateX(-4px);\n            transform: translateX(-4px); }\n  100% {\n    left: 0;\n    -webkit-transform: translateX(0);\n            transform: translateX(0); } }\n\n.bar-swing-container {\n  width: 20%;\n  height: 8px;\n  position: relative; }\n  .bar-swing-container div:nth-child(1) {\n    position: absolute;\n    width: 100%;\n    background-color: rgba(255, 255, 255, 0.2);\n    height: 12px;\n    border-radius: 10px; }\n  .bar-swing-container div:nth-child(2) {\n    position: absolute;\n    width: 30%;\n    height: 8px;\n    border-radius: 10px;\n    background-color: #fff;\n    -webkit-animation: bar-swing-container 2s cubic-bezier(0.91, 0.35, 0.12, 0.6) infinite;\n            animation: bar-swing-container 2s cubic-bezier(0.91, 0.35, 0.12, 0.6) infinite;\n    margin: 2px 2px 0; }\n", ""]);
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)();
 exports.push([module.i, "\n.close {\r\n  position: absolute;\r\n  right: 32px;\r\n  top: 32px;\r\n  width: 32px;\r\n  height: 32px;\r\n  opacity: 0.3;\r\n  cursor: pointer;\n}\n.close:hover {\r\n  opacity: 1;\n}\n.close:before, .close:after {\r\n  position: absolute;\r\n  left: 15px;\r\n  content: ' ';\r\n  height: 33px;\r\n  width: 2px;\r\n  background-color: red;\n}\n.close:before {\r\n  -webkit-transform: rotate(45deg);\r\n          transform: rotate(45deg);\n}\n.close:after {\r\n  -webkit-transform: rotate(-45deg);\r\n          transform: rotate(-45deg);\n}\n.filler {\r\n  width: 50%;\r\n  height: 5px;\r\n  visibility: hidden;\n}\n.modal-mask {\r\nposition: fixed;\r\nz-index: 9998;\r\ntop: 0;\r\nleft: 0;\r\nwidth: 100%;\r\nheight: 100%;\r\nbackground-color: rgba(0, 0, 0, .5);\r\ndisplay: table;\r\ntransition: opacity .3s ease;\n}\n.modal-wrapper {\r\ndisplay: table-cell;\r\nvertical-align: middle;\n}\n.modal-container {\r\nwidth: 300px;\r\nmargin: 0px auto;\r\npadding: 20px 30px;\r\nbackground-color: #fff;\r\nborder-radius: 2px;\r\nbox-shadow: 0 2px 8px rgba(0, 0, 0, .33);\r\ntransition: all .3s ease;\r\nfont-family: Helvetica, Arial, sans-serif;\n}\n.modal-header h3 {\r\nmargin-top: 0;\r\ncolor: #42b983;\n}\n.modal-body {\r\nmargin: 20px 0;\n}\n.modal-default-button {\r\nfloat: right;\n}\n.modal-enter {\r\n  opacity: 0;\n}\n.modal-leave-active {\r\n  opacity: 0;\n}\n.modal-enter .modal-container,\r\n.modal-leave-active .modal-container {\r\n  -webkit-transform: scale(1.1);\r\n  transform: scale(1.1);\n}\r\n", ""]);
 
 /***/ }),
-/* 43 */,
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
-exports.push([module.i, "\n.rating-star[data-v-948e4b56] {\r\n  font-size: 30px;\r\n  cursor: pointer;\n}\n.rating-star.selected[data-v-948e4b56] {\r\n  color: yellow;\n}\r\n", ""]);
+exports.push([module.i, "\n.loader[data-v-19078e1b] {\r\n  position: absolute;\r\n  z-index: 15;\r\n  top: 50%;\r\n  left: 50%;\n}\n.line-spin-fade-loader > div[data-v-19078e1b] {\r\n  background-color: #619af4;\n}\n.backbutton[data-v-19078e1b] {\r\n  margin-bottom: 20px;\n}\n.panel[data-v-19078e1b] {\r\n  cursor: pointer;\n}\r\n\r\n", ""]);
 
 /***/ }),
 /* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
-exports.push([module.i, "\n.category {\n\theight: 220px;\n\twidth: 220px;\n\tborder-radius: 50%;\n\tbackground-color: #2C3E50;\n\tmargin: 50px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t    -ms-flex-align: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n}\n\n\n\n", ""]);
+exports.push([module.i, "\n.rating-star[data-v-948e4b56] {\r\n  font-size: 30px;\r\n  cursor: pointer;\n}\n.rating-star.selected[data-v-948e4b56] {\r\n  color: yellow;\n}\r\n", ""]);
 
 /***/ }),
 /* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
-exports.push([module.i, "\n.favorite-star[data-v-faecc234] {\n  font-size: 30px;\n  cursor: pointer;\n}\n.favorite-star.selected[data-v-faecc234] {\n color: yellow;\n}\n.favorite-star.blocked[data-v-faecc234] {\n  pointer-events: none;\n}\n.loader[data-v-faecc234] {\n  position: absolute;\n  z-index: 15;\n  top: 50%;\n  left: 50%;\n}\n.line-spin-fade-loader > div[data-v-faecc234] {\n  background-color: orange;\n}\n", ""]);
+exports.push([module.i, "\n.imageWrapper {\n\tdisplay: inline-block;\n\tposition: relative;\n}\n.imageWrapper h3 {\n\tposition: absolute;\n\ttop: 10px;\n\tcolor: #000;\n\tleft: 0;\n\tright: 0;\n\ttext-align: center;\n\tz-index: 2;\n\ttext-align: center;\n\tvertical-align: middle;\n\tline-height: 570px;\n\tfont-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n\tfont-weight: 700;\n\tfont-size: 100px;\n\tcolor: white;\n}\n.imageWrapper p {\n\tposition: absolute;\n\ttop: 10px;\n\tcolor: #000;\n\tleft: 0;\n\tright: 0;\n\ttext-align: center;\n\tz-index: 2;\n\ttext-align: center;\n\tvertical-align: middle;\n\tline-height: 800px;\n\tfont-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n\tfont-weight: 700;\n\tfont-size: 25px;\n\tcolor: white;\n}\n.imageWrapper .screen {\n\tposition: absolute;\n\ttop: 0;\n\tbottom: 0;\n\tleft: 0;\n\tright: 0;\n\tmargin: auto;\n\tbackground-color: rgba(0, 0, 0, .5);\n\tz-index: 1;\n}\n.category {\n\theight: 220px;\n\twidth: 220px;\n\tborder-radius: 50%;\n\tborder:1px solid #99BADD;\n\tbackground-color: white;\n\tmargin: 60px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t    -ms-flex-align: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n\tcursor: pointer;\n}\n.category:hover {\n\tbackground-color: #99BADD;\n\ttransition: 0.5s ease-in;\n}\nimg {\n\twidth: 100%;\n}\n\n", ""]);
 
 /***/ }),
 /* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)();
+exports.push([module.i, "\n.favorite-star[data-v-faecc234] {\n  font-size: 30px;\n  cursor: pointer;\n}\n.favorite-star.selected[data-v-faecc234] {\n color: yellow;\n}\n.favorite-star.blocked[data-v-faecc234] {\n  pointer-events: none;\n}\n.loader[data-v-faecc234] {\n  position: absolute;\n  z-index: 15;\n  top: 50%;\n  left: 50%;\n}\n.line-spin-fade-loader > div[data-v-faecc234] {\n  background-color: #619af4;\n}\n.comment[data-v-faecc234] {\n  margin: 0px;\n}\n.commentbutton[data-v-faecc234] {\n  margin-bottom: 10px;\n}\n.commentcontainer[data-v-faecc234] {\n  margin-bottom: 20px;\n}\n.backbutton[data-v-faecc234] {\n  margin-bottom: 10px;\n}\n", ""]);
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports) {
+
+module.exports = "/images/unc.jpg?8a6f6a6b14d79204b02264323c2f814a";
+
+/***/ }),
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -32519,10 +32576,10 @@ exports.push([module.i, "\n.favorite-star[data-v-faecc234] {\n  font-size: 30px;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(66)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15), __webpack_require__(68)(module)))
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports) {
 
 /*
@@ -32774,18 +32831,18 @@ function updateLink(linkElement, obj) {
 
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(59)
+__webpack_require__(61)
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(34),
+  __webpack_require__(35),
   /* template */
-  __webpack_require__(54),
+  __webpack_require__(56),
   /* scopeId */
   null,
   /* cssModules */
@@ -32812,18 +32869,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(62)
+__webpack_require__(64)
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(35),
+  __webpack_require__(36),
   /* template */
-  __webpack_require__(57),
+  __webpack_require__(59),
   /* scopeId */
   null,
   /* cssModules */
@@ -32850,18 +32907,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(75)
+__webpack_require__(62)
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(36),
+  __webpack_require__(37),
   /* template */
-  __webpack_require__(55),
+  __webpack_require__(57),
   /* scopeId */
   "data-v-19078e1b",
   /* cssModules */
@@ -32888,18 +32945,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(63)
+__webpack_require__(65)
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(37),
+  __webpack_require__(38),
   /* template */
-  __webpack_require__(58),
+  __webpack_require__(60),
   /* scopeId */
   "data-v-faecc234",
   /* cssModules */
@@ -32926,18 +32983,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(61)
+__webpack_require__(63)
 
 var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(38),
+  __webpack_require__(39),
   /* template */
-  __webpack_require__(56),
+  __webpack_require__(58),
   /* scopeId */
   "data-v-948e4b56",
   /* cssModules */
@@ -32964,7 +33021,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33027,14 +33084,14 @@ if (false) {
 }
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [(_vm.loading) ? _c('div', {
     staticClass: "loader"
   }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), (!_vm.profileview) ? _c('div', [_c('button', {
-    staticClass: "btn btn-primary",
+    staticClass: "btn btn-primary backbutton",
     attrs: {
       "type": "button"
     },
@@ -33080,7 +33137,7 @@ if (false) {
 }
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33145,13 +33202,13 @@ if (false) {
 }
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "home container"
-  }, [(!_vm.listview) ? _c('div', [_c('div', {
+  }, [(!_vm.listview) ? _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col-sm-4"
@@ -33214,7 +33271,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "category": _vm.category
     }
   })], 1) : _vm._e()])
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "imageWrapper"
+  }, [_c('h3', [_vm._v("Love Chapel Hill?")]), _vm._v(" "), _c('p', [_vm._v("\n\t\t\t\t\tThen explore what this town has to offer by category by clicking one of the options below!\n\t\t\t\t")]), _vm._v(" "), _c('div', {
+    staticClass: "screen"
+  }), _vm._v(" "), _c('img', {
+    attrs: {
+      "src": __webpack_require__(48)
+    }
+  })])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -33224,14 +33291,14 @@ if (false) {
 }
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [(_vm.loading) ? _c('div', {
     staticClass: "loader"
   }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-primary",
+    staticClass: "btn btn-primary backbutton",
     attrs: {
       "type": "button"
     },
@@ -33255,30 +33322,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-body"
-  }, [_c('h1', [_vm._v(_vm._s(this.place.place))]), _vm._v("\n    description\n  ")])]), _vm._v(" "), _c('div', {
+  }, [_c('h1', [_vm._v(_vm._s(this.place.place) + "\n        "), _c('h5', [_c('a', {
+    attrs: {
+      "target": "_blank",
+      "href": _vm.place.link
+    }
+  }, [_c('button', [_vm._v("Website")])])])]), _vm._v("\n    " + _vm._s(this.place.description) + "\n  ")])]), _vm._v(" "), _c('div', {
     staticClass: "panel panel-default"
   }, [_c('div', {
     staticClass: "panel-body"
-  }, [_vm._v("\n    Price: " + _vm._s(this.place.price) + "\n  ")])]), _vm._v(" "), _vm._l((_vm.comments), function(comment) {
-    return _c('div', {
-      staticClass: "panel panel-default"
-    }, [_c('div', {
-      staticClass: "panel-heading"
-    }, [_c('h3', {
-      staticClass: "panel-title"
-    }, [_vm._v(_vm._s(comment.username))]), _vm._v(" "), _c('h3', [_vm._v(_vm._s(comment.rating))])]), _vm._v(" "), _c('div', {
-      staticClass: "panel-body"
-    }, [_vm._v("\n  " + _vm._s(comment.body) + "\n")])])
-  }), _vm._v(" "), _c('a', {
-    staticClass: "btn-floating btn-large waves-effect waves-light light-blue darken-3",
+  }, [_vm._v("\n    Price: " + _vm._s(this.place.price) + "\n  ")])]), _vm._v(" "), _c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-body"
+  }, [_vm._v("\n    Address: " + _vm._s(this.place.address) + "\n  ")])]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-primary waves-effect waves-light light-blue darken-3 commentbutton",
+    attrs: {
+      "type": "button"
+    },
     on: {
       "click": function($event) {
         _vm.openModal()
       }
     }
-  }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("add")])]), _vm._v(" "), (_vm.showModal) ? _c('Modal', {
+  }, [_vm._v("Add Comment")]), _vm._v(" "), _c('div', {
+    staticClass: "commentcontainer"
+  }, _vm._l((_vm.comments), function(comment) {
+    return _c('div', {
+      staticClass: "panel panel-default comment"
+    }, [_c('div', {
+      staticClass: "panel-heading"
+    }, [_c('span', [_c('h3', {
+      staticClass: "panel-title"
+    }, [_vm._v(_vm._s(comment.username))])])]), _vm._v(" "), _c('div', {
+      staticClass: "panel-body"
+    }, [_vm._v("\n      " + _vm._s(comment.body + " -" + comment.rating + "/5") + "\n    ")])])
+  })), _vm._v(" "), (_vm.showModal) ? _c('Modal', {
     attrs: {
       "attraction-id": _vm.place.id
     },
@@ -33287,7 +33366,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.showModal = false
       }
     }
-  }) : _vm._e()], 2)
+  }) : _vm._e()], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "line-spin-fade-loader"
@@ -33302,13 +33381,13 @@ if (false) {
 }
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(42);
+var content = __webpack_require__(43);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -33328,14 +33407,39 @@ if(false) {
 }
 
 /***/ }),
-/* 60 */,
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
 var content = __webpack_require__(44);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("fd396230", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-19078e1b&scoped=true!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ListView.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-19078e1b&scoped=true!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ListView.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(45);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -33355,13 +33459,13 @@ if(false) {
 }
 
 /***/ }),
-/* 62 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(45);
+var content = __webpack_require__(46);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -33381,13 +33485,13 @@ if(false) {
 }
 
 /***/ }),
-/* 63 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(46);
+var content = __webpack_require__(47);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -33407,7 +33511,7 @@ if(false) {
 }
 
 /***/ }),
-/* 64 */
+/* 66 */
 /***/ (function(module, exports) {
 
 /**
@@ -33440,7 +33544,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42765,10 +42869,10 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(14)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(15)))
 
 /***/ }),
-/* 66 */
+/* 68 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -42796,51 +42900,12 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(15);
-module.exports = __webpack_require__(16);
+__webpack_require__(16);
+module.exports = __webpack_require__(17);
 
-
-/***/ }),
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)();
-exports.push([module.i, "\n.loader[data-v-19078e1b] {\r\n  position: absolute;\r\n  z-index: 15;\r\n  top: 50%;\r\n  left: 50%;\n}\r\n\r\n", ""]);
-
-/***/ }),
-/* 75 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(74);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("fd396230", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-19078e1b&scoped=true!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ListView.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-19078e1b&scoped=true!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ListView.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
 
 /***/ })
 /******/ ]);

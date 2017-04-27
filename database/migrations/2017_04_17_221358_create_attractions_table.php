@@ -18,6 +18,9 @@ class CreateAttractionsTable extends Migration
       $table->string('place');//name of the place
       $table->string('category');//type of place, ex: restaurant, bar, park, theater
       $table->string('price')->default('none');//price level, can be none/low/medium/high
+      $table->string('address');
+      $table->string('description');
+      $table->string('link');
       $table->timestamps();
     });
     }

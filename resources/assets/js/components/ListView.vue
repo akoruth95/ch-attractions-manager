@@ -13,7 +13,7 @@
         </div>
       </div>
     <div v-if="!profileview">
-      <button type="button"class="btn btn-primary" @click="leaveListView">
+      <button type="button"class="btn btn-primary backbutton" @click="leaveListView">
         <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
       </button>
     <div class="panel panel-default" v-for="attraction in places" @click="viewProfile(attraction.place)">
@@ -102,6 +102,18 @@ export default {
   z-index: 15;
   top: 50%;
   left: 50%;
+}
+
+.line-spin-fade-loader > div {
+  background-color: #619af4;
+}
+
+.backbutton {
+  margin-bottom: 20px;
+}
+
+.panel {
+  cursor: pointer;
 }
 
 </style>

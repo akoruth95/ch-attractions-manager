@@ -48,3 +48,4 @@ window.axios.defaults.headers.common = {
 // });
 
 window.loaders = require('loaders.css');
+window.parallaxy = require('vue-parallaxy');

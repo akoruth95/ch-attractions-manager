@@ -12,14 +12,20 @@
         <div></div>
       </div>
     </div>
-    <button type="button"class="btn btn-primary" @click="leaveProfileView">
+    <button type="button"class="btn btn-primary backbutton" @click="leaveProfileView">
       <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
     </button>
     <span class="favorite-star" v-bind:class="{ selected: isFavorite, blocked: loading }" @click="favoritePlace">&#x2605;</span>
   <div class="panel panel-default">
     <div class="panel-body">
-      <h1>{{this.place.place}}</h1>
-      description
+        <h1>{{this.place.place}}
+          <h5>
+          <a target="_blank" v-bind:href="place.link">
+            <button>Website</button>
+          </a>
+        </h5>
+        </h1>
+      {{this.place.description}}
     </div>
   </div>
   <div class="panel panel-default">
@@ -27,16 +33,25 @@
       Price: {{this.place.price}}
     </div>
   </div>
-  <div class="panel panel-default" v-for="comment in comments">
-  <div class="panel-heading">
-    <h3 class="panel-title">{{comment.username}}</h3>
-    <h3>{{comment.rating}}</h3>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      Address: {{this.place.address}}
+    </div>
   </div>
-  <div class="panel-body">
-    {{comment.body}}
+  <button type="button" class="btn btn-primary waves-effect waves-light light-blue darken-3 commentbutton" @click="openModal()">Add Comment</button>
+  <div class="commentcontainer">
+    <div class="panel panel-default comment" v-for="comment in comments">
+      <div class="panel-heading">
+        <span>
+          <h3 class="panel-title">{{comment.username}}</h3>
+
+        </span>
+      </div>
+      <div class="panel-body">
+        {{comment.body + " -" + comment.rating + "/5"}}
+      </div>
+    </div>
   </div>
-  </div>
-   <a class='btn-floating btn-large waves-effect waves-light light-blue darken-3' @click="openModal()"><i class="material-icons">add</i></a>
    <Modal v-if="showModal" @close="showModal = false" :attraction-id="place.id" ></Modal>
   </div>
 </template>
@@ -59,6 +74,7 @@ export default {
   },
   mounted () {
     console.log('ProfileView -> mounted.')
+    this.loading = true;
     axios.get(`/comments/${this.place.id}`)
       .then((response) => {
         this.comments = response.data;
@@ -75,6 +91,7 @@ export default {
           if (response.data.length != 0) {
             this.isFavorite = true;
           }
+          this.loading = false;
         })
         .catch((error) => {
           console.error('failed');
@@ -159,6 +176,22 @@ export default {
  }
 
  .line-spin-fade-loader > div {
-   background-color: orange;
+   background-color: #619af4;
+ }
+
+ .comment {
+   margin: 0px;
+ }
+
+ .commentbutton {
+   margin-bottom: 10px;
+ }
+
+ .commentcontainer {
+   margin-bottom: 20px;
+ }
+
+ .backbutton {
+   margin-bottom: 10px;
  }
 </style>
