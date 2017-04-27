@@ -14,11 +14,15 @@
 Route::get('/', function () {
   if (Auth::guest())
   {
-    return view('layouts/master');
+    return view('auth/login');
   }
   else {
     return view('home');
   }
+});
+
+Route::get('/style', function () {
+    return view('layouts/styleguide');
 });
 
 Auth::routes();

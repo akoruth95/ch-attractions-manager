@@ -1,10 +1,172 @@
 body {
-  background-color: #18BC9C;
   font-weight: 700;
 }
 
 .navbar {
   background-color: #99BADD;
+}
+
+.color-blue-1 {
+  width: 100px;
+  height: 100px;
+  background-color: #286090;
+  border-radius: 10px;
+}
+
+.color-blue-2 {
+  width: 100px;
+  height: 100px;
+  background-color: #99BADD;
+  border-radius: 10px;
+}
+
+.color-blue-3 {
+  width: 100px;
+  height: 100px;
+  background-color: #204d74;
+  border-radius: 10px;
+}
+
+.color-blue-4 {
+  width: 100px;
+  height: 100px;
+  background-color: #337ab7;
+  border-radius: 10px;
+}
+
+#color-gray-1 {
+  width: 100px;
+  height: 100px;
+  background-color: #e6e8ed;
+  border-radius: 4px;
+  box-shadow: 0px 0px 4px #9a9a9a;
+}
+
+.color-gray-2 {
+  width: 100px;
+  height: 100px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+}
+
+#typography-light {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: 0.07em;
+  font-weight: 100;
+}
+
+#typography-regular {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+   letter-spacing: 0.0075em;
+  font-weight: 400;
+}
+
+#typography-bold {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: 0.035em;
+  font-weight: 700;
+}
+
+#header-1 {
+  font-weight: 200;
+}
+
+#header-2 {
+  color: #007AC6;
+  font-weight: 900;
+}
+
+#header-3 {
+  letter-spacing: 0.07em;
+  font-weight: 200;
+  color: #99CAE8;
+}
+
+#header-4 {
+  color: #52A8EC;
+}
+
+#header-5 {
+  color: #337AB7;
+}
+
+.styleguide {
+  margin: 70px;
+}
+
+.plight {
+  font-weight: lighter;
+  letter-spacing: .07em;
+}
+
+.pnormal {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.plead {
+  font-size: 20px;
+}
+
+#stylebutton-large {
+padding: 15px 35px;
+font-size: 30px;
+text-align: center;
+white-space: nowrap;
+vertical-align: middle;
+touch-action: manipulation;
+cursor: pointer;
+border: 1px solid transparent;
+border-radius: 4px;
+}
+
+#stylebutton-medium {
+  background-color: #99CAE8;
+  border: none;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+#stylebutton-small {
+  background-color: #337AB7;
+  border: none;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.styledlist {
+  list-style-type: none;
+}
+
+#orderedItem1 .panel {
+  background-color: #337AB7;
+  color: white;
+}
+
+#orderedItem2 .panel {
+  background-color: #337AB7;
+  color: white;
+}
+
+#orderedItem3 .panel {
+  background-color: #337AB7;
+  color: white;
+}
+
+ol .panel:hover {
+  outline:none;
+  border: none;
+  box-shadow: none;
 }
 @charset "UTF-8";
 

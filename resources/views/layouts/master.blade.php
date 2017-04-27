@@ -68,16 +68,13 @@
                                         </form>
                             </li>
                         @endif
+                          <li><a href="{{ url('/style') }}" style="color: white;">Style</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
 
         @yield('content')
-        @if (Auth::guest())
-          <br /><br />
-          <h1>Log in or register to access this content!</h1>
-        @endif
     </div>
 
 </body>
