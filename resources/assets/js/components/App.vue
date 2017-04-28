@@ -166,4 +166,13 @@ import Parallax from 'vue-parallaxy'
 		width: 100%;
 	}
 
+	@media (max-width: 767px) {
+    .imageWrapper h3 {
+        display:none;
+    }
+		.imageWrapper p {
+			display:none;
+		}
+}
+
 </style>

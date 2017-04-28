@@ -1,7 +1,6 @@
 <template>
   <transition name="modal">
     <div class="modal-mask">
-      <div class="close" @click="$emit('close')"></div>
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-header">
@@ -16,6 +15,9 @@
           </div>
           <div class="modal-footer">
             <slot name="footer">
+              <button type="button" class="btn btn-danger" @click="$emit('close')">
+                  Close
+              </button>              
               <button type="button" class="btn btn-primary" v-bind:disabled="rating == null || comment.length == 0" @click="submitComment">
                   Submit
               </button>

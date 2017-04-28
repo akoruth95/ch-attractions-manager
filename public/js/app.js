@@ -14315,6 +14315,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -17294,7 +17296,7 @@ exports.push([module.i, "\n.rating-star[data-v-948e4b56] {\r\n  font-size: 30px;
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)();
-exports.push([module.i, "\n.imageWrapper {\n\tdisplay: inline-block;\n\tposition: relative;\n}\n.imageWrapper h3 {\n\tposition: absolute;\n\ttop: 10px;\n\tcolor: #000;\n\tleft: 0;\n\tright: 0;\n\ttext-align: center;\n\tz-index: 2;\n\ttext-align: center;\n\tvertical-align: middle;\n\tline-height: 570px;\n\tfont-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n\tfont-weight: 700;\n\tfont-size: 100px;\n\tcolor: white;\n}\n.imageWrapper p {\n\tposition: absolute;\n\ttop: 10px;\n\tcolor: #000;\n\tleft: 0;\n\tright: 0;\n\ttext-align: center;\n\tz-index: 2;\n\ttext-align: center;\n\tvertical-align: middle;\n\tline-height: 800px;\n\tfont-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n\tfont-weight: 700;\n\tfont-size: 25px;\n\tcolor: white;\n}\n.imageWrapper .screen {\n\tposition: absolute;\n\ttop: 0;\n\tbottom: 0;\n\tleft: 0;\n\tright: 0;\n\tmargin: auto;\n\tbackground-color: rgba(0, 0, 0, .5);\n\tz-index: 1;\n}\n.category {\n\theight: 220px;\n\twidth: 220px;\n\tborder-radius: 50%;\n\tborder:1px solid #99BADD;\n\tbackground-color: white;\n\tmargin: 60px;\n\tdisplay: -webkit-box;\n\tdisplay: -ms-flexbox;\n\tdisplay: flex;\n\t-webkit-box-align: center;\n\t    -ms-flex-align: center;\n\t        align-items: center;\n\t-webkit-box-pack: center;\n\t    -ms-flex-pack: center;\n\t        justify-content: center;\n\tcursor: pointer;\n}\n.category:hover {\n\tbackground-color: #99BADD;\n\ttransition: 0.5s ease-in;\n}\nimg {\n\twidth: 100%;\n}\n\n", ""]);
+exports.push([module.i, "\n.imageWrapper {\n\t\tdisplay: inline-block;\n\t\tposition: relative;\n}\n.imageWrapper h3 {\n\t\tposition: absolute;\n\t\ttop: 10px;\n\t\tcolor: #000;\n\t\tleft: 0;\n\t\tright: 0;\n\t\ttext-align: center;\n\t\tz-index: 2;\n\t\ttext-align: center;\n\t\tvertical-align: middle;\n\t\tline-height: 570px;\n\t\tfont-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n\t\tfont-weight: 700;\n\t\tfont-size: 100px;\n\t\tcolor: white;\n}\n.imageWrapper p {\n\t\tposition: absolute;\n\t\ttop: 10px;\n\t\tcolor: #000;\n\t\tleft: 0;\n\t\tright: 0;\n\t\ttext-align: center;\n\t\tz-index: 2;\n\t\ttext-align: center;\n\t\tvertical-align: middle;\n\t\tline-height: 800px;\n\t\tfont-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n\t\tfont-weight: 700;\n\t\tfont-size: 25px;\n\t\tcolor: white;\n}\n.imageWrapper .screen {\n\t\tposition: absolute;\n\t\ttop: 0;\n\t\tbottom: 0;\n\t\tleft: 0;\n\t\tright: 0;\n\t\tmargin: auto;\n\t\tbackground-color: rgba(0, 0, 0, .5);\n\t\tz-index: 1;\n}\n.category {\n\t\theight: 220px;\n\t\twidth: 220px;\n\t\tborder-radius: 50%;\n\t\tborder:1px solid #99BADD;\n\t\tbackground-color: white;\n\t\tmargin: 60px;\n\t\tdisplay: -webkit-box;\n\t\tdisplay: -ms-flexbox;\n\t\tdisplay: flex;\n\t\t-webkit-box-align: center;\n\t\t    -ms-flex-align: center;\n\t\t        align-items: center;\n\t\t-webkit-box-pack: center;\n\t\t    -ms-flex-pack: center;\n\t\t        justify-content: center;\n\t\tcursor: pointer;\n}\n.category:hover {\n\t\tbackground-color: #99BADD;\n\t\ttransition: 0.5s ease-in;\n}\nimg {\n\t\twidth: 100%;\n}\n@media (max-width: 767px) {\n.imageWrapper h3 {\n        display:none;\n}\n.imageWrapper p {\n\t\t\tdisplay:none;\n}\n}\n\n", ""]);
 
 /***/ }),
 /* 48 */
@@ -35901,13 +35903,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "modal-mask"
   }, [_c('div', {
-    staticClass: "close",
-    on: {
-      "click": function($event) {
-        _vm.$emit('close')
-      }
-    }
-  }), _vm._v(" "), _c('div', {
     staticClass: "modal-wrapper"
   }, [_c('div', {
     staticClass: "modal-container"
@@ -35934,6 +35929,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   }, [_vm._t("footer", [_c('button', {
+    staticClass: "btn btn-danger",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        _vm.$emit('close')
+      }
+    }
+  }, [_vm._v("\n                 Close\n             ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-primary",
     attrs: {
       "type": "button",
